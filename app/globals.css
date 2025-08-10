@@ -1,0 +1,252 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7fafc; /* much lighter, uplifting gray */
+  --foreground: #232946; /* dark blue-gray for text */
+  --accent: #2563eb;     /* vibrant blue for main accent */
+  --accent-light: #60a5fa; /* lighter blue for hover, etc. */
+  --accent-dark: #1e40af;  /* deep blue for strong pop */
+  --surface: rgba(37, 99, 235, 0.05);
+  --surface-hover: rgba(37, 99, 235, 0.1);
+  --border: rgba(37, 99, 235, 0.1);
+}
+
+.dark {
+  --background: #000000; /* Pure black background */
+  --foreground: #ffffff; /* Pure white text */
+  --accent: #3b82f6;     /* Bright blue for main accent */
+  --accent-light: #60a5fa; /* Lighter blue for hover, etc. */
+  --accent-dark: #1d4ed8;  /* Deep blue for strong pop */
+  --surface: rgba(59, 130, 246, 0.15);
+  --surface-hover: rgba(59, 130, 246, 0.25);
+  --border: rgba(59, 130, 246, 0.3);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Keep light mode colors */
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar - transparent and hidden when not used */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3); /* Very transparent grey */
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.6); /* More visible on hover */
+}
+
+/* Hide scrollbar when not scrolling */
+html {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent; /* Firefox */
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.2); /* Very transparent for dark mode */
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.5); /* More visible on hover for dark mode */
+}
+
+.dark html {
+  scrollbar-color: rgba(156, 163, 175, 0.2) transparent; /* Firefox dark mode */
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.dark .glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect */
+.glow {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+}
+
+/* Enhanced dark mode body background */
+.dark body {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  position: relative;
+}
+
+.dark body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Enhanced gradient text for dark mode */
+.dark .gradient-text {
+  background: linear-gradient(135deg, #6366f1, #818cf8, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+}
+
+/* Enhanced glow effects for dark mode */
+.dark .glow {
+  box-shadow: 
+    0 0 20px rgba(99, 102, 241, 0.4),
+    0 0 40px rgba(99, 102, 241, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .glow-text {
+  text-shadow: 
+    0 0 10px rgba(99, 102, 241, 0.8),
+    0 0 20px rgba(99, 102, 241, 0.4),
+    0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+/* Enhanced selection styling for dark mode */
+.dark ::selection {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: #ffffff;
+}
+
+/* Animated gradient background */
+.animated-gradient {
+  background: linear-gradient(-45deg, #f7fafc, #e2e8f0, #f7fafc, #e2e8f0);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Selection styling */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+@keyframes waving {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-waving {
+  display: inline-block;
+  animation: waving 1.5s both;
+  transform-origin: 70% 70%;
+}
+
+@keyframes shake-rotate {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-18deg); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.shake-rotate {
+  display: inline-block;
+  animation: shake-rotate 0.7s both;
+  transform-origin: 70% 70%;
+}
