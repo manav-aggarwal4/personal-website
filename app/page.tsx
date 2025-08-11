@@ -546,7 +546,7 @@ export default function Home() {
                 <div className="h-6"></div>
                 <div className="flex items-center gap-8 justify-center mb-12">
                   <a
-                    href="https://drive.google.com/file/d/13BN7WNNgKelt9y8x-R3GOj9WNjgIvHAe/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1OATnmUKG_MwQClDjpwES-zN31BiqaBXw/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-4 rounded-full font-bold glass hover:scale-105 transition-all duration-300"
