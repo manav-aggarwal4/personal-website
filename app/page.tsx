@@ -640,249 +640,255 @@ export default function Home() {
       {/* About Me Header with True Edge-to-Edge Broken Line using Grid */}
       <div id="about-title" className="w-screen grid grid-cols-[1fr_auto_1fr] items-center gap-0 mb-32 select-none left-1/2 -translate-x-1/2 relative" style={{ minHeight: '80px', position: 'relative' }}>
         <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
-        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-800 via-blue-900 to-blue-700 dark:from-blue-300 dark:via-blue-200 dark:to-blue-400 drop-shadow-lg whitespace-nowrap">
+        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-blue-800 dark:text-blue-300 whitespace-nowrap">
           About Me
         </h2>
         <div className="h-1.5 w-full bg-gradient-to-l from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
       </div>
 
-      <section id="about" className="py-32 px-6 min-h-screen flex items-start justify-center pt-40 w-full">
-        {/* Centered Hi there header and description */}
-        <div className="w-full flex flex-col items-center justify-center mb-16 mt-10">
-          <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block min-w-[400px]">
-            <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center flex items-center justify-center gap-4">
-              Hi there!
-              <span
-                className={`text-5xl`}
-                style={{ cursor: 'pointer', display: 'inline-block', lineHeight: 1 }}
-                onClick={() => {
-                  setIsWaving(false);
-                  setTimeout(() => {
-                    setIsWaving(true);
-                    setTimeout(() => setIsWaving(false), 700);
-                  }, 0);
-                }}
-              >
-                <img
-                  src="/apple-hand.png"
-                  alt="Waving hand emoji"
-                  className={isWaving ? 'shake-rotate' : ''}
-                  style={{ width: '1em', height: '1em', verticalAlign: 'middle', display: 'inline-block' }}
-                />
-              </span>
-            </h2>
-          </div>
-          {/* Spacer div to create space between header and paragraph */}
-          <div className="h-8"></div>
-          <div className="p-8 max-w-3xl w-full bg-blue-100/60 dark:bg-blue-900/20 rounded-2xl shadow-lg border-l-4 border-blue-400/80 dark:border-blue-400/40 border-accent/10 mx-auto transform translate-x-8 flex items-start gap-4" style={{boxShadow: '0 4px 24px 0 rgba(37,99,235,0.10)', backdropFilter: 'blur(4px)'}}>
-            <span className="inline-block w-2 h-full bg-gradient-to-b from-blue-400 to-blue-300 dark:from-blue-300 dark:to-blue-400 rounded-full"></span>
-            <div className="flex-1">
-              <p className="text-lg text-foreground/90">
-                I'm Manav, and I'm a Regents' Scholar studying Electrical Engineering and Computer Science at Berkeley. I'm currently seeking 2026 internships, and most of my experience has been in infrastructure/systems, machine learning, and full-stack development.
-              </p>
-              <div className="h-6"></div>
-              <p className="text-lg text-foreground/90">
-               Outside of school, you'll find me cooking, playing soccer, or building creative ML projects with friends in LaunchPad!
-              </p>
-              <div className="h-6"></div>
-              <p className="text-lg text-foreground/90">
-              I love learning anything and everything -- slowly figuring things out. Feel free to reach out anytime!
-              </p>
+      <section id="about" className="py-32 px-6 min-h-screen flex flex-col items-center justify-start pt-40 w-full">
+        {/* Side by side layout for Hi there and Experience */}
+        <div className="w-full flex flex-col lg:flex-row items-start justify-center gap-12 mb-16 mt-10">
+          
+          {/* Hi there section - Left side */}
+          <div className="flex-1 flex flex-col items-center">
+            <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block min-w-[400px]">
+              <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center flex items-center justify-center gap-4">
+                Hi there!
+                <span
+                  className={`text-5xl`}
+                  style={{ cursor: 'pointer', display: 'inline-block', lineHeight: 1 }}
+                  onClick={() => {
+                    setIsWaving(false);
+                    setTimeout(() => {
+                      setIsWaving(true);
+                      setTimeout(() => setIsWaving(false), 700);
+                    }, 0);
+                  }}
+                >
+                  <img
+                    src="/apple-hand.png"
+                    alt="Waving hand emoji"
+                    className={isWaving ? 'shake-rotate' : ''}
+                    style={{ width: '1em', height: '1em', verticalAlign: 'middle', display: 'inline-block' }}
+                  />
+                </span>
+              </h2>
+            </div>
+            {/* Spacer div to create space between header and paragraph */}
+            <div className="h-8"></div>
+            <div className="p-10 max-w-2xl w-full bg-blue-100/60 dark:bg-blue-900/20 rounded-2xl shadow-lg border-l-4 border-blue-400/80 dark:border-blue-400/40 border-accent/10 mx-auto transform translate-x-8 flex items-start gap-4" style={{boxShadow: '0 4px 24px 0 rgba(37,99,235,0.10)', backdropFilter: 'blur(4px)'}}>
+              <span className="inline-block w-2 h-full bg-gradient-to-b from-blue-400 to-blue-300 dark:from-blue-300 dark:to-blue-400 rounded-full"></span>
+              <div className="flex-1">
+                <p className="text-xl leading-relaxed text-foreground/90">
+                  I'm Manav, and I'm a Regents' Scholar studying Electrical Engineering and Computer Science at Berkeley. I'm currently seeking 2026 internships, and most of my experience has been in infrastructure/systems, machine learning, and full-stack development.
+                </p>
+                <div className="h-8"></div>
+                <p className="text-xl leading-relaxed text-foreground/90">
+                 Outside of school, you'll find me cooking, playing soccer, or building creative ML projects with friends in LaunchPad!
+                </p>
+                <div className="h-8"></div>
+                <p className="text-xl leading-relaxed text-foreground/90">
+                I love learning anything and everything. Feel free to reach out anytime!
+                </p>
+              </div>
             </div>
           </div>
-          {/* Spacer to push Clubs & Activities down */}
-          <div className="h-20"></div>
-          {/* Clubs & Activities Section (replaces Skills section) */}
-          <section className="w-full max-w-4xl mx-auto mt-20 mb-24">
-            <div className="flex flex-col items-center mb-10">
-              <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block w-auto">
-                <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center">
-                  Clubs & Activities
-                </h2>
-              </div>
-              {/* Spacer for vertical rhythm */}
-              <div className="h-8"></div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Launchpad */}
-              <div className="glass rounded-3xl border border-accent/20 p-8 flex flex-col items-center text-center gap-4 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-2xl font-bold text-accent-dark">Launchpad</h3>
-                <span className="text-accent font-semibold text-lg">Vice President</span>
-                <p className="text-foreground/70 text-sm leading-relaxed">We build creative Machine Learning projects! We also host ML paper reading groups and workshops. As Vice-President, I organize our external client engagements and ensure we're fiscally responsible.</p>
-              </div>
-              {/* Valley Consulting Group */}
-              <div className="glass rounded-3xl border border-accent/20 p-8 flex flex-col items-center text-center gap-4 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-2xl font-bold text-accent-dark">Valley Consulting Group</h3>
-                <span className="text-accent font-semibold text-lg">Senior Consultant</span>
-                <p className="text-foreground/70 text-sm leading-relaxed">We solve real-world business and technology problems for Fortune 500 Tech companies. I currently serve as a development mentor where I help new members build their technical and presentation skills.</p>
-              </div>
-              {/* Poker at Berkeley */}
-              <div className="glass rounded-3xl border border-accent/20 p-8 flex flex-col items-center text-center gap-4 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-2xl font-bold text-accent-dark">Poker at Berkeley</h3>
-                <span className="text-accent font-semibold text-lg">Member</span>
-                <p className="text-foreground/70 text-sm leading-relaxed">I like to play poker!</p>
-              </div>
-              {/* Computer Science Mentors */}
-              <div className="glass rounded-3xl border border-accent/20 p-8 flex flex-col items-center text-center gap-4 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-2xl font-bold text-accent-dark">Computer Science Mentors</h3>
-                <span className="text-accent font-semibold text-lg">Senior Mentor</span>
-                <p className="text-foreground/70 text-sm leading-relaxed">I lead biweekly tutoring sessions for 5+ students in CS 61A, teaching core concepts and guiding them through practice problems. As a Senior Mentor, I also coach fellow mentors on effective teaching strategies/pedagogy.</p>
-              </div>
-            </div>
-          </section>
-        </div>
-        
 
-        
-        <div className="w-full flex flex-col items-center">
-          <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-4 py-6 flex items-center justify-center mb-8 relative inline-block min-w-[400px]">
-            <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center">
-              Experience
-            </h2>
-          </div>
-          {/* Spacer div to create space between header and timeline */}
-          <div className="h-8"></div>
-          {/* Timeline Container - centered under Experience header */}
-          <div className="flex flex-col items-center mx-auto mt-6 max-w-[520px] w-full">
-            <div className="relative pb-8 w-full">
-              <div className="flex flex-col gap-y-6 relative z-10">
-                {[
-                  { company: "Amazon", role: "SDE Intern", duration: "May 2025 - Aug 2025", color: "from-orange-500 to-red-500", icon: (
-                    <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
-                      <img src="/realamznScience.png" alt="Amazon Logo" className="object-contain w-full h-full" />
-                    </div>
-                  ) },
-                  { company: "JovyAI (Berkeley SkyDeck Batch 19)", role: "ML Engineer Intern", duration: "Jan 2025 - May 2025", color: "from-purple-500 to-pink-500", icon: (
-                    <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
-                      <img src="/skydeckImage.jpeg" alt="Berkeley SkyDeck Logo" className="object-contain w-full h-full" />
-                    </div>
-                  ) },
-                  { company: "AMD", role: "Contract Software Engineer", duration: "Aug 2024 - May 2025", color: "from-red-500 to-orange-500", icon: (
-                    <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
-                      <img src="/amdLogo.webp" alt="AMD Logo" className="object-contain w-full h-full" />
-                    </div>
-                  ) },
-                  { company: "Leidos", role: "Software Engineer Intern", duration: "Jun 2023 - Jul 2023", color: "from-blue-500 to-cyan-500", icon: (
-                    <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
-                      <img src="/leidos logo.jpeg" alt="Leidos Logo" className="object-contain w-full h-full" />
-                    </div>
-                  ) },
-                  { company: "HudsonAlpha Institute for Biotechnology", role: "Researcher", duration: "Mar 2023 - Jun 2023", color: "from-green-500 to-emerald-500", icon: (
-                    <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
-                      <img src="/hudsonAlphalogo.png" alt="HudsonAlpha Logo" className="object-contain w-full h-full" />
-                    </div>
-                  ) },
-                ].map((exp, index, arr) => (
-                  <div key={index} className="relative group">
-                    {/* Card */}
-                    <div className="flex-1">
-                      <div className="glass rounded-3xl p-4 shadow-2xl border border-accent/20 hover:border-accent/40 transition-all duration-300 group-hover:scale-105 max-w-[700px] min-h-[80px] mx-auto w-full flex flex-col justify-center text-lg space-y-4">
-                        {/* Header clickable for folding */}
-                        <button
-                          className="flex justify-between items-center w-full text-left focus:outline-none"
-                          onClick={() => setOpen(open === index ? null : index)}
-                        >
-                          <div className="flex items-center gap-x-6 min-w-0">
-                            <div className="p-2 flex items-center justify-center shrink-0">{exp.icon}</div>
-                            <div className="flex flex-col justify-center py-1 min-w-0">
-                              <h4 className="text-lg font-semibold text-foreground text-left">{exp.role}</h4>
-                              <p className="text-accent font-medium mt-1 text-base text-left">{exp.company}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            <span className="inline-block align-middle text-sm font-medium text-accent-dark bg-accent-light/20 px-3 py-1 rounded-full shadow-sm border border-accent/10 whitespace-nowrap transition-all duration-300">{exp.duration}</span>
-                            <svg
-                              className={`w-6 h-6 shrink-0 transition-transform duration-300 ${open === index ? 'rotate-180' : ''}`}
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              viewBox="0 0 24 24"
-                            >
-                              <polyline points="6 9 12 15 18 9" />
-                            </svg>
-                          </div>
-                        </button>
+          {/* Experience section - Right side */}
+          <div className="flex-1 flex flex-col items-center">
+            <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-4 py-6 flex items-center justify-center mb-8 relative inline-block min-w-[400px]">
+              <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center">
+                Experience
+              </h2>
+            </div>
+            {/* Spacer div to create space between header and timeline */}
+            <div className="h-8"></div>
+            {/* Timeline Container - centered under Experience header */}
+            <div className="flex flex-col items-center mx-auto mt-6 max-w-[520px] w-full">
+              <div className="relative pb-8 w-full">
+                <div className="flex flex-col gap-y-6 relative z-10">
+                  {[
+                    { company: "Amazon", role: "SDE Intern", duration: "May 2025 - Aug 2025", color: "from-orange-500 to-red-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/realamznScience.png" alt="Amazon Logo" className="object-contain w-full h-full" />
                       </div>
-                    </div>
-                    {/* Foldable content */}
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                        open === index ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'
-                      }`}
-                    >
-                      <div className="glass rounded-2xl p-4 shadow border border-accent/20 mt-3">
-                        <div className="pt-1 text-foreground/80 text-sm leading-relaxed space-y-4">
-                          {/* ...card content... */}
-                          {index === 0 && (
-                            <>
-                              <div className="space-y-2">
-                                <p className="text-base font-semibold text-accent-dark">
-                                  Automated Scaling Team
-                                </p>
-                                <p className="text-base text-foreground/80 leading-relaxed">
-                                  I built an end-to-end predictive host count tool which improved our customers' performance efficiency by 36% on average.
-                                </p>
+                    ) },
+                    { company: "JovyAI (Berkeley SkyDeck Batch 19)", role: "ML Engineer Intern", duration: "Jan 2025 - May 2025", color: "from-purple-500 to-pink-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/skydeckImage.jpeg" alt="Berkeley SkyDeck Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
+                    { company: "AMD", role: "Contract Software Engineer", duration: "Aug 2024 - May 2025", color: "from-red-500 to-orange-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/amdLogo.webp" alt="AMD Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
+                    { company: "Leidos", role: "Software Engineer Intern", duration: "Jun 2023 - Jul 2023", color: "from-blue-500 to-cyan-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/leidos logo.jpeg" alt="Leidos Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
+                    { company: "HudsonAlpha Institute for Biotechnology", role: "Researcher", duration: "Mar 2023 - Jun 2023", color: "from-green-500 to-emerald-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/hudsonAlphalogo.png" alt="HudsonAlpha Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
+                  ].map((exp, index, arr) => (
+                    <div key={index} className="relative group">
+                      {/* Card */}
+                      <div className="flex-1">
+                        <div className="glass rounded-3xl p-4 shadow-2xl border border-accent/20 hover:border-accent/40 transition-all duration-300 group-hover:scale-105 max-w-[700px] min-h-[80px] mx-auto w-full flex flex-col justify-center text-lg space-y-4">
+                          {/* Header clickable for folding */}
+                          <button
+                            className="flex justify-between items-center w-full text-left focus:outline-none"
+                            onClick={() => setOpen(open === index ? null : index)}
+                          >
+                            <div className="flex items-center gap-x-6 min-w-0">
+                              <div className="p-2 flex items-center justify-center shrink-0">{exp.icon}</div>
+                              <div className="flex flex-col justify-center py-1 min-w-0">
+                                <h4 className="text-lg font-semibold text-foreground text-left">{exp.role}</h4>
+                                <p className="text-accent font-medium mt-1 text-base text-left">{exp.company}</p>
                               </div>
-                            </>
-                          )}
-                          {index === 1 && (
-                            <div className="space-y-2">
-                              <p className="text-base font-semibold text-accent-dark">
-                                Alignment Team
-                              </p>
-                              <p className="text-base text-foreground/80 leading-relaxed">
-                                I developed a reinforcement learning with human feedback (RLHF) pipeline to ensure our LLM did not give medical advice nor false information.
-                              </p>
                             </div>
-                          )}
-                                                    {index === 2 && (
-                            <div className="space-y-2">
-                              <p className="text-base font-semibold text-accent-dark">
-                                University Team
-                              </p>
-                              <p className="text-base text-foreground/80 leading-relaxed">
-                                I built a full-stack data analytics dashboard to track institutional donation and outreach trends.
-                              </p>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span className="inline-block align-middle text-sm font-medium text-accent-dark bg-accent-light/20 px-3 py-1 rounded-full shadow-sm border border-accent/10 whitespace-nowrap transition-all duration-300">{exp.duration}</span>
+                              <svg
+                                className={`w-6 h-6 shrink-0 transition-transform duration-300 ${open === index ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                viewBox="0 0 24 24"
+                              >
+                                <polyline points="6 9 12 15 18 9" />
+                              </svg>
                             </div>
-                          )}
-                          {index === 3 && (
-                            <div className="space-y-2">
-                              <p className="text-base font-semibold text-accent-dark">
-                                NASA
-                              </p>
-                              <p className="text-base text-foreground/80 leading-relaxed">
-                                I conducted software-side tests on the personnel door gaskets for NASA's Artemis II Rocket. I also worked with the R&D team to model lattice structures to simulate crystal behavior during nuclear fission.
-                              </p>
-                              <p className="text-base text-accent font-medium">
-                                <a href="https://www.nasa.gov/mission/artemis-ii/" target="_blank" rel="noopener noreferrer" className="underline hover:underline transition-all duration-300">
-                                  UPDATE: Artemis II is going to the Moon!
-                                </a>
-                              </p>
-                            </div>
-                          )}
-                          {index === 4 && (
-                            <p className="text-base text-foreground/80 leading-relaxed">
-                              I sequenced and processed 20M+ genetic sequences to improve taxonomic accuracy for Liriope muscari. Our results were published in BOLDSystems.
-                            </p>
-                          )}
+                          </button>
                         </div>
                       </div>
+                      {/* Foldable content */}
+                      <div
+                        className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                          open === index ? 'max-h-96 opacity-100 mt-3' : 'max-h-0 opacity-0'
+                        }`}
+                      >
+                        <div className="glass rounded-2xl p-4 shadow border border-accent/20 mt-3">
+                          <div className="pt-1 text-foreground/80 text-sm leading-relaxed space-y-4">
+                            {/* ...card content... */}
+                            {index === 0 && (
+                              <>
+                                <div className="space-y-2">
+                                  <p className="text-base font-semibold text-accent-dark">
+                                    Automated Scaling Team
+                                  </p>
+                                  <p className="text-base text-foreground/80 leading-relaxed">
+                                    I built an end-to-end predictive host count tool which improved our customers' performance efficiency by 36% on average.
+                                  </p>
+                                </div>
+                              </>
+                            )}
+                            {index === 1 && (
+                              <div className="space-y-2">
+                                <p className="text-base font-semibold text-accent-dark">
+                                  Alignment Team
+                                </p>
+                                <p className="text-base text-foreground/80 leading-relaxed">
+                                  I developed a reinforcement learning with human feedback (RLHF) pipeline to ensure our LLM did not give medical advice nor false information.
+                                </p>
+                              </div>
+                            )}
+                                                      {index === 2 && (
+                              <div className="space-y-2">
+                                <p className="text-base font-semibold text-accent-dark">
+                                  University Team
+                                </p>
+                                <p className="text-base text-foreground/80 leading-relaxed">
+                                  I built a full-stack data analytics dashboard to track institutional donation and outreach trends.
+                                </p>
+                              </div>
+                            )}
+                            {index === 3 && (
+                              <div className="space-y-2">
+                                <p className="text-base font-semibold text-accent-dark">
+                                  NASA
+                                </p>
+                                <p className="text-base text-foreground/80 leading-relaxed">
+                                  I conducted software-side tests on the personnel door gaskets for NASA's Artemis II Rocket. I also worked with the R&D team to model lattice structures to simulate crystal behavior during nuclear fission.
+                                </p>
+                                <p className="text-base text-accent font-medium">
+                                  <a href="https://www.nasa.gov/mission/artemis-ii/" target="_blank" rel="noopener noreferrer" className="underline hover:underline transition-all duration-300">
+                                    UPDATE: Artemis II is going to the Moon!
+                                  </a>
+                                </p>
+                              </div>
+                            )}
+                            {index === 4 && (
+                              <p className="text-base text-foreground/80 leading-relaxed">
+                                I sequenced and processed 20M+ genetic sequences to improve taxonomic accuracy for Liriope muscari. Our results were published in BOLDSystems.
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {index !== arr.length - 1 && (
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-1 h-8 bg-accent/60 z-0" style={{ boxShadow: '0 0 4px 1px rgba(96,165,250,0.18)' }} />
+                      )}
                     </div>
-                    {index !== arr.length - 1 && (
-                      <div className="absolute left-1/2 -translate-x-1/2 top-full w-1 h-8 bg-accent/60 z-0" style={{ boxShadow: '0 0 4px 1px rgba(96,165,250,0.18)' }} />
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Spacer between Experience and Clubs & Activities */}
+        <div className="h-24"></div>
+
+        {/* Clubs & Activities Section - moved below both Hi there and Experience */}
+        <div className="w-full flex flex-col items-center">
+          <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block w-auto">
+            <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center">
+              Clubs & Activities
+            </h2>
+          </div>
+          {/* Spacer for vertical rhythm */}
+          <div className="h-8"></div>
+          <div className="flex flex-col items-center gap-8 max-w-5xl w-full">
+            {/* Top row - Launchpad and Valley Consulting Group */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+              {/* Launchpad */}
+              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
+                <h3 className="text-3xl font-bold text-accent-dark">Launchpad</h3>
+                <span className="text-accent font-semibold text-xl">Vice President</span>
+                <p className="text-foreground/80 text-lg font-medium leading-relaxed">We build creative Machine Learning projects! We also host ML paper reading groups and workshops. As Vice-President, I organize our external client engagements and ensure we're fiscally responsible.</p>
+              </div>
+              {/* Valley Consulting Group */}
+              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
+                <h3 className="text-3xl font-bold text-accent-dark">Valley Consulting Group</h3>
+                <span className="text-accent font-semibold text-xl">Senior Consultant</span>
+                <p className="text-foreground/80 text-lg font-medium leading-relaxed">We solve real-world business and technology problems for Fortune 500 Tech companies. I currently serve as a development mentor where I help new members build their technical and presentation skills.</p>
+              </div>
+            </div>
+            
+            {/* Bottom row - Computer Science Mentors (centered) */}
+            <div className="w-full flex justify-center">
+              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40 max-w-2xl">
+                <h3 className="text-3xl font-bold text-accent-dark">Computer Science Mentors</h3>
+                <span className="text-accent font-semibold text-xl">Senior Mentor</span>
+                <p className="text-foreground/80 text-lg font-medium leading-relaxed">I lead biweekly tutoring sessions for 5+ students in CS 61A, teaching core concepts and guiding them through practice problems. As a Senior Mentor, I also coach fellow mentors on effective teaching strategies/pedagogy.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Spacer between About Me and Skills */}
+      <div className="h-24"></div>
+
       {/* Skills Header with True Edge-to-Edge Broken Line using Grid */}
       <div id="skills-title" className="w-screen grid grid-cols-[1fr_auto_1fr] items-center gap-0 mb-32 select-none left-1/2 -translate-x-1/2 relative" style={{ minHeight: '80px', position: 'relative' }}>
         <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
-        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-800 via-blue-900 to-blue-700 dark:from-blue-300 dark:via-blue-200 dark:to-blue-400 drop-shadow-lg whitespace-nowrap">
+        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-blue-800 dark:text-blue-300 whitespace-nowrap">
           Skills
         </h2>
         <div className="h-1.5 w-full bg-gradient-to-l from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
@@ -995,7 +1001,7 @@ export default function Home() {
       {/* Projects Header with True Edge-to-Edge Broken Line using Grid */}
       <div id="projects-title" className="w-screen grid grid-cols-[1fr_auto_1fr] items-center gap-0 mb-32 select-none left-1/2 -translate-x-1/2 relative" style={{ minHeight: '80px', position: 'relative' }}>
         <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
-        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-800 via-blue-900 to-blue-700 dark:from-blue-300 dark:via-blue-200 dark:to-blue-400 drop-shadow-lg whitespace-nowrap">
+        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-blue-800 dark:text-blue-300 whitespace-nowrap">
           Projects
         </h2>
         <div className="h-1.5 w-full bg-gradient-to-l from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
