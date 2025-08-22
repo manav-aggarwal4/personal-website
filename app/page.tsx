@@ -813,7 +813,7 @@ export default function Home() {
                                   NASA
                                 </p>
                                 <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
-                                  I conducted software-side tests on the personnel door gaskets for NASA's Artemis II Rocket. I also worked with the R&D team to model lattice structures to simulate crystal behavior during nuclear fission.
+                                  I conducted software-side tests on the personnel door gaskets for NASA's Artemis II Rocket. I also worked with the R&D team to model crystal behavior during nuclear fission.
                                 </p>
                                 <p className="text-base text-accent font-medium">
                                   <a href="https://www.nasa.gov/mission/artemis-ii/" target="_blank" rel="noopener noreferrer" className="underline hover:underline transition-all duration-300">
