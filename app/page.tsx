@@ -18,7 +18,7 @@ const SectionDivider = ({ title }: { title: string }) => (
 const SkillCard = ({ skill, level }: { skill: string; level: number }) => (
   <div className="glass rounded-xl p-6 hover:scale-105 transition-transform duration-300 group">
     <div className="flex items-center justify-between mb-3">
-      <h3 className="text-lg font-semibold text-accent-dark">{skill}</h3>
+      <h3 className="text-lg font-semibold text-accent-dark dark:text-accent-light">{skill}</h3>
       <div className="flex">
         {[...Array(5)].map((_, i) => (
           <svg 
@@ -51,13 +51,13 @@ const ProjectCard = ({ title, description, tech, github }: {
       <h3 className="text-xl font-semibold text-accent-dark">{title}</h3>
       <div className="flex flex-wrap gap-1">
         {tech.map((t) => (
-          <span key={t} className="px-2 py-0.5 rounded-full text-xs font-medium bg-accent-light/20 dark:bg-accent/20 text-accent-dark dark:text-accent-light">
+          <span key={t} className="px-2 py-0.5 rounded-full text-xs font-medium bg-accent-light/20 dark:bg-accent/30 text-accent-dark dark:text-accent-light">
             {t}
           </span>
         ))}
       </div>
     </div>
-    <p className="text-foreground/80 mb-4 leading-relaxed">{description}</p>
+    <p className="text-foreground/80 dark:text-foreground/90 mb-4 leading-relaxed">{description}</p>
     <div className="flex gap-3">
       {github && (
         <a 
@@ -752,7 +752,7 @@ export default function Home() {
                               </div>
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
-                              <span className="inline-block align-middle text-sm font-medium text-accent-dark bg-accent-light/20 px-3 py-1 rounded-full shadow-sm border border-accent/10 whitespace-nowrap transition-all duration-300">{exp.duration}</span>
+                              <span className="inline-block align-middle text-sm font-medium text-accent-dark dark:text-accent-light bg-accent-light/20 dark:bg-accent/30 px-3 py-1 rounded-full shadow-sm border border-accent/10 dark:border-accent/30 whitespace-nowrap transition-all duration-300">{exp.duration}</span>
                               <svg
                                 className={`w-6 h-6 shrink-0 transition-transform duration-300 ${open === index ? 'rotate-180' : ''}`}
                                 fill="none"
@@ -773,15 +773,15 @@ export default function Home() {
                         }`}
                       >
                         <div className="glass rounded-2xl p-4 shadow border border-accent/20 mt-3">
-                          <div className="pt-1 text-foreground/80 text-sm leading-relaxed space-y-4">
+                          <div className="pt-1 text-foreground/80 dark:text-foreground/90 text-sm leading-relaxed space-y-4">
                             {/* ...card content... */}
                             {index === 0 && (
                               <>
                                 <div className="space-y-2">
-                                  <p className="text-base font-semibold text-accent-dark">
+                                  <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                     Automated Scaling Team
                                   </p>
-                                  <p className="text-base text-foreground/80 leading-relaxed">
+                                  <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                     I built an end-to-end predictive host count tool which improved our customers' performance efficiency by 36% on average.
                                   </p>
                                 </div>
@@ -789,30 +789,30 @@ export default function Home() {
                             )}
                             {index === 1 && (
                               <div className="space-y-2">
-                                <p className="text-base font-semibold text-accent-dark">
+                                <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   Alignment Team
                                 </p>
-                                <p className="text-base text-foreground/80 leading-relaxed">
+                                <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                   I developed a reinforcement learning with human feedback (RLHF) pipeline to ensure our LLM did not give medical advice nor false information.
                                 </p>
                               </div>
                             )}
                                                       {index === 2 && (
                               <div className="space-y-2">
-                                <p className="text-base font-semibold text-accent-dark">
+                                <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   University Team
                                 </p>
-                                <p className="text-base text-foreground/80 leading-relaxed">
+                                <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                   I built a full-stack data analytics dashboard to track institutional donation and outreach trends.
                                 </p>
                               </div>
                             )}
                             {index === 3 && (
                               <div className="space-y-2">
-                                <p className="text-base font-semibold text-accent-dark">
+                                <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   NASA
                                 </p>
-                                <p className="text-base text-foreground/80 leading-relaxed">
+                                <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                   I conducted software-side tests on the personnel door gaskets for NASA's Artemis II Rocket. I also worked with the R&D team to model lattice structures to simulate crystal behavior during nuclear fission.
                                 </p>
                                 <p className="text-base text-accent font-medium">
@@ -823,7 +823,7 @@ export default function Home() {
                               </div>
                             )}
                             {index === 4 && (
-                              <p className="text-base text-foreground/80 leading-relaxed">
+                              <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                 I sequenced and processed 20M+ genetic sequences to improve taxonomic accuracy for Liriope muscari. Our results were published in BOLDSystems.
                               </p>
                             )}
@@ -858,24 +858,24 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
               {/* Launchpad */}
               <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-3xl font-bold text-accent-dark">Launchpad</h3>
+                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Launchpad</h3>
                 <span className="text-accent font-semibold text-xl">Vice President</span>
-                <p className="text-foreground/80 text-lg font-medium leading-relaxed">We build creative Machine Learning projects! We also host ML paper reading groups and workshops. As Vice-President, I organize our external client engagements and ensure we're fiscally responsible.</p>
+                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">We build creative Machine Learning projects! We also host ML paper reading groups and workshops. As Vice-President, I organize our external client engagements and ensure we're fiscally responsible.</p>
               </div>
               {/* Valley Consulting Group */}
               <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-3xl font-bold text-accent-dark">Valley Consulting Group</h3>
+                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Valley Consulting Group</h3>
                 <span className="text-accent font-semibold text-xl">Senior Consultant</span>
-                <p className="text-foreground/80 text-lg font-medium leading-relaxed">We solve real-world business and technology problems for Fortune 500 Tech companies. I currently serve as a development mentor where I help new members build their technical and presentation skills.</p>
+                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">We solve real-world business and technology problems for Fortune 500 Tech companies. I currently serve as a development mentor where I help new members build their technical and presentation skills.</p>
               </div>
             </div>
             
             {/* Bottom row - Computer Science Mentors (centered) */}
             <div className="w-full flex justify-center">
               <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40 max-w-2xl">
-                <h3 className="text-3xl font-bold text-accent-dark">Computer Science Mentors</h3>
+                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Computer Science Mentors</h3>
                 <span className="text-accent font-semibold text-xl">Senior Mentor</span>
-                <p className="text-foreground/80 text-lg font-medium leading-relaxed">I lead biweekly tutoring sessions for 5+ students in CS 61A, teaching core concepts and guiding them through practice problems. As a Senior Mentor, I also coach fellow mentors on effective teaching strategies/pedagogy.</p>
+                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">I lead biweekly tutoring sessions for 5+ students in CS 61A, teaching core concepts and guiding them through practice problems. As a Senior Mentor, I also coach fellow mentors on effective teaching strategies/pedagogy.</p>
               </div>
             </div>
           </div>
@@ -922,11 +922,11 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-accent-dark text-2xl">Programming Languages</h3>
+                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Programming Languages</h3>
                   </div>
-                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
                     {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
                         {skill}
                       </span>
                     ))}
@@ -950,11 +950,11 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-accent-dark text-2xl">Frameworks & Libraries</h3>
+                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Frameworks & Libraries</h3>
                   </div>
-                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
                     {['React Native', 'Next.js', 'PyTorch', 'Numpy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
                         {skill}
                       </span>
                     ))}
@@ -984,11 +984,11 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-accent-dark text-2xl">Design</h3>
+                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Design</h3>
                   </div>
-                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
                     {['Figma', 'Balsamiq', 'PowerBI'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
                         {skill}
                       </span>
                     ))}
@@ -1012,11 +1012,11 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-accent-dark text-2xl">Cloud Services</h3>
+                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Cloud Services</h3>
                   </div>
-                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
                     {['AWS (S3, DDB, EC2, Sagemaker/Bedrock)', 'Firebase'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
                         {skill}
                       </span>
                     ))}
@@ -1046,11 +1046,11 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </div>
-                    <h3 className="font-bold text-accent-dark text-2xl">Soft Skills</h3>
+                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Soft Skills</h3>
                   </div>
-                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
                     {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Teamwork'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
                         {skill}
                       </span>
                     ))}
