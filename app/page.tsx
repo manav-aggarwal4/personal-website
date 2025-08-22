@@ -1027,10 +1027,10 @@ export default function Home() {
               github="https://github.com/manav-aggarwal4/CS50-Finance"
             />
             <ProjectCard
-              title="NGrams Built from Scratch"
-              description="Implemented WordNet from scratch, constructing a graph-based lexical database to model English word relationships and enable semantic queries such as hyponym and synonym retrieval."
-              tech={["Java"]}
-              github="https://github.com/manav-aggarwal4/NGrams-Built-from-Scratch"
+              title="OpenBook"
+              description="Developed a Web3-powered platform for college students to securely buy, sell, and trade textbooks via NFT-based campus verification, IPFS storage, and trustless stablecoin escrow smart contracts on Polygon."
+              tech={["Next.js", "IPFS", "Polygon", "Solidity"]}
+              github="https://github.com/manav-aggarwal4/OpenBook"
             />
             <ProjectCard
               title="Plants vs Zombies Videogame"
