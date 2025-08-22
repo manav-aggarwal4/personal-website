@@ -897,97 +897,166 @@ export default function Home() {
       {/* Spacer between Skills Title and Content */}
       <div className="h-16"></div>
 
-      {/* Skills Section - Clean Clustered Layout */}
+      {/* Skills Section - Enhanced Layout */}
       <section id="skills" className="w-full flex justify-center mt-20 mb-24 px-6">
-        <div className="max-w-5xl w-full">
+        <div className="max-w-6xl w-full">
           
-          {/* Clean clustered skills with white bubbles */}
+          {/* Enhanced skills layout with visual interest */}
           <div className="flex flex-col items-center">
             
-            {/* Top row - Longest */}
-            <div className="flex flex-wrap justify-center gap-6 max-w-4xl py-6">
-              <div className="bg-white/90 dark:bg-white/10 px-6 py-4 rounded-lg shadow-sm hover:bg-white dark:hover:bg-white/20 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="font-bold text-accent-dark text-lg mb-2">Programming Languages:</div>
-                <div className="text-foreground/80 text-sm flex flex-wrap gap-2">
-                  <span>Python</span>
-                  <span>•</span>
-                  <span>Java</span>
-                  <span>•</span>
-                  <span>C/C++</span>
-                  <span>•</span>
-                  <span>SQL</span>
-                  <span>•</span>
-                  <span>Scheme</span>
-                  <span>•</span>
-                  <span>HTML/CSS/JavaScript</span>
-                  <span>•</span>
-                  <span>MATLAB</span>
+            {/* Top row - Programming Languages & Frameworks */}
+            <div className="flex flex-wrap justify-start gap-10 max-w-7xl py-10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="group relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-blue-200/50 dark:border-blue-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-accent-dark text-2xl">Programming Languages</h3>
+                  </div>
+                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                    {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill, index) => (
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white/90 dark:bg-white/10 px-6 py-4 rounded-lg shadow-sm hover:bg-white dark:hover:bg-white/20 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="font-bold text-accent-dark text-lg mb-2">Frameworks & Libraries:</div>
-                <div className="text-foreground/80 text-sm flex flex-wrap gap-2">
-                  <span>React Native</span>
-                  <span>•</span>
-                  <span>Next.js</span>
-                  <span>•</span>
-                  <span>PyTorch</span>
-                  <span>•</span>
-                  <span>Numpy</span>
-                  <span>•</span>
-                  <span>Pandas</span>
-                  <span>•</span>
-                  <span>Django</span>
-                  <span>•</span>
-                  <span>Scikit-Learn</span>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="group relative bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-green-200/50 dark:border-green-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400/5 to-teal-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-accent-dark text-2xl">Frameworks & Libraries</h3>
+                  </div>
+                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                    {['React Native', 'Next.js', 'PyTorch', 'Numpy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill, index) => (
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Spacer between rows */}
-            <div className="h-8"></div>
+            <div className="h-10"></div>
 
-            {/* Second row - Medium */}
-            <div className="flex flex-wrap justify-center gap-6 max-w-3xl py-6">
-              <div className="bg-white/90 dark:bg-white/10 px-6 py-4 rounded-lg shadow-sm hover:bg-white dark:hover:bg-white/20 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="font-bold text-accent-dark text-lg mb-2">Design:</div>
-                <div className="text-foreground/80 text-sm flex flex-wrap gap-2">
-                  <span>Figma</span>
-                  <span>•</span>
-                  <span>Balsamiq</span>
-                  <span>•</span>
-                  <span>PowerBI</span>
+            {/* Middle row - Design & Cloud Services */}
+            <div className="flex flex-wrap justify-start gap-10 max-w-6xl py-10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="group relative bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-pink-200/50 dark:border-pink-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-400/5 to-rose-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-accent-dark text-2xl">Design</h3>
+                  </div>
+                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                    {['Figma', 'Balsamiq', 'PowerBI'].map((skill, index) => (
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="bg-white/90 dark:bg-white/10 px-6 py-4 rounded-lg shadow-sm hover:bg-white dark:hover:bg-white/20 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="font-bold text-accent-dark text-lg mb-2">Cloud Services:</div>
-                <div className="text-foreground/80 text-sm flex flex-wrap gap-2">
-                  <span>AWS (S3, DDB, EC2, Sagemaker/Bedrock)</span>
-                  <span>•</span>
-                  <span>Firebase</span>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="group relative bg-gradient-to-br from-orange-50 to-amber-100 dark:from-orange-900/20 dark:to-amber-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-orange-200/50 dark:border-orange-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-amber-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-accent-dark text-2xl">Cloud Services</h3>
+                  </div>
+                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                    {['AWS (S3, DDB, EC2, Sagemaker/Bedrock)', 'Firebase'].map((skill, index) => (
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Spacer between rows */}
-            <div className="h-8"></div>
+            <div className="h-10"></div>
 
-            {/* Bottom row - Longest */}
-            <div className="flex flex-wrap justify-center gap-6 max-w-4xl py-6">
-              <div className="bg-white/90 dark:bg-white/10 px-6 py-4 rounded-lg shadow-sm hover:bg-white dark:hover:bg-white/20 hover:shadow-md transition-all duration-300 cursor-pointer">
-                <div className="font-bold text-accent-dark text-lg mb-2">Soft Skills:</div>
-                <div className="text-foreground/80 text-sm flex flex-wrap gap-2">
-                  <span>Problem Solving</span>
-                  <span>•</span>
-                  <span>Teaching Pedagogy</span>
-                  <span>•</span>
-                  <span>Agile/Kanban</span>
-                  <span>•</span>
-                  <span>Leadership</span>
-                  <span>•</span>
-                  <span>Teamwork</span>
+            {/* Bottom row - Soft Skills */}
+            <div className="flex flex-wrap justify-center gap-10 max-w-4xl py-10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="group relative bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-purple-200/50 dark:border-purple-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-indigo-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-accent-dark text-2xl">Soft Skills</h3>
+                  </div>
+                  <div className="text-foreground/80 text-lg flex flex-nowrap gap-4">
+                    {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Teamwork'].map((skill, index) => (
+                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/10 rounded-full text-base font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
           </div>
