@@ -677,7 +677,7 @@ export default function Home() {
             </div>
             {/* Spacer div to create space between header and paragraph */}
             <div className="h-8"></div>
-            <div className="p-10 max-w-2xl w-full bg-blue-100/60 dark:bg-blue-900/20 rounded-2xl shadow-lg border-l-4 border-blue-400/80 dark:border-blue-400/40 border-accent/10 mx-auto transform translate-x-8 flex items-start gap-4" style={{boxShadow: '0 4px 24px 0 rgba(37,99,235,0.10)', backdropFilter: 'blur(4px)'}}>
+            <div className="p-10 max-w-2xl w-full bg-blue-100/20 dark:bg-blue-900/10 rounded-2xl shadow-lg border-l-4 border-blue-400/80 dark:border-blue-400/40 border-accent/10 mx-auto transform translate-x-8 flex items-start gap-4" style={{boxShadow: '0 4px 24px 0 rgba(37,99,235,0.10)', backdropFilter: 'blur(4px)'}}>
               <span className="inline-block w-2 h-full bg-gradient-to-b from-blue-400 to-blue-300 dark:from-blue-300 dark:to-blue-400 rounded-full"></span>
               <div className="flex-1">
                 <p className="text-xl leading-relaxed text-foreground/90">
@@ -924,13 +924,13 @@ export default function Home() {
                     </div>
                     <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Programming Languages</h3>
                   </div>
-                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                    {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
+                      {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill, index) => (
+                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                 </div>
               </motion.div>
 
@@ -952,13 +952,13 @@ export default function Home() {
                     </div>
                     <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Frameworks & Libraries</h3>
                   </div>
-                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                    {['React Native', 'Next.js', 'PyTorch', 'Numpy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
+                      {['React Native', 'Next.js', 'PyTorch', 'Numpy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill, index) => (
+                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                 </div>
               </motion.div>
             </div>
@@ -986,13 +986,13 @@ export default function Home() {
                     </div>
                     <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Design</h3>
                   </div>
-                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                    {['Figma', 'Balsamiq', 'PowerBI'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
+                      {['Figma', 'Balsamiq', 'PowerBI'].map((skill, index) => (
+                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                 </div>
               </motion.div>
 
@@ -1014,13 +1014,13 @@ export default function Home() {
                     </div>
                     <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Cloud Services</h3>
                   </div>
-                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                    {['AWS (S3, DDB, EC2, Sagemaker/Bedrock)', 'Firebase'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
+                      {['AWS (S3, DDB, EC2, Sagemaker/Bedrock)', 'Firebase'].map((skill, index) => (
+                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                 </div>
               </motion.div>
             </div>
@@ -1048,13 +1048,13 @@ export default function Home() {
                     </div>
                     <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Soft Skills</h3>
                   </div>
-                  <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                    {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Teamwork'].map((skill, index) => (
-                      <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
+                      {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Teamwork'].map((skill, index) => (
+                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                 </div>
               </motion.div>
             </div>
