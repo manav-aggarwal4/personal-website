@@ -546,7 +546,7 @@ export default function Home() {
                 <div className="h-6"></div>
                 <div className="flex items-center gap-8 justify-center mb-12">
                   <a
-                    href="https://drive.google.com/file/d/1OATnmUKG_MwQClDjpwES-zN31BiqaBXw/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1NHQbkkF8Ah_V3aHR77G9HZxy0MRnB2Gx/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-8 py-4 rounded-full font-bold glass hover:scale-105 transition-all duration-300"
@@ -681,7 +681,7 @@ export default function Home() {
               <span className="inline-block w-2 h-full bg-gradient-to-b from-blue-400 to-blue-300 dark:from-blue-300 dark:to-blue-400 rounded-full"></span>
               <div className="flex-1">
                 <p className="text-xl leading-relaxed text-foreground/90">
-                  I'm Manav, and I'm a Regents' Scholar studying Electrical Engineering and Computer Science at Berkeley. I'm currently seeking 2026 internships, and most of my experience has been in infrastructure/systems, machine learning, and full-stack development.
+                  I'm Manav, and I'm an undergraduate studying Electrical Engineering and Computer Science at Berkeley. Most of my experience has been in infrastructure/systems, machine learning, and full-stack development.
                 </p>
                 <div className="h-8"></div>
                 <p className="text-xl leading-relaxed text-foreground/90">
@@ -691,6 +691,189 @@ export default function Home() {
                 <p className="text-xl leading-relaxed text-foreground/90">
                 I love learning anything and everything. Feel free to reach out anytime!
                 </p>
+              </div>
+            </div>
+
+            {/* Spacer between intro and Clubs & Activities */}
+            <div className="h-12"></div>
+
+            {/* Clubs & Activities Section - Icon-based grid layout */}
+            <div className="w-full flex flex-col items-center max-w-2xl">
+              <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block w-auto">
+                <h2 className="text-4xl md:text-5xl font-extrabold gradient-text tracking-tight text-center">
+                  Clubs & Activities
+                </h2>
+              </div>
+              {/* Spacer for vertical rhythm */}
+              <div className="h-8"></div>
+
+              {/* Icon-based grid layout */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                {/* Launchpad */}
+                <div className="glass rounded-2xl border border-accent/20 p-6 flex flex-col items-center text-center gap-3 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/40 group">
+                  {/* Logo */}
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-2 group-hover:rotate-6 transition-transform duration-300 overflow-hidden">
+                    <img src="/launchpad.png" alt="Launchpad Logo" className="w-full h-full object-contain" />
+                  </div>
+                  <h3 className="text-xl font-bold text-accent-dark dark:text-accent-light">Launchpad</h3>
+                  <span className="text-accent font-semibold text-sm bg-accent/10 px-3 py-1 rounded-full">Vice President</span>
+                  <p className="text-foreground/80 dark:text-foreground/90 text-sm leading-relaxed">Building creative ML projects, hosting paper reading groups & workshops. I manage client engagements and finances.</p>
+                </div>
+
+                {/* Valley Consulting Group */}
+                <div className="glass rounded-2xl border border-accent/20 p-6 flex flex-col items-center text-center gap-3 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/40 group">
+                  {/* Logo */}
+                  <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-2 group-hover:rotate-6 transition-transform duration-300 overflow-hidden">
+                    <img src="/vcg.jpeg" alt="Valley Consulting Group Logo" className="w-full h-full object-contain" />
+                  </div>
+                  <h3 className="text-xl font-bold text-accent-dark dark:text-accent-light">Valley Consulting</h3>
+                  <span className="text-accent font-semibold text-sm bg-accent/10 px-3 py-1 rounded-full">Senior Consultant</span>
+                  <p className="text-foreground/80 dark:text-foreground/90 text-sm leading-relaxed">Solving business & tech problems for Fortune 500 companies. Development mentor for new members.</p>
+                </div>
+
+                {/* Computer Science Mentors */}
+                <div className="glass rounded-2xl border border-accent/20 p-6 flex flex-col items-center text-center gap-3 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/40 group">
+                  {/* Logo - Wider container to match landscape aspect ratio (612:218 ≈ 2.8:1) */}
+                  <div className="w-44 h-16 rounded-xl flex items-center justify-center mb-2 group-hover:rotate-6 transition-transform duration-300 overflow-hidden">
+                    <img src="/csm.png" alt="Computer Science Mentors Logo" className="w-full h-full object-contain" />
+                  </div>
+                  <h3 className="text-xl font-bold text-accent-dark dark:text-accent-light">CS Mentors</h3>
+                  <span className="text-accent font-semibold text-sm bg-accent/10 px-3 py-1 rounded-full">Senior Mentor</span>
+                  <p className="text-foreground/80 dark:text-foreground/90 text-sm leading-relaxed">Leading biweekly CS 61A tutoring sessions. Coaching fellow mentors on teaching strategies.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Spacer between Clubs & Activities and Skills */}
+            <div className="h-16"></div>
+
+            {/* Skills Section - Revitalized design */}
+            <div id="skills" className="w-full flex flex-col items-center max-w-2xl">
+              <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block w-auto">
+                <h2 className="text-4xl md:text-5xl font-extrabold gradient-text tracking-tight text-center">
+                  Skills
+                </h2>
+              </div>
+              <div className="h-8"></div>
+
+              {/* Skills Grid - 2 Rows */}
+              <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {/* Programming Languages */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="glass rounded-2xl border-2 border-accent/30 p-8 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/50"
+                  >
+                    <h3 className="text-2xl font-bold text-accent-dark dark:text-accent-light mb-6">
+                      Programming Languages
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill) => (
+                        <span 
+                          key={skill} 
+                          className="px-4 py-2.5 rounded-lg text-base font-semibold bg-accent-light/25 dark:bg-accent/35 text-foreground dark:text-foreground/90 border border-accent/20 dark:border-accent/30"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Frameworks & Libraries */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                    className="glass rounded-2xl border-2 border-accent/30 p-8 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/50"
+                  >
+                    <h3 className="text-2xl font-bold text-accent-dark dark:text-accent-light mb-6">
+                      Frameworks & Libraries
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {['React Native', 'Next.js', 'PyTorch', 'NumPy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill) => (
+                        <span 
+                          key={skill} 
+                          className="px-4 py-2.5 rounded-lg text-base font-semibold bg-accent-light/25 dark:bg-accent/35 text-foreground dark:text-foreground/90 border border-accent/20 dark:border-accent/30"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Cloud & Infrastructure */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                    className="glass rounded-2xl border-2 border-accent/30 p-8 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/50"
+                  >
+                    <h3 className="text-2xl font-bold text-accent-dark dark:text-accent-light mb-6">
+                      Cloud & Infrastructure
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {['AWS S3', 'DynamoDB', 'EC2', 'SageMaker', 'Bedrock', 'Firebase'].map((skill) => (
+                        <span 
+                          key={skill} 
+                          className="px-4 py-2.5 rounded-lg text-base font-semibold bg-accent-light/25 dark:bg-accent/35 text-foreground dark:text-foreground/90 border border-accent/20 dark:border-accent/30"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Design Tools */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                    className="glass rounded-2xl border-2 border-accent/30 p-8 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/50"
+                  >
+                    <h3 className="text-2xl font-bold text-accent-dark dark:text-accent-light mb-6">
+                      Design Tools
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {['Figma', 'Balsamiq', 'PowerBI'].map((skill) => (
+                        <span 
+                          key={skill} 
+                          className="px-4 py-2.5 rounded-lg text-base font-semibold bg-accent-light/25 dark:bg-accent/35 text-foreground dark:text-foreground/90 border border-accent/20 dark:border-accent/30"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Leadership & Collaboration */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+                    className="glass rounded-2xl border-2 border-accent/30 p-8 hover:scale-105 transition-all duration-300 hover:shadow-xl hover:border-accent/50"
+                  >
+                    <h3 className="text-2xl font-bold text-accent-dark dark:text-accent-light mb-6">
+                      Leadership & Collaboration
+                    </h3>
+                    <div className="flex flex-wrap gap-3">
+                      {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Team Building'].map((skill) => (
+                        <span 
+                          key={skill} 
+                          className="px-4 py-2.5 rounded-lg text-base font-semibold bg-accent-light/25 dark:bg-accent/35 text-foreground dark:text-foreground/90 border border-accent/20 dark:border-accent/30"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -709,6 +892,16 @@ export default function Home() {
               <div className="relative pb-8 w-full">
                 <div className="flex flex-col gap-y-6 relative z-10">
                   {[
+                    { company: "Annapurna Labs", role: "Contract ML Engineer", duration: "Oct 2025 - Present", color: "from-amber-500 to-orange-600", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/anpa.avif" alt="Annapurna Labs Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
+                    { company: "Sky Computing Lab", role: "Undergraduate Researcher", duration: "Aug 2025 - Present", color: "from-blue-500 to-indigo-500", icon: (
+                      <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
+                        <img src="/sky.png" alt="Sky Computing Lab Logo" className="object-contain w-full h-full" />
+                      </div>
+                    ) },
                     { company: "Amazon", role: "SDE Intern", duration: "May 2025 - Aug 2025", color: "from-orange-500 to-red-500", icon: (
                       <div className="w-28 h-28 aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-white dark:bg-white/10">
                         <img src="/realamznScience.png" alt="Amazon Logo" className="object-contain w-full h-full" />
@@ -776,6 +969,20 @@ export default function Home() {
                           <div className="pt-1 text-foreground/80 dark:text-foreground/90 text-sm leading-relaxed space-y-4">
                             {/* ...card content... */}
                             {index === 0 && (
+                              <div className="space-y-2">
+                                <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
+                                  Onboarding SFT and GRPO workload onto AWS Neuron Chips. Identifying missing ops and writing performant kernels.
+                                </p>
+                              </div>
+                            )}
+                            {index === 1 && (
+                              <div className="space-y-2">
+                                <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
+                                  Working on vLLM and reasoning traces in coding agents.
+                                </p>
+                              </div>
+                            )}
+                            {index === 2 && (
                               <>
                                 <div className="space-y-2">
                                   <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
@@ -787,7 +994,7 @@ export default function Home() {
                                 </div>
                               </>
                             )}
-                            {index === 1 && (
+                            {index === 3 && (
                               <div className="space-y-2">
                                 <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   Alignment Team
@@ -797,7 +1004,7 @@ export default function Home() {
                                 </p>
                               </div>
                             )}
-                                                      {index === 2 && (
+                            {index === 4 && (
                               <div className="space-y-2">
                                 <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   University Team
@@ -807,7 +1014,7 @@ export default function Home() {
                                 </p>
                               </div>
                             )}
-                            {index === 3 && (
+                            {index === 5 && (
                               <div className="space-y-2">
                                 <p className="text-base font-semibold text-accent-dark dark:text-accent-light">
                                   NASA
@@ -822,7 +1029,7 @@ export default function Home() {
                                 </p>
                               </div>
                             )}
-                            {index === 4 && (
+                            {index === 6 && (
                               <p className="text-base text-foreground/80 dark:text-foreground/90 leading-relaxed">
                                 I sequenced and processed 20M+ genetic sequences to improve taxonomic accuracy for Liriope muscari. Our results were published in BOLDSystems.
                               </p>
@@ -839,228 +1046,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Spacer between Experience and Clubs & Activities */}
-        <div className="h-24"></div>
-
-        {/* Clubs & Activities Section - moved below both Hi there and Experience */}
-        <div className="w-full flex flex-col items-center">
-          <div className="glass rounded-3xl border-4 border-accent shadow-2xl px-8 py-6 flex items-center justify-center mb-6 relative inline-block w-auto">
-            <h2 className="text-5xl md:text-6xl font-extrabold gradient-text tracking-tight text-center">
-              Clubs & Activities
-            </h2>
-          </div>
-          {/* Spacer for vertical rhythm */}
-          <div className="h-8"></div>
-          <div className="flex flex-col items-center gap-8 max-w-5xl w-full">
-            {/* Top row - Launchpad and Valley Consulting Group */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-              {/* Launchpad */}
-              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Launchpad</h3>
-                <span className="text-accent font-semibold text-xl">Vice President</span>
-                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">We build creative Machine Learning projects! We also host ML paper reading groups and workshops. As Vice-President, I organize our external client engagements and ensure we're fiscally responsible.</p>
-              </div>
-              {/* Valley Consulting Group */}
-              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40">
-                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Valley Consulting Group</h3>
-                <span className="text-accent font-semibold text-xl">Senior Consultant</span>
-                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">We solve real-world business and technology problems for Fortune 500 Tech companies. I currently serve as a development mentor where I help new members build their technical and presentation skills.</p>
-              </div>
-            </div>
-            
-            {/* Bottom row - Computer Science Mentors (centered) */}
-            <div className="w-full flex justify-center">
-              <div className="glass rounded-3xl border border-accent/20 p-10 flex flex-col items-center text-center gap-6 hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:border-accent/40 max-w-2xl">
-                <h3 className="text-3xl font-bold text-accent-dark dark:text-accent-light">Computer Science Mentors</h3>
-                <span className="text-accent font-semibold text-xl">Senior Mentor</span>
-                <p className="text-foreground/80 dark:text-foreground/90 text-lg font-medium leading-relaxed">I lead biweekly tutoring sessions for 5+ students in CS 61A, teaching core concepts and guiding them through practice problems. As a Senior Mentor, I also coach fellow mentors on effective teaching strategies/pedagogy.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Spacer between About Me and Skills */}
-      <div className="h-24"></div>
-
-      {/* Skills Header with True Edge-to-Edge Broken Line using Grid */}
-      <div id="skills-title" className="w-screen grid grid-cols-[1fr_auto_1fr] items-center gap-0 mb-32 select-none left-1/2 -translate-x-1/2 relative" style={{ minHeight: '80px', position: 'relative' }}>
-        <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
-        <h2 className="px-8 text-6xl font-extrabold tracking-tight text-center text-blue-800 dark:text-blue-300 whitespace-nowrap">
-          Skills
-        </h2>
-        <div className="h-1.5 w-full bg-gradient-to-l from-transparent via-blue-800 to-blue-900 dark:from-transparent dark:via-blue-300 dark:to-blue-400" />
-      </div>
-
-      {/* Spacer between Skills Title and Content */}
-      <div className="h-16"></div>
-
-      {/* Skills Section - Enhanced Layout */}
-      <section id="skills" className="w-full flex justify-center mt-20 mb-24 px-6">
-        <div className="max-w-6xl w-full">
-          
-          {/* Enhanced skills layout with visual interest */}
-          <div className="flex flex-col items-center">
-            
-            {/* Top row - Programming Languages & Frameworks */}
-            <div className="flex flex-wrap justify-start gap-10 max-w-7xl py-10">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="group relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-blue-200/50 dark:border-blue-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Programming Languages</h3>
-                  </div>
-                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                      {['Python', 'Java', 'C/C++', 'SQL', 'Scheme', 'HTML/CSS/JavaScript', 'MATLAB'].map((skill, index) => (
-                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="group relative bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-green-200/50 dark:border-green-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400/5 to-teal-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Frameworks & Libraries</h3>
-                  </div>
-                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                      {['React Native', 'Next.js', 'PyTorch', 'Numpy', 'Pandas', 'Django', 'Scikit-Learn'].map((skill, index) => (
-                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-green-100 dark:hover:bg-green-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Spacer between rows */}
-            <div className="h-10"></div>
-
-            {/* Middle row - Design & Cloud Services */}
-            <div className="flex flex-wrap justify-start gap-10 max-w-6xl py-10">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="group relative bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-pink-200/50 dark:border-pink-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-400/5 to-rose-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Design</h3>
-                  </div>
-                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                      {['Figma', 'Balsamiq', 'PowerBI'].map((skill, index) => (
-                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-pink-100 dark:hover:bg-pink-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                </div>
-              </motion.div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="group relative bg-gradient-to-br from-orange-50 to-amber-100 dark:from-orange-900/20 dark:to-amber-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-orange-200/50 dark:border-orange-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/5 to-amber-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Cloud Services</h3>
-                  </div>
-                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                      {['AWS (S3, DDB, EC2, Sagemaker/Bedrock)', 'Firebase'].map((skill, index) => (
-                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Spacer between rows */}
-            <div className="h-10"></div>
-
-            {/* Bottom row - Soft Skills */}
-            <div className="flex flex-wrap justify-center gap-10 max-w-4xl py-10">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="group relative bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/20 px-12 py-10 rounded-3xl shadow-lg hover:shadow-xl border border-purple-200/50 dark:border-purple-700/30 hover:scale-105 transition-all duration-500 cursor-pointer w-fit"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/5 to-indigo-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                    </div>
-                    <h3 className="font-bold text-accent-dark dark:text-accent-light text-2xl">Soft Skills</h3>
-                  </div>
-                                      <div className="text-foreground/80 dark:text-foreground/90 text-lg flex flex-nowrap gap-4">
-                      {['Problem Solving', 'Teaching Pedagogy', 'Agile/Kanban', 'Leadership', 'Teamwork'].map((skill, index) => (
-                        <span key={skill} className="px-4 py-2 bg-white/60 dark:bg-white/20 rounded-full text-base font-medium text-gray-800 dark:text-white hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-all duration-300 group-hover:scale-105 flex-shrink-0" style={{ animationDelay: `${index * 100}ms` }}>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                </div>
-              </motion.div>
-            </div>
-
-          </div>
-
         </div>
       </section>
 
