@@ -1070,13 +1070,13 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl w-full">
             <ProjectCard
               title="I Know a Spot"
-              description="Designed a social app for discovering and sharing local finds with friends through a QR code-based friend system, featuring personalized recommendations and interactive maps with real-time geolocation tagging."
+              description="Designed a social app for discovering and sharing scenic viewpoints with friends through a QR code-based friend system, featuring personalized recommendations and interactive maps with real-time geolocation tagging."
               tech={["React Native", "Firestore"]}
               github="https://github.com/manav-aggarwal4/iknowaspot"
             />
             <ProjectCard
               title="H(ai)l Mary"
-              description="Built an NFL/NBA player proposition predictor with 75% inference accuracy using a modified DeepGBM architecture."
+              description="Built an NFL/NBA player proposition predictor with 73% inference accuracy using a modified DeepGBM architecture."
               tech={["PyTorch", "Python"]}
               github="https://github.com/RonnieyL/HailMary"
             />
