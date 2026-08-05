@@ -147,14 +147,6 @@ export default function Home() {
                 {profile.lastName}
               </span>
             </h1>
-            <div className="hero-actions animate-in delay-2">
-              <button type="button" className="hero-link" onClick={() => scrollTo('experience')}>
-                Experience
-              </button>
-              <button type="button" className="hero-link" onClick={() => scrollTo('contact')}>
-                Contact
-              </button>
-            </div>
           </div>
 
           <button
@@ -192,7 +184,7 @@ export default function Home() {
                 <div className="side-panel">
                   <CornerMark position="tl" />
                   <CornerMark position="br" />
-                  <p className="label side-block-title">clubs & communities</p>
+                  <p className="label side-block-title">clubs & communities at berkeley</p>
                   {clubs.map((club) => (
                     <div key={club.name} className="club-row">
                       <span className="club-name">{club.name}</span>
@@ -394,7 +386,20 @@ export default function Home() {
                 {interests.map((item) => (
                   <div key={item.title} className="club-row">
                     <span className="club-name">{item.title}</span>
-                    <p className="club-desc">{item.detail}</p>
+                    {item.href ? (
+                      <p className="club-desc">
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="interest-link"
+                        >
+                          {item.detail} ↗
+                        </a>
+                      </p>
+                    ) : (
+                      <p className="club-desc">{item.detail}</p>
+                    )}
                   </div>
                 ))}
               </div>

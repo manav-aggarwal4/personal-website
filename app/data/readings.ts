@@ -7,37 +7,23 @@ export interface Reading {
 
 export const readings: Reading[] = [
   {
-    title: 'designing data-intensive applications',
-    author: 'martin kleppmann',
-    status: 'now',
-    note: 'systems, storage, and the hard parts of distributed truth',
-  },
-  {
-    title: 'the art of doing science and engineering',
-    author: 'richard hamming',
+    title: 'zero to one',
+    author: 'peter thiel',
     status: 'favorite',
-    note: 'how to think about important problems',
   },
   {
-    title: 'surely you\'re joking, mr. feynman',
-    author: 'richard feynman',
+    title: "liar's poker",
+    author: 'michael lewis',
     status: 'favorite',
-    note: 'curiosity as a lifestyle',
   },
   {
-    title: 'the mythical man-month',
-    author: 'frederick brooks',
-    status: 'queue',
-  },
-  {
-    title: 'meditations',
-    author: 'marcus aurelius',
+    title: "man's search for meaning",
+    author: 'viktor frankl',
     status: 'favorite',
-    note: 'still the best morning operating system',
   },
   {
-    title: 'hackers & painters',
-    author: 'paul graham',
-    status: 'queue',
+    title: 'sapiens',
+    author: 'yuval noah harari',
+    status: 'favorite',
   },
 ]

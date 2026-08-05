@@ -1,3 +1,10 @@
+export interface WritingTier {
+  rank: number
+  name: string
+  note?: string
+  flavors: string[]
+}
+
 export interface Writing {
   title: string
   slug: string
@@ -5,20 +12,50 @@ export interface Writing {
   tag?: string
   /** Short blurb for the parerga panel */
   teaser?: string
-  paragraphs: string[]
+  /** Legacy plain paragraphs (optional) */
+  paragraphs?: string[]
+  intro?: string
+  tiers?: WritingTier[]
 }
 
 export const writings: Writing[] = [
   {
     title: 'on the best energy drinks',
     slug: 'energy-drinks',
-    date: '2026',
+    date: 'august 2026',
     tag: 'notes',
-    teaser: 'a short tier list: ghost, celsius, and blue monster.',
-    paragraphs: [
-      'ghost is the clear all-rounder: strong without the crash, and the flavor lineup actually tastes like something you chose on purpose.',
-      'celsius fizz-free green tea mango is the quiet favorite for deep work — clean caffeine, no carbonation, and that mango-tea thing that does not wreck your stomach mid-sprint.',
-      'blue monster still holds the throne for pure nostalgia and blunt force; it is not refined, but when you need the classic blue can ritual, nothing else quite hits the same.',
+    teaser: 'a short tier list: ghost, monster, celsius, and bum energy.',
+    tiers: [
+      {
+        rank: 1,
+        name: 'ghost',
+        note: 'has nootropics too so ++1',
+        flavors: ['blue rasberry', 'strawbango', 'ice tea lemonade'],
+      },
+      {
+        rank: 2,
+        name: 'monster',
+        note: 'tride and true',
+        flavors: [
+          'white',
+          'ultra violet (unsure the flavor profile actually exists in nature)',
+          'strawberry kiwi',
+        ],
+      },
+      {
+        rank: 3,
+        name: 'celsius',
+        flavors: [
+          'just the fizz-free mango green tea',
+          'the rest are terrible',
+        ],
+      },
+      {
+        rank: 4,
+        name: 'bum energy',
+        note: "chris bumstead's brand, not enough caffeine though",
+        flavors: ['cola', 'root beer', 'dr pepper'],
+      },
     ],
   },
 ]

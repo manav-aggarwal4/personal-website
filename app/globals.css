@@ -840,6 +840,17 @@ button {
   margin: 0.35rem 0 0;
 }
 
+.interest-link {
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.interest-link:hover {
+  color: var(--bronze);
+  border-color: var(--bronze);
+}
+
 .skill-group + .skill-group {
   margin-top: 1rem;
 }
@@ -958,6 +969,7 @@ button {
   font-size: clamp(1rem, 1.45vw, 1.15rem);
   color: var(--ink-soft);
   line-height: 1.35;
+  text-transform: lowercase;
 }
 
 .exp-role-muted {
@@ -1332,6 +1344,81 @@ button {
 
 .writing-body p:last-child {
   margin-bottom: 0;
+}
+
+.writing-tier-list {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+.writing-tier {
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.writing-tier:last-child {
+  margin-bottom: 0;
+}
+
+.writing-tier-head {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+  margin: 0 0 0.55rem !important;
+  text-transform: lowercase;
+}
+
+.writing-tier-rank {
+  color: var(--bronze);
+  font-style: italic;
+  display: inline-block;
+  min-width: 1.35em;
+}
+
+.writing-tier-note {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.writing-flavor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  border-left: 1px solid var(--line);
+  margin-left: 0.35rem;
+}
+
+.writing-flavor-list li {
+  position: relative;
+  margin: 0 0 0.45rem;
+  padding-left: 1.15rem;
+}
+
+.writing-flavor-list li:last-child {
+  margin-bottom: 0;
+}
+
+.writing-flavor-list li::before {
+  content: counter(list-item, lower-alpha) ".";
+  counter-increment: list-item;
+  position: absolute;
+  left: 0;
+  color: var(--bronze);
+  font-style: italic;
+  font-size: 0.95em;
+}
+
+.writing-flavor-list {
+  counter-reset: list-item;
 }
 
 .writing-signoff {
