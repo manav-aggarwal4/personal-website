@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
 import {
-  Instrument_Serif,
+  Cormorant_Garamond,
+  EB_Garamond,
   IBM_Plex_Mono,
-  Plus_Jakarta_Sans,
-  Cinzel,
 } from "next/font/google";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+/** Display / names — old-style high-contrast serif */
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+/** Body + labels — classic book face */
+const ebGaramond = EB_Garamond({
+  variable: "--font-eb-garamond",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
 });
 
@@ -18,18 +26,6 @@ const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${instrumentSerif.variable} ${ibmPlexMono.variable} ${plusJakarta.variable} ${cinzel.variable} antialiased`}
+        className={`${cormorant.variable} ${ebGaramond.variable} ${ibmPlexMono.variable} antialiased`}
       >
         {children}
       </body>

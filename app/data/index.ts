@@ -2,32 +2,21 @@ export * from './experience'
 export * from './projects'
 export * from './skills'
 export * from './clubs'
+export * from './writings'
+export * from './readings'
+export * from './interests'
 
 export const profile = {
-  firstName: 'Manav',
-  lastName: 'Aggarwal',
-  currently: 'EECS @ Berkeley',
-  basedIn: 'Berkeley, CA',
-  education: 'UC Berkeley',
-  tagline:
-    'Building at the intersection of systems, machine learning, and full-stack product.',
+  firstName: 'manav',
+  lastName: 'aggarwal',
+  basedIn: 'palo alto, ca',
+  education: 'uc berkeley',
+  educationNote: "regents' scholar · u.s. presidential scholar",
 }
 
 export const aboutParagraphs = [
-  "I'm Manav — an EECS undergrad at UC Berkeley. Most of my work sits at the edge of infrastructure, machine learning systems, and full-stack development.",
-  "Lately I've been onboarding training workloads onto custom silicon, contributing to open-source LLM serving, and shipping tools that make large systems more efficient. Previously I built RLHF pipelines, predictive infrastructure, and analytics products at Amazon, AMD, and startups.",
-  "Outside of engineering you'll find me cooking, playing soccer, or building creative ML projects with friends in Launchpad. I love learning anything and everything — feel free to reach out anytime.",
-]
-
-export const highlights = [
-  {
-    label: "Regents' & Chancellor's Scholar",
-    detail: 'Merit-based scholarship awarded to the top 1% of undergraduates at UC Berkeley.',
-  },
-  {
-    label: 'US Presidential Scholar',
-    detail: 'Top 161 students in the nation, awarded by President Joe Biden.',
-  },
+  "I'm Manav. I like to train models and understand how they work. I got my start in engineering at 15 when I worked on the Nasa Artemis II Rocket (it finally launched 5 years later!) and I've been hooked ever since. I'm obsessed with the frontier — lately, I've been diving deep into physical AI, it's an incredible space.",
+  "Outside of work, I love to cook and caffeinate, please read my tier list on energy drinks as it is my first public media piece. Have a good one.",
 ]
 
 export const profilePhotos = [
@@ -47,10 +36,11 @@ export const profilePhotos = [
 ]
 
 export const navItems = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'about', label: 'about' },
+  { id: 'experience', label: 'experience' },
+  { id: 'projects', label: 'projects' },
+  { id: 'parerga', label: 'parerga' },
+  { id: 'contact', label: 'contact' },
 ]
 
 export const socialLinks = {
@@ -59,5 +49,4 @@ export const socialLinks = {
   github: 'https://github.com/manav-aggarwal4',
   linkedin: 'https://www.linkedin.com/in/manavaggarwal4/',
   twitter: 'https://x.com/manav_a4',
-  resume: 'https://drive.google.com/file/d/1NHQbkkF8Ah_V3aHR77G9HZxy0MRnB2Gx/view?usp=sharing',
 }

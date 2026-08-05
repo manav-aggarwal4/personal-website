@@ -110,10 +110,11 @@ export function LaurelMonogram({
         style={{
           fontFamily: 'var(--font-display), Georgia, serif',
           fontSize: '13px',
-          letterSpacing: '0.06em',
+          letterSpacing: '0.04em',
+          textTransform: 'lowercase',
         }}
       >
-        {letters}
+        {letters.toLowerCase()}
       </text>
     </svg>
   )

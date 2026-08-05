@@ -12,7 +12,7 @@ export const experiences: Experience[] = [
     company: "Annapurna Labs",
     role: "Software Engineer Intern",
     duration: "Present",
-    link: "https://www.amazon.com/annapurna-labs/",
+    link: "https://fortune.com/2025/04/01/amazon-annapurna-labs-chips-ai-anthropic-investment/",
     logo: "/anpa.avif",
     bullets: [
       "Onboarding SFT and GRPO workloads onto AWS Neuron chips",
@@ -33,20 +33,10 @@ export const experiences: Experience[] = [
     company: "Amazon",
     role: "Software Development Engineer Intern",
     duration: "Past",
-    link: "https://www.amazon.com/",
+    link: "https://www.amazon.science/news-and-features/how-cloudtune-generates-amazon-store-forecasts-for-prime-day-black-friday-cyber-monday",
     logo: "/realamznScience.png",
     bullets: [
       "Built an end-to-end predictive host count tool which improved customers' performance efficiency by 36% on average",
-    ],
-  },
-  {
-    company: "JovyAI",
-    role: "Software Engineer · Berkeley SkyDeck Batch 19",
-    duration: "Past",
-    link: "https://skydeck.berkeley.edu/",
-    logo: "/skydeckImage.jpeg",
-    bullets: [
-      "Developed a reinforcement learning with human feedback (RLHF) pipeline to ensure our LLM did not give medical advice nor false information",
     ],
   },
   {
@@ -63,7 +53,7 @@ export const experiences: Experience[] = [
     company: "Leidos",
     role: "Engineering Intern",
     duration: "Past",
-    link: "https://www.leidos.com/",
+    link: "https://www.nasa.gov/mission/artemis-ii/",
     logo: "/leidos logo.jpeg",
     bullets: [
       "Conducted software-side tests on the personnel door gaskets for NASA's Artemis II rocket",
@@ -74,7 +64,7 @@ export const experiences: Experience[] = [
     company: "HudsonAlpha",
     role: "Bioinformatics Intern",
     duration: "Past",
-    link: "https://hudsonalpha.org/",
+    link: "https://www.hudsonalpha.org/computational-analysis/",
     logo: "/hudsonAlphalogo.png",
     bullets: [
       "Sequenced and processed 20M+ genetic sequences to improve taxonomic accuracy for Liriope muscari",

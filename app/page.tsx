@@ -4,32 +4,30 @@ import { useEffect, useState } from 'react'
 import {
   profile,
   aboutParagraphs,
-  highlights,
   navItems,
   socialLinks,
   experiences,
   projects,
   skillCategories,
   clubs,
+  writings,
+  readings,
+  interests,
 } from './data'
 import {
-  EmailIcon,
   GitHubIcon,
   LinkedInIcon,
-  TwitterIcon,
+  XIcon,
 } from './components/icons'
 import {
-  LaurelMonogram,
   MeanderStrip,
   OrnamentDivider,
   ColumnFlutes,
   CornerMark,
   ArchFrame,
-  GreekKey,
-  Rosette,
 } from './components/classical/Ornaments'
 
-const ROMAN = ['I', 'II', 'III'] as const
+const ROMAN = ['I', 'II', 'III', 'IV'] as const
 
 function toRomanIndex(n: number) {
   const map = [
@@ -45,7 +43,6 @@ function formatLink(url: string) {
 
 export default function Home() {
   const [openExp, setOpenExp] = useState<number | null>(0)
-  const [openHighlight, setOpenHighlight] = useState<number | null>(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
@@ -91,7 +88,7 @@ export default function Home() {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
         >
-          <LaurelMonogram letters="MA" />
+          ma
         </button>
 
         <button
@@ -101,7 +98,7 @@ export default function Home() {
           aria-expanded={mobileOpen}
           aria-label="Toggle navigation"
         >
-          {mobileOpen ? 'Close' : 'Menu'}
+          {mobileOpen ? 'close' : 'menu'}
         </button>
 
         <div className={`nav-links${mobileOpen ? ' open' : ''}`}>
@@ -125,23 +122,21 @@ export default function Home() {
           <ColumnFlutes side="right" />
 
           <div className="hero-epigraph animate-in">
-            <p className="label">Est. · Huntsville, AL</p>
+            <p className="label">est. · huntsville, al</p>
           </div>
 
           <div className="hero-meta animate-in delay-2">
             <div className="hero-meta-item">
-              <span className="label">Currently</span>
-              <span className="hero-meta-value">{profile.currently}</span>
-            </div>
-            <div className="hero-meta-rule" aria-hidden="true" />
-            <div className="hero-meta-item">
-              <span className="label">Based In</span>
+              <span className="label">based in</span>
               <span className="hero-meta-value">{profile.basedIn}</span>
             </div>
             <div className="hero-meta-rule" aria-hidden="true" />
             <div className="hero-meta-item">
-              <span className="label">Education</span>
+              <span className="label">education</span>
               <span className="hero-meta-value">{profile.education}</span>
+              {profile.educationNote && (
+                <span className="hero-meta-note">{profile.educationNote}</span>
+              )}
             </div>
           </div>
 
@@ -152,17 +147,7 @@ export default function Home() {
                 {profile.lastName}
               </span>
             </h1>
-            <GreekKey className="hero-name-underline animate-in delay-2" />
-            <p className="hero-tagline animate-in delay-2">{profile.tagline}</p>
-            <div className="hero-actions animate-in delay-3">
-              <a
-                href={socialLinks.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-link"
-              >
-                Resume ↗
-              </a>
+            <div className="hero-actions animate-in delay-2">
               <button type="button" className="hero-link" onClick={() => scrollTo('experience')}>
                 Experience
               </button>
@@ -178,7 +163,7 @@ export default function Home() {
             onClick={() => scrollTo('about')}
             aria-label="Scroll to about"
           >
-            <span className="label">Scroll</span>
+            <span className="label">scroll</span>
             <span className="hero-scroll-line" aria-hidden="true" />
           </button>
         </section>
@@ -191,9 +176,9 @@ export default function Home() {
               <span className="section-numeral" aria-hidden="true">
                 {ROMAN[0]}
               </span>
-              <span className="label">About</span>
+              <span className="label">about</span>
             </div>
-            <span className="label label-bronze">Vita</span>
+            <span className="label label-bronze">vita</span>
           </div>
           <div className="section-body">
             <div className="about-grid section-inner">
@@ -201,38 +186,13 @@ export default function Home() {
                 {aboutParagraphs.map((p) => (
                   <p key={p.slice(0, 40)}>{p}</p>
                 ))}
-
-                <div className="highlight-list">
-                  <p className="label highlight-heading">Honors</p>
-                  {highlights.map((h, i) => {
-                    const open = openHighlight === i
-                    return (
-                      <button
-                        key={h.label}
-                        type="button"
-                        className="highlight-item"
-                        data-open={open}
-                        onClick={() => setOpenHighlight(open ? null : i)}
-                        aria-expanded={open}
-                      >
-                        <span className="highlight-label">
-                          {h.label}
-                          <span className="highlight-mark" aria-hidden="true">
-                            {open ? '−' : '+'}
-                          </span>
-                        </span>
-                        {open && <p className="highlight-detail">{h.detail}</p>}
-                      </button>
-                    )
-                  })}
-                </div>
               </div>
 
               <aside className="about-side">
                 <div className="side-panel">
                   <CornerMark position="tl" />
                   <CornerMark position="br" />
-                  <p className="label side-block-title">Clubs & communities</p>
+                  <p className="label side-block-title">clubs & communities</p>
                   {clubs.map((club) => (
                     <div key={club.name} className="club-row">
                       <span className="club-name">{club.name}</span>
@@ -245,7 +205,7 @@ export default function Home() {
                 <div className="side-panel">
                   <CornerMark position="tr" />
                   <CornerMark position="bl" />
-                  <p className="label side-block-title">Skills</p>
+                  <p className="label side-block-title">skills</p>
                   {skillCategories.map((cat) => (
                     <div key={cat.title} className="skill-group">
                       <p className="label skill-title">{cat.title}</p>
@@ -272,9 +232,9 @@ export default function Home() {
               <span className="section-numeral" aria-hidden="true">
                 {ROMAN[1]}
               </span>
-              <span className="label">Experience</span>
+              <span className="label">experience</span>
             </div>
-            <span className="label label-bronze">Cursus</span>
+            <span className="label label-bronze">cursus</span>
           </div>
           <div className="section-body section-body--tight">
             <div className="exp-list">
@@ -305,7 +265,7 @@ export default function Home() {
                           exp.role
                         )}
                       </div>
-                      <span className="exp-toggle">{open ? 'Close' : 'Details'}</span>
+                      <span className="exp-toggle">{open ? 'close' : 'details'}</span>
                     </button>
                     <div className="exp-details">
                       <div className="exp-details-inner">
@@ -340,9 +300,9 @@ export default function Home() {
               <span className="section-numeral" aria-hidden="true">
                 {ROMAN[2]}
               </span>
-              <span className="label">Projects</span>
+              <span className="label">projects</span>
             </div>
-            <span className="label label-bronze">Opera</span>
+            <span className="label label-bronze">opera</span>
           </div>
           <div className="section-body">
             <div className="project-grid section-inner">
@@ -370,19 +330,88 @@ export default function Home() {
           </div>
         </section>
 
+        <OrnamentDivider />
+
+        <section className="section" id="parerga">
+          <div className="section-head">
+            <div className="section-head-left">
+              <span className="section-numeral" aria-hidden="true">
+                {ROMAN[3]}
+              </span>
+              <span className="label">parerga</span>
+            </div>
+            <span className="label label-bronze">
+              writings · readings · interests
+            </span>
+          </div>
+          <div className="section-body">
+            <div className="parerga-grid section-inner">
+              <div className="side-panel parerga-panel">
+                <CornerMark position="tl" />
+                <CornerMark position="br" />
+                <p className="label side-block-title">writings</p>
+                {writings.map((piece) => (
+                  <article key={piece.slug} className="parerga-writing">
+                    <div className="essay-meta">
+                      {piece.tag && <span className="essay-tag">{piece.tag}</span>}
+                      <span className="essay-date">{piece.date}</span>
+                    </div>
+                    <h3 className="parerga-item-title">
+                      <a href={`/writings/${piece.slug}`} className="parerga-writing-link">
+                        {piece.title} ↗
+                      </a>
+                    </h3>
+                    {piece.teaser && (
+                      <p className="parerga-writing-teaser">{piece.teaser}</p>
+                    )}
+                  </article>
+                ))}
+                <p className="parerga-writing-note">
+                  in efforts to get the ball rolling i wrote the above, more soon!
+                </p>
+              </div>
+
+              <div className="side-panel parerga-panel">
+                <CornerMark position="tr" />
+                <CornerMark position="bl" />
+                <p className="label side-block-title">readings</p>
+                {readings.map((book) => (
+                  <div key={book.title} className="club-row">
+                    <span className="club-name">{book.title}</span>
+                    <span className="club-role">
+                      {book.author}
+                      {book.status === 'now' ? ' · now' : book.status === 'queue' ? ' · queue' : ''}
+                    </span>
+                    {book.note && <p className="club-desc">{book.note}</p>}
+                  </div>
+                ))}
+              </div>
+
+              <div className="side-panel parerga-panel">
+                <CornerMark position="tl" />
+                <CornerMark position="br" />
+                <p className="label side-block-title">interests</p>
+                {interests.map((item) => (
+                  <div key={item.title} className="club-row">
+                    <span className="club-name">{item.title}</span>
+                    <p className="club-desc">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <MeanderStrip />
 
         <section className="contact" id="contact">
           <ArchFrame>
-            <span className="label contact-label">Get in touch</span>
+            <span className="label contact-label">get in touch</span>
             <a href={socialLinks.email} className="contact-email">
               {socialLinks.emailDisplay}
             </a>
           </ArchFrame>
           <div className="contact-socials">
-            <a href={socialLinks.email} aria-label="Email">
-              <EmailIcon className="w-5 h-5" />
-            </a>
             <a
               href={socialLinks.github}
               target="_blank"
@@ -403,26 +432,13 @@ export default function Home() {
               href={socialLinks.twitter}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="X / Twitter"
+              aria-label="X"
             >
-              <TwitterIcon className="w-5 h-5" />
-            </a>
-            <a
-              href={socialLinks.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-link"
-            >
-              Resume ↗
+              <XIcon className="w-5 h-5" />
             </a>
           </div>
         </section>
 
-        <footer className="site-footer">
-          <span>Manav Aggarwal</span>
-          <Rosette className="footer-ornament" />
-          <span>Berkeley · EECS</span>
-        </footer>
       </main>
     </>
   )
