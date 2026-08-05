@@ -9,6 +9,16 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    company: "xai",
+    role: "member of technical staff, post-training",
+    duration: "december 2025 — present",
+    link: "https://x.ai/",
+    bullets: [
+      "training grok 4.5, 4.6, and beyond",
+      "use heavy mode on grok.com!",
+    ],
+  },
+  {
     company: "annapurna labs",
     role: "software engineer [contract]",
     duration: "september 2025 — december 2025",
