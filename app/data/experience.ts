@@ -32,7 +32,7 @@ export const experiences: Experience[] = [
   {
     company: "Amazon",
     role: "Software Development Engineer Intern",
-    duration: "Previous",
+    duration: "Past",
     link: "https://www.amazon.com/",
     logo: "/realamznScience.png",
     bullets: [
@@ -42,7 +42,7 @@ export const experiences: Experience[] = [
   {
     company: "JovyAI",
     role: "Software Engineer · Berkeley SkyDeck Batch 19",
-    duration: "Previous",
+    duration: "Past",
     link: "https://skydeck.berkeley.edu/",
     logo: "/skydeckImage.jpeg",
     bullets: [
@@ -52,7 +52,7 @@ export const experiences: Experience[] = [
   {
     company: "AMD",
     role: "Software Engineering Intern",
-    duration: "Previous",
+    duration: "Past",
     link: "https://www.amd.com/",
     logo: "/amdLogo.webp",
     bullets: [
@@ -62,7 +62,7 @@ export const experiences: Experience[] = [
   {
     company: "Leidos",
     role: "Engineering Intern",
-    duration: "Previous",
+    duration: "Past",
     link: "https://www.leidos.com/",
     logo: "/leidos logo.jpeg",
     bullets: [
@@ -73,7 +73,7 @@ export const experiences: Experience[] = [
   {
     company: "HudsonAlpha",
     role: "Bioinformatics Intern",
-    duration: "Previous",
+    duration: "Past",
     link: "https://hudsonalpha.org/",
     logo: "/hudsonAlphalogo.png",
     bullets: [

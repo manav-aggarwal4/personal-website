@@ -1,23 +1,54 @@
-/** Tasteful classical SVG ornaments — Greek key, laurel, rosette, pilasters */
+/** Classical ornaments — Greek key, laurel, rosette, arch */
 
 export function GreekKey({ className = '' }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 240 12"
+      viewBox="0 0 120 8"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       preserveAspectRatio="none"
     >
       <path
-        d="M0 10H8V2H16V10H24V2H32V10H40V2H48V10H56V2H64V10H72V2H80V10H88V2H96V10H104V2H112V10H120V2H128V10H136V2H144V10H152V2H160V10H168V2H176V10H184V2H192V10H200V2H208V10H216V2H224V10H232V2H240"
+        d="M0 6.5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5H120"
         stroke="currentColor"
-        strokeWidth="1.25"
+        strokeWidth="1"
         strokeLinejoin="miter"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   )
+}
+
+export function MeanderStrip({ className = '' }: { className?: string }) {
+  return (
+    <div className={`meander-strip ${className}`} aria-hidden="true">
+      <svg className="meander-strip-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <pattern
+            id="meander-pattern"
+            width="28"
+            height="10"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M0 8h4V2h3v4h3V2h3v6h4V2h3v4h3V2h3v6h2"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeLinejoin="miter"
+            />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#meander-pattern)" />
+      </svg>
+    </div>
+  )
+}
+
+export function MeanderBand({ className = '' }: { className?: string }) {
+  return <MeanderStrip className={className} />
 }
 
 export function LaurelMonogram({
@@ -30,50 +61,56 @@ export function LaurelMonogram({
   return (
     <svg
       className={className}
-      viewBox="0 0 64 64"
+      viewBox="0 0 56 56"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Left laurel */}
       <path
-        d="M30 50c-8-4-14-12-14-22 0-6 2-11 5-15"
+        d="M26 44c-7.5-3.5-13-11-13-19.5C13 17 16 12 19.5 8.5"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.15"
         strokeLinecap="round"
       />
-      <path d="M18 20c2 1.5 3.5 3 4 5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M16 27c2.5 1 4 2.5 4.5 4.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M16 34c2.5.8 4.2 2.2 5 4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M18 41c2 .6 3.5 1.8 4.2 3.2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      {/* Right laurel */}
+      {[
+        'M15.5 16.5c1.8 1.2 3 2.6 3.4 4.2',
+        'M13.8 23c2.2.9 3.6 2.2 4 3.9',
+        'M13.8 29.5c2.2.7 3.7 1.9 4.3 3.5',
+        'M15.5 36c1.8.5 3.1 1.5 3.7 2.8',
+      ].map((d) => (
+        <path key={d} d={d} stroke="currentColor" strokeWidth="0.95" strokeLinecap="round" />
+      ))}
       <path
-        d="M34 50c8-4 14-12 14-22 0-6-2-11-5-15"
+        d="M30 44c7.5-3.5 13-11 13-19.5C43 17 40 12 36.5 8.5"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.15"
         strokeLinecap="round"
       />
-      <path d="M46 20c-2 1.5-3.5 3-4 5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M48 27c-2.5 1-4 2.5-4.5 4.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M48 34c-2.5.8-4.2 2.2-5 4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      <path d="M46 41c-2 .6-3.5 1.8-4.2 3.2" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-      {/* Ribbon knot */}
+      {[
+        'M40.5 16.5c-1.8 1.2-3 2.6-3.4 4.2',
+        'M42.2 23c-2.2.9-3.6 2.2-4 3.9',
+        'M42.2 29.5c-2.2.7-3.7 1.9-4.3 3.5',
+        'M40.5 36c-1.8.5-3.1 1.5-3.7 2.8',
+      ].map((d) => (
+        <path key={d} d={d} stroke="currentColor" strokeWidth="0.95" strokeLinecap="round" />
+      ))}
       <path
-        d="M28 50h8M30 52l2-2 2 2"
+        d="M25 44.5h6M27 46.2l1.5-1.5 1.5 1.5"
         stroke="currentColor"
-        strokeWidth="1"
+        strokeWidth="0.95"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <text
-        x="32"
-        y="34"
+        x="28"
+        y="30.5"
         textAnchor="middle"
+        dominantBaseline="middle"
         fill="currentColor"
         style={{
-          fontFamily: 'var(--font-display), serif',
-          fontSize: '14px',
-          letterSpacing: '0.04em',
+          fontFamily: 'var(--font-display), Georgia, serif',
+          fontSize: '13px',
+          letterSpacing: '0.06em',
         }}
       >
         {letters}
@@ -86,23 +123,23 @@ export function Rosette({ className = '' }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 32 32"
+      viewBox="0 0 28 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <circle cx="16" cy="16" r="2.2" fill="currentColor" />
-      <circle cx="16" cy="16" r="7" stroke="currentColor" strokeWidth="1" />
+      <circle cx="14" cy="14" r="1.6" fill="currentColor" />
+      <circle cx="14" cy="14" r="5.5" stroke="currentColor" strokeWidth="0.9" opacity="0.85" />
       {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
         <ellipse
           key={deg}
-          cx="16"
-          cy="7.5"
-          rx="2.2"
-          ry="3.8"
+          cx="14"
+          cy="6.2"
+          rx="1.6"
+          ry="3"
           stroke="currentColor"
-          strokeWidth="0.9"
-          transform={`rotate(${deg} 16 16)`}
+          strokeWidth="0.85"
+          transform={`rotate(${deg} 14 14)`}
         />
       ))}
     </svg>
@@ -119,14 +156,6 @@ export function OrnamentDivider({ className = '' }: { className?: string }) {
   )
 }
 
-export function MeanderBand({ className = '' }: { className?: string }) {
-  return (
-    <div className={`meander-band ${className}`} aria-hidden="true">
-      <GreekKey className="meander-svg" />
-    </div>
-  )
-}
-
 export function ColumnFlutes({ side = 'left' }: { side?: 'left' | 'right' }) {
   return (
     <div className={`column-flutes column-flutes--${side}`} aria-hidden="true">
@@ -137,27 +166,33 @@ export function ColumnFlutes({ side = 'left' }: { side?: 'left' | 'right' }) {
   )
 }
 
-export function ArchFrame({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+export function ArchFrame({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+}) {
   return (
     <div className={`arch-frame ${className}`}>
       <svg
         className="arch-frame-svg"
-        viewBox="0 0 400 80"
+        viewBox="0 0 400 56"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         preserveAspectRatio="none"
       >
         <path
-          d="M20 78 V40 Q20 8 200 8 Q380 8 380 40 V78"
+          d="M24 54V36C24 14 80 6 200 6C320 6 376 14 376 36V54"
           stroke="currentColor"
-          strokeWidth="1.25"
+          strokeWidth="1.1"
         />
         <path
-          d="M32 78 V42 Q32 20 200 20 Q368 20 368 42 V78"
+          d="M36 54V37C36 20 90 14 200 14C310 14 364 20 364 37V54"
           stroke="currentColor"
-          strokeWidth="0.75"
-          opacity="0.45"
+          strokeWidth="0.7"
+          opacity="0.4"
         />
       </svg>
       <div className="arch-frame-content">{children}</div>
@@ -165,7 +200,7 @@ export function ArchFrame({ children, className = '' }: { children: React.ReactN
   )
 }
 
-export function CornerAcanthus({
+export function CornerMark({
   position = 'tl',
   className = '',
 }: {
@@ -174,26 +209,25 @@ export function CornerAcanthus({
 }) {
   return (
     <svg
-      className={`corner-acanthus corner-acanthus--${position} ${className}`}
-      viewBox="0 0 48 48"
+      className={`corner-mark corner-mark--${position} ${className}`}
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <path
-        d="M4 44 V12 Q4 4 12 4 H44"
+        d="M2 22V6C2 3.8 3.8 2 6 2H22"
         stroke="currentColor"
-        strokeWidth="1.25"
+        strokeWidth="1.1"
         strokeLinecap="square"
       />
-      <path
-        d="M4 28c6-2 10-6 12-12M16 4c2 6 6 10 12 12"
-        stroke="currentColor"
-        strokeWidth="0.9"
-        strokeLinecap="round"
-        opacity="0.7"
-      />
-      <circle cx="4" cy="4" r="1.2" fill="currentColor" />
     </svg>
   )
+}
+
+export function CornerAcanthus(props: {
+  position?: 'tl' | 'tr' | 'bl' | 'br'
+  className?: string
+}) {
+  return <CornerMark {...props} />
 }

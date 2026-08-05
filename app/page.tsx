@@ -20,24 +20,27 @@ import {
 } from './components/icons'
 import {
   LaurelMonogram,
-  MeanderBand,
+  MeanderStrip,
   OrnamentDivider,
   ColumnFlutes,
-  CornerAcanthus,
+  CornerMark,
   ArchFrame,
   GreekKey,
   Rosette,
 } from './components/classical/Ornaments'
 
-const ROMAN = ['I', 'II', 'III', 'IV'] as const
+const ROMAN = ['I', 'II', 'III'] as const
 
 function toRomanIndex(n: number) {
-  // 1-based project indices up to ~20
   const map = [
     'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
     'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX',
   ]
   return map[n] ?? String(n + 1)
+}
+
+function formatLink(url: string) {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
 }
 
 export default function Home() {
@@ -57,7 +60,7 @@ export default function Home() {
           setActiveSection(visible[0].target.id)
         }
       },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0.1, 0.35, 0.6] }
+      { rootMargin: '-22% 0px -55% 0px', threshold: [0.12, 0.4] }
     )
 
     ids.forEach((id) => {
@@ -71,7 +74,7 @@ export default function Home() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id)
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 56
+    const top = el.getBoundingClientRect().top + window.scrollY - 54
     window.scrollTo({ top, behavior: 'smooth' })
     setMobileOpen(false)
   }
@@ -117,29 +120,26 @@ export default function Home() {
       </nav>
 
       <main>
-        {/* Hero — temple entrance */}
-        <section className="hero" id="home">
+        <section className="hero" id="home" aria-label="Introduction">
           <ColumnFlutes side="left" />
           <ColumnFlutes side="right" />
 
           <div className="hero-epigraph animate-in">
             <p className="label">Est. · Berkeley</p>
-            <p className="hero-epigraph-quote">
-              “Fortune favors the bold.”
-            </p>
+            <p className="hero-epigraph-quote">Fortune favors the bold.</p>
           </div>
 
-          <div className="hero-meta animate-in delay-3">
+          <div className="hero-meta animate-in delay-2">
             <div className="hero-meta-item">
               <span className="label">Currently</span>
               <span className="hero-meta-value">{profile.currently}</span>
             </div>
-            <div className="hero-meta-rule" />
+            <div className="hero-meta-rule" aria-hidden="true" />
             <div className="hero-meta-item">
               <span className="label">Based In</span>
               <span className="hero-meta-value">{profile.basedIn}</span>
             </div>
-            <div className="hero-meta-rule" />
+            <div className="hero-meta-rule" aria-hidden="true" />
             <div className="hero-meta-item">
               <span className="label">Education</span>
               <span className="hero-meta-value">{profile.education}</span>
@@ -179,14 +179,13 @@ export default function Home() {
             onClick={() => scrollTo('about')}
             aria-label="Scroll to about"
           >
-            <span className="label">Descend</span>
-            <span className="hero-scroll-line" />
+            <span className="label">Scroll</span>
+            <span className="hero-scroll-line" aria-hidden="true" />
           </button>
         </section>
 
-        <MeanderBand />
+        <MeanderStrip />
 
-        {/* About */}
         <section className="section" id="about">
           <div className="section-head">
             <div className="section-head-left">
@@ -201,13 +200,11 @@ export default function Home() {
             <div className="about-grid section-inner">
               <div className="about-prose">
                 {aboutParagraphs.map((p) => (
-                  <p key={p.slice(0, 32)}>{p}</p>
+                  <p key={p.slice(0, 40)}>{p}</p>
                 ))}
 
                 <div className="highlight-list">
-                  <p className="label" style={{ marginBottom: '0.35rem' }}>
-                    Honors
-                  </p>
+                  <p className="label highlight-heading">Honors</p>
                   {highlights.map((h, i) => {
                     const open = openHighlight === i
                     return (
@@ -221,7 +218,9 @@ export default function Home() {
                       >
                         <span className="highlight-label">
                           {h.label}
-                          <span className="highlight-mark">{open ? '−' : '+'}</span>
+                          <span className="highlight-mark" aria-hidden="true">
+                            {open ? '−' : '+'}
+                          </span>
                         </span>
                         {open && <p className="highlight-detail">{h.detail}</p>}
                       </button>
@@ -232,8 +231,8 @@ export default function Home() {
 
               <aside className="about-side">
                 <div className="side-panel">
-                  <CornerAcanthus position="tl" />
-                  <CornerAcanthus position="br" />
+                  <CornerMark position="tl" />
+                  <CornerMark position="br" />
                   <p className="label side-block-title">Clubs & communities</p>
                   {clubs.map((club) => (
                     <div key={club.name} className="club-row">
@@ -245,8 +244,8 @@ export default function Home() {
                 </div>
 
                 <div className="side-panel">
-                  <CornerAcanthus position="tr" />
-                  <CornerAcanthus position="bl" />
+                  <CornerMark position="tr" />
+                  <CornerMark position="bl" />
                   <p className="label side-block-title">Skills</p>
                   {skillCategories.map((cat) => (
                     <div key={cat.title} className="skill-group">
@@ -268,7 +267,6 @@ export default function Home() {
 
         <OrnamentDivider />
 
-        {/* Experience */}
         <section className="section" id="experience">
           <div className="section-head">
             <div className="section-head-left">
@@ -277,9 +275,9 @@ export default function Home() {
               </span>
               <span className="label">Experience</span>
             </div>
-            <span className="label label-bronze">Cursus · Selected</span>
+            <span className="label label-bronze">Cursus</span>
           </div>
-          <div className="section-body" style={{ paddingTop: '0.75rem', paddingBottom: '1.25rem' }}>
+          <div className="section-body section-body--tight">
             <div className="exp-list">
               {experiences.map((exp, i) => {
                 const open = openExp === i
@@ -308,7 +306,7 @@ export default function Home() {
                           exp.role
                         )}
                       </div>
-                      <span className="exp-toggle">{open ? 'Close' : 'Unfold'}</span>
+                      <span className="exp-toggle">{open ? 'Close' : 'Details'}</span>
                     </button>
                     <div className="exp-details">
                       <div className="exp-details-inner">
@@ -324,7 +322,7 @@ export default function Home() {
                           className="exp-link"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          {exp.link.replace(/^https?:\/\//, '').replace(/\/$/, '')} ↗
+                          {formatLink(exp.link)} ↗
                         </a>
                       </div>
                     </div>
@@ -337,7 +335,6 @@ export default function Home() {
 
         <OrnamentDivider />
 
-        {/* Projects */}
         <section className="section" id="projects">
           <div className="section-head">
             <div className="section-head-left">
@@ -374,9 +371,8 @@ export default function Home() {
           </div>
         </section>
 
-        <MeanderBand />
+        <MeanderStrip />
 
-        {/* Contact — arched inscription */}
         <section className="contact" id="contact">
           <ArchFrame>
             <span className="label contact-label">Get in touch</span>
@@ -417,7 +413,6 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-link"
-              style={{ marginLeft: '0.15rem' }}
             >
               Resume ↗
             </a>

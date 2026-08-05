@@ -3,25 +3,18 @@ export interface SkillCategory {
   skills: string[]
 }
 
+/** Curated — fewer, stronger tags read cleaner than exhaustive lists */
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Programming Languages",
-    skills: ["Python", "Java", "C/C++", "SQL", "Scheme", "HTML/CSS/JavaScript", "MATLAB"],
+    title: "Languages",
+    skills: ["Python", "Java", "C/C++", "SQL", "TypeScript", "JavaScript"],
   },
   {
-    title: "Frameworks & Libraries",
-    skills: ["React Native", "Next.js", "PyTorch", "NumPy", "Pandas", "Django", "Scikit-Learn"],
+    title: "Frameworks",
+    skills: ["PyTorch", "Next.js", "React Native", "NumPy", "Pandas"],
   },
   {
-    title: "Cloud & Infrastructure",
-    skills: ["AWS S3", "DynamoDB", "EC2", "SageMaker", "Bedrock", "Firebase"],
-  },
-  {
-    title: "Design Tools",
-    skills: ["Figma", "Balsamiq", "PowerBI"],
-  },
-  {
-    title: "Leadership & Collaboration",
-    skills: ["Problem Solving", "Teaching Pedagogy", "Agile/Kanban", "Leadership", "Team Building"],
+    title: "Cloud & Systems",
+    skills: ["AWS", "SageMaker", "Bedrock", "DynamoDB", "Firebase"],
   },
 ]
