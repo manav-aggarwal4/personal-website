@@ -125,8 +125,7 @@ export default function Home() {
           <ColumnFlutes side="right" />
 
           <div className="hero-epigraph animate-in">
-            <p className="label">Est. · Berkeley</p>
-            <p className="hero-epigraph-quote">Fortune favors the bold.</p>
+            <p className="label">Est. · Huntsville, AL</p>
           </div>
 
           <div className="hero-meta animate-in delay-2">

@@ -14,8 +14,8 @@
   --bronze: #8a6a1f;
   --bronze-soft: #a07d32;
   --bronze-deep: #6a5114;
-  --selection-bg: #2a241c;
-  --selection-fg: #f2ece3;
+  --selection-bg: #e4d4a8;
+  --selection-fg: #1b1713;
 
   --accent: var(--bronze);
   --accent-soft: var(--bronze-soft);
@@ -404,15 +404,7 @@ button {
 .hero-epigraph .label {
   letter-spacing: 0.2em;
   color: var(--bronze);
-}
-
-.hero-epigraph-quote {
-  margin: 0.4rem 0 0;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  color: var(--muted);
-  line-height: 1.4;
+  margin: 0;
 }
 
 .hero-meta {
@@ -471,12 +463,17 @@ button {
   color: var(--ink);
   display: block;
   font-weight: 400;
+  /* Keep a single solid ink — no gradients / fills / shadows that wash out */
+  background: none;
+  -webkit-text-fill-color: var(--ink);
+  text-shadow: none;
 }
 
 .hero-name-line.italic {
   font-style: italic;
   margin-left: 0.04em;
-  color: color-mix(in srgb, var(--ink) 88%, var(--bronze-deep));
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
 }
 
 .hero-name-underline {

@@ -54,8 +54,8 @@ export const navItems = [
 ]
 
 export const socialLinks = {
-  email: 'mailto:manav_aggarwal@berkeley.edu',
-  emailDisplay: 'manav_aggarwal@berkeley.edu',
+  email: 'mailto:manavaggarwal240@gmail.com',
+  emailDisplay: 'manavaggarwal240@gmail.com',
   github: 'https://github.com/manav-aggarwal4',
   linkedin: 'https://www.linkedin.com/in/manavaggarwal4/',
   twitter: 'https://x.com/manav_a4',
