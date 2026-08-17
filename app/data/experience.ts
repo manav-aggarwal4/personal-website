@@ -25,8 +25,8 @@ export const experiences: Experience[] = [
     link: "https://fortune.com/2025/04/01/amazon-annapurna-labs-chips-ai-anthropic-investment/",
     logo: "/anpa.avif",
     bullets: [
-      "onboarding sft and grpo workloads onto aws neuron chips",
-      "identifying missing ops and writing performant kernels",
+      "onboarded sft and grpo workloads onto aws neuron chips",
+      "identified missing ops and wrote performant kernels",
     ],
   },
   {
@@ -36,7 +36,7 @@ export const experiences: Experience[] = [
     link: "https://sky.cs.berkeley.edu/",
     logo: "/sky.png",
     bullets: [
-      "working on vllm and reasoning traces in coding agents",
+      "worked on vllm and reasoning traces in coding agents",
     ],
   },
   {
@@ -72,7 +72,7 @@ export const experiences: Experience[] = [
   },
   {
     company: "hudsonalpha",
-    role: "wet lab research intern",
+    role: "research intern",
     duration: "march 2023 — june 2023",
     link: "https://www.hudsonalpha.org/computational-analysis/",
     logo: "/hudsonAlphalogo.png",

@@ -1,47 +1,42 @@
-/** Classical ornaments — Greek key, laurel, rosette, arch */
+/** Classical ornaments — pearl fillet, diamond dividers, soft arch */
 
-export function GreekKey({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 120 8"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0 6.5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5h8V1.5h5v3.5h5V1.5h5v5H120"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinejoin="miter"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  )
-}
-
+/** Thin double-rule band with pearl dots (Roman/neo-classical, not Greek key) */
 export function MeanderStrip({ className = '' }: { className?: string }) {
   return (
     <div className={`meander-strip ${className}`} aria-hidden="true">
       <svg className="meander-strip-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <pattern
-            id="meander-pattern"
-            width="28"
-            height="10"
+            id="pearl-fillet"
+            width="20"
+            height="14"
             patternUnits="userSpaceOnUse"
           >
-            <path
-              d="M0 8h4V2h3v4h3V2h3v6h4V2h3v4h3V2h3v6h2"
-              fill="none"
+            {/* Outer rails */}
+            <line
+              x1="0"
+              y1="2"
+              x2="20"
+              y2="2"
               stroke="currentColor"
-              strokeWidth="1"
-              strokeLinejoin="miter"
+              strokeWidth="0.75"
             />
+            <line
+              x1="0"
+              y1="12"
+              x2="20"
+              y2="12"
+              stroke="currentColor"
+              strokeWidth="0.75"
+            />
+            {/* Center pearl */}
+            <circle cx="10" cy="7" r="1.35" fill="currentColor" />
+            {/* Side micro-dots for rhythm */}
+            <circle cx="0" cy="7" r="0.55" fill="currentColor" opacity="0.5" />
+            <circle cx="20" cy="7" r="0.55" fill="currentColor" opacity="0.5" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#meander-pattern)" />
+        <rect width="100%" height="100%" fill="url(#pearl-fillet)" />
       </svg>
     </div>
   )
@@ -49,6 +44,28 @@ export function MeanderStrip({ className = '' }: { className?: string }) {
 
 export function MeanderBand({ className = '' }: { className?: string }) {
   return <MeanderStrip className={className} />
+}
+
+/** Optional geometric key — kept for reuse, not the main band */
+export function GreekKey({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 48 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 10h6V4h5v4h5V4h5v6h6V4h5v4h5V4h5v6h6"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinejoin="miter"
+        strokeLinecap="square"
+      />
+    </svg>
+  )
 }
 
 export function LaurelMonogram({
@@ -66,52 +83,18 @@ export function LaurelMonogram({
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <path
-        d="M26 44c-7.5-3.5-13-11-13-19.5C13 17 16 12 19.5 8.5"
-        stroke="currentColor"
-        strokeWidth="1.15"
-        strokeLinecap="round"
-      />
-      {[
-        'M15.5 16.5c1.8 1.2 3 2.6 3.4 4.2',
-        'M13.8 23c2.2.9 3.6 2.2 4 3.9',
-        'M13.8 29.5c2.2.7 3.7 1.9 4.3 3.5',
-        'M15.5 36c1.8.5 3.1 1.5 3.7 2.8',
-      ].map((d) => (
-        <path key={d} d={d} stroke="currentColor" strokeWidth="0.95" strokeLinecap="round" />
-      ))}
-      <path
-        d="M30 44c7.5-3.5 13-11 13-19.5C43 17 40 12 36.5 8.5"
-        stroke="currentColor"
-        strokeWidth="1.15"
-        strokeLinecap="round"
-      />
-      {[
-        'M40.5 16.5c-1.8 1.2-3 2.6-3.4 4.2',
-        'M42.2 23c-2.2.9-3.6 2.2-4 3.9',
-        'M42.2 29.5c-2.2.7-3.7 1.9-4.3 3.5',
-        'M40.5 36c-1.8.5-3.1 1.5-3.7 2.8',
-      ].map((d) => (
-        <path key={d} d={d} stroke="currentColor" strokeWidth="0.95" strokeLinecap="round" />
-      ))}
-      <path
-        d="M25 44.5h6M27 46.2l1.5-1.5 1.5 1.5"
-        stroke="currentColor"
-        strokeWidth="0.95"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
       <text
         x="28"
-        y="30.5"
+        y="32"
         textAnchor="middle"
         dominantBaseline="middle"
         fill="currentColor"
         style={{
           fontFamily: 'var(--font-display), Georgia, serif',
-          fontSize: '13px',
+          fontSize: '16px',
           letterSpacing: '0.04em',
           textTransform: 'lowercase',
+          fontStyle: 'italic',
         }}
       >
         {letters.toLowerCase()}
@@ -120,29 +103,31 @@ export function LaurelMonogram({
   )
 }
 
+/** Lozenge with fine outer ring — section break mark */
 export function Rosette({ className = '' }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 28 28"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <circle cx="14" cy="14" r="1.6" fill="currentColor" />
-      <circle cx="14" cy="14" r="5.5" stroke="currentColor" strokeWidth="0.9" opacity="0.85" />
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
-        <ellipse
-          key={deg}
-          cx="14"
-          cy="6.2"
-          rx="1.6"
-          ry="3"
-          stroke="currentColor"
-          strokeWidth="0.85"
-          transform={`rotate(${deg} 14 14)`}
-        />
-      ))}
+      <circle
+        cx="10"
+        cy="10"
+        r="7.5"
+        stroke="currentColor"
+        strokeWidth="0.7"
+        opacity="0.45"
+      />
+      <path
+        d="M10 4.5L15.5 10L10 15.5L4.5 10L10 4.5Z"
+        stroke="currentColor"
+        strokeWidth="0.95"
+        strokeLinejoin="miter"
+      />
+      <circle cx="10" cy="10" r="1.4" fill="currentColor" />
     </svg>
   )
 }
@@ -178,23 +163,19 @@ export function ArchFrame({
     <div className={`arch-frame ${className}`}>
       <svg
         className="arch-frame-svg"
-        viewBox="0 0 400 56"
+        viewBox="0 0 400 44"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         preserveAspectRatio="none"
       >
+        {/* Single refined arch + base ticks */}
         <path
-          d="M24 54V36C24 14 80 6 200 6C320 6 376 14 376 36V54"
+          d="M32 42V32C32 14 96 6 200 6C304 6 368 14 368 32V42"
           stroke="currentColor"
-          strokeWidth="1.1"
+          strokeWidth="1"
         />
-        <path
-          d="M36 54V37C36 20 90 14 200 14C310 14 364 20 364 37V54"
-          stroke="currentColor"
-          strokeWidth="0.7"
-          opacity="0.4"
-        />
+        <path d="M32 42h12M356 42h12" stroke="currentColor" strokeWidth="1" />
       </svg>
       <div className="arch-frame-content">{children}</div>
     </div>
@@ -211,17 +192,18 @@ export function CornerMark({
   return (
     <svg
       className={`corner-mark corner-mark--${position} ${className}`}
-      viewBox="0 0 24 24"
+      viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <path
-        d="M2 22V6C2 3.8 3.8 2 6 2H22"
+        d="M2 16V4.5C2 3.12 3.12 2 4.5 2H16"
         stroke="currentColor"
-        strokeWidth="1.1"
+        strokeWidth="1"
         strokeLinecap="square"
       />
+      <circle cx="2" cy="16" r="1" fill="currentColor" opacity="0.55" />
     </svg>
   )
 }

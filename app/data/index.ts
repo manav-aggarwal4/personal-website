@@ -14,9 +14,37 @@ export const profile = {
   educationNote: "regents' scholar · u.s. presidential scholar",
 }
 
-export const aboutParagraphs = [
-  "I'm Manav. I like to train models and understand how they work. I got my start in engineering at 15 when I worked on the Nasa Artemis II Rocket (it finally launched 5 years later!) and I've been hooked ever since. I'm obsessed with the frontier — lately, I've been diving deep into physical AI, it's an incredible space.",
-  "Outside of work, I love to cook and caffeinate, please read my tier list on energy drinks as it is my first public media piece. Have a good one.",
+export type AboutSegment = {
+  text: string
+  href?: string
+}
+
+export type AboutParagraph = {
+  segments: AboutSegment[]
+}
+
+export const aboutParagraphs: AboutParagraph[] = [
+  {
+    segments: [
+      {
+        text: "I'm Manav, nice to meet you! I like to train models and understand how they work. I got my start in engineering at 15 when I worked on the Nasa Artemis II Rocket. I found it incredibly rewarding, (especially when it ",
+      },
+      {
+        text: 'launched',
+        href: 'https://www.youtube.com/watch?v=EO8Pse8ns2Q',
+      },
+      {
+        text: " 5 years later) and i've been hooked ever since. currently, i am particularly interested in recursive self-improvement, especially in robotics, biological, or kernel engineering applications.",
+      },
+    ],
+  },
+  {
+    segments: [
+      {
+        text: 'Outside of work, I really enjoy espresso and cooking. my favorite coffee shop is Tide Coffee Roasters in Seoul, and my favorite restaurant is my-oh-my shawarma in berkeley.',
+      },
+    ],
+  },
 ]
 
 export const profilePhotos = [

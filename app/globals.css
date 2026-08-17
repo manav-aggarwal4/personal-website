@@ -144,51 +144,61 @@ button {
 }
 
 /* ——— Ornaments ——— */
+/* Pearl fillet — double rails + spaced dots (quieter than Greek key) */
 .meander-strip {
   width: 100%;
-  height: 10px;
+  height: 16px;
   color: var(--bronze);
-  opacity: 0.38;
-  border-block: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
-  background: color-mix(in srgb, var(--bg-elevated) 55%, transparent);
+  opacity: 0.34;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  margin-block: 0.15rem;
 }
 
 .meander-strip-svg {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 14px;
 }
 
 .ornament-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.85rem;
-  padding: 1.25rem 0;
+  gap: 0.9rem;
+  padding: 1.65rem 0;
   color: var(--bronze);
 }
 
 .ornament-divider-line {
   height: 1px;
-  width: min(100px, 16vw);
-  background: linear-gradient(90deg, transparent, var(--line), transparent);
+  width: min(160px, 26vw);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--bronze) 40%, var(--line)) 40%,
+    color-mix(in srgb, var(--bronze) 40%, var(--line)) 60%,
+    transparent 100%
+  );
 }
 
 .ornament-rosette {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   flex-shrink: 0;
-  opacity: 0.55;
+  opacity: 0.48;
 }
 
 .column-flutes {
   position: absolute;
-  top: 18%;
-  bottom: 22%;
-  width: 18px;
+  top: 20%;
+  bottom: 24%;
+  width: 14px;
   display: flex;
-  gap: 5px;
-  opacity: 0.08;
+  gap: 4px;
+  opacity: 0.055;
   pointer-events: none;
 }
 
@@ -215,10 +225,10 @@ button {
 .corner-mark,
 .corner-acanthus {
   position: absolute;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   color: var(--bronze);
-  opacity: 0.35;
+  opacity: 0.28;
   pointer-events: none;
 }
 
@@ -241,9 +251,9 @@ button {
 
 .arch-frame-svg {
   width: 100%;
-  height: 48px;
+  height: 40px;
   display: block;
-  opacity: 0.45;
+  opacity: 0.32;
 }
 
 .arch-frame-content {
@@ -714,6 +724,17 @@ button {
   line-height: 1.78;
   margin: 0 0 1.2rem;
   max-width: 38rem;
+}
+
+.about-inline-link {
+  color: var(--ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--bronze) 55%, var(--line));
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.about-inline-link:hover {
+  color: var(--bronze);
+  border-color: var(--bronze);
 }
 
 .about-prose p:first-of-type::first-letter {

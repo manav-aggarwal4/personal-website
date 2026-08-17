@@ -24,7 +24,6 @@ export const writings: Writing[] = [
     slug: 'energy-drinks',
     date: 'august 2026',
     tag: 'notes',
-    teaser: 'a short tier list: ghost, monster, celsius, and bum energy.',
     tiers: [
       {
         rank: 1,

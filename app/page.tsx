@@ -175,8 +175,24 @@ export default function Home() {
           <div className="section-body">
             <div className="about-grid section-inner">
               <div className="about-prose">
-                {aboutParagraphs.map((p) => (
-                  <p key={p.slice(0, 40)}>{p}</p>
+                {aboutParagraphs.map((p, i) => (
+                  <p key={i}>
+                    {p.segments.map((seg, j) =>
+                      seg.href ? (
+                        <a
+                          key={j}
+                          href={seg.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="about-inline-link"
+                        >
+                          {seg.text}
+                        </a>
+                      ) : (
+                        <span key={j}>{seg.text}</span>
+                      )
+                    )}
+                  </p>
                 ))}
               </div>
 
