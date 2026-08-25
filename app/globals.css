@@ -144,51 +144,49 @@ button {
 }
 
 /* ——— Ornaments ——— */
-/* Pearl fillet — double rails + spaced dots (quieter than Greek key) */
+/* Greek-key meander band */
 .meander-strip {
   width: 100%;
-  height: 16px;
+  height: 14px;
   color: var(--bronze);
-  opacity: 0.34;
+  opacity: 0.32;
   background: transparent;
   border: none;
   display: flex;
   align-items: center;
-  margin-block: 0.15rem;
 }
 
 .meander-strip-svg {
   display: block;
   width: 100%;
-  height: 14px;
+  height: 12px;
 }
 
 .ornament-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.9rem;
-  padding: 1.65rem 0;
+  gap: 0.75rem;
+  padding: 1.5rem 0;
   color: var(--bronze);
 }
 
 .ornament-divider-line {
   height: 1px;
-  width: min(160px, 26vw);
+  width: min(140px, 22vw);
   background: linear-gradient(
     90deg,
     transparent 0%,
-    color-mix(in srgb, var(--bronze) 40%, var(--line)) 40%,
-    color-mix(in srgb, var(--bronze) 40%, var(--line)) 60%,
+    color-mix(in srgb, var(--bronze) 35%, var(--line)) 50%,
     transparent 100%
   );
 }
 
 .ornament-rosette {
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   flex-shrink: 0;
-  opacity: 0.48;
+  opacity: 0.5;
 }
 
 .column-flutes {

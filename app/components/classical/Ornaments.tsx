@@ -1,42 +1,63 @@
-/** Classical ornaments — pearl fillet, diamond dividers, soft arch */
+/** Classical ornaments — Greek meander, diamond dividers, arch, corners */
 
-/** Thin double-rule band with pearl dots (Roman/neo-classical, not Greek key) */
+export function GreekKey({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 36 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 9h4V3h3.5v4H11V3h3.5v6H18V3h3.5v4H25V3h3.5v6H32V3h4"
+        stroke="currentColor"
+        strokeWidth="1.15"
+        strokeLinejoin="miter"
+        strokeLinecap="square"
+      />
+    </svg>
+  )
+}
+
+/** Running Greek-key meander with outer rails */
 export function MeanderStrip({ className = '' }: { className?: string }) {
   return (
     <div className={`meander-strip ${className}`} aria-hidden="true">
       <svg className="meander-strip-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <pattern
-            id="pearl-fillet"
-            width="20"
-            height="14"
+            id="meander-pattern"
+            width="36"
+            height="12"
             patternUnits="userSpaceOnUse"
           >
-            {/* Outer rails */}
-            <line
-              x1="0"
-              y1="2"
-              x2="20"
-              y2="2"
+            <path
+              d="M0 10.5h36"
+              fill="none"
               stroke="currentColor"
-              strokeWidth="0.75"
+              strokeWidth="0.6"
+              opacity="0.45"
             />
-            <line
-              x1="0"
-              y1="12"
-              x2="20"
-              y2="12"
+            <path
+              d="M0 1.5h36"
+              fill="none"
               stroke="currentColor"
-              strokeWidth="0.75"
+              strokeWidth="0.6"
+              opacity="0.45"
             />
-            {/* Center pearl */}
-            <circle cx="10" cy="7" r="1.35" fill="currentColor" />
-            {/* Side micro-dots for rhythm */}
-            <circle cx="0" cy="7" r="0.55" fill="currentColor" opacity="0.5" />
-            <circle cx="20" cy="7" r="0.55" fill="currentColor" opacity="0.5" />
+            <path
+              d="M0 9h4V3h3.5v4H11V3h3.5v6H18V3h3.5v4H25V3h3.5v6H32V3h4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.05"
+              strokeLinejoin="miter"
+              strokeLinecap="square"
+            />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#pearl-fillet)" />
+        <rect width="100%" height="100%" fill="url(#meander-pattern)" />
       </svg>
     </div>
   )
@@ -44,28 +65,6 @@ export function MeanderStrip({ className = '' }: { className?: string }) {
 
 export function MeanderBand({ className = '' }: { className?: string }) {
   return <MeanderStrip className={className} />
-}
-
-/** Optional geometric key — kept for reuse, not the main band */
-export function GreekKey({ className = '' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 48 12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0 10h6V4h5v4h5V4h5v6h6V4h5v4h5V4h5v6h6"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinejoin="miter"
-        strokeLinecap="square"
-      />
-    </svg>
-  )
 }
 
 export function LaurelMonogram({
@@ -103,31 +102,26 @@ export function LaurelMonogram({
   )
 }
 
-/** Lozenge with fine outer ring — section break mark */
 export function Rosette({ className = '' }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 20 20"
+      viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <circle
-        cx="10"
-        cy="10"
-        r="7.5"
-        stroke="currentColor"
-        strokeWidth="0.7"
-        opacity="0.45"
-      />
       <path
-        d="M10 4.5L15.5 10L10 15.5L4.5 10L10 4.5Z"
+        d="M8 1.5L14.5 8L8 14.5L1.5 8L8 1.5Z"
         stroke="currentColor"
-        strokeWidth="0.95"
+        strokeWidth="1"
         strokeLinejoin="miter"
       />
-      <circle cx="10" cy="10" r="1.4" fill="currentColor" />
+      <path
+        d="M8 5L11 8L8 11L5 8L8 5Z"
+        fill="currentColor"
+        opacity="0.35"
+      />
     </svg>
   )
 }
@@ -163,19 +157,17 @@ export function ArchFrame({
     <div className={`arch-frame ${className}`}>
       <svg
         className="arch-frame-svg"
-        viewBox="0 0 400 44"
+        viewBox="0 0 400 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         preserveAspectRatio="none"
       >
-        {/* Single refined arch + base ticks */}
         <path
-          d="M32 42V32C32 14 96 6 200 6C304 6 368 14 368 32V42"
+          d="M28 46V34C28 16 90 8 200 8C310 8 372 16 372 34V46"
           stroke="currentColor"
           strokeWidth="1"
         />
-        <path d="M32 42h12M356 42h12" stroke="currentColor" strokeWidth="1" />
       </svg>
       <div className="arch-frame-content">{children}</div>
     </div>
@@ -192,18 +184,24 @@ export function CornerMark({
   return (
     <svg
       className={`corner-mark corner-mark--${position} ${className}`}
-      viewBox="0 0 18 18"
+      viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
       <path
-        d="M2 16V4.5C2 3.12 3.12 2 4.5 2H16"
+        d="M2 18V5C2 3.343 3.343 2 5 2H18"
         stroke="currentColor"
         strokeWidth="1"
         strokeLinecap="square"
       />
-      <circle cx="2" cy="16" r="1" fill="currentColor" opacity="0.55" />
+      <path
+        d="M2 18H5M18 2V5"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="square"
+        opacity="0.4"
+      />
     </svg>
   )
 }

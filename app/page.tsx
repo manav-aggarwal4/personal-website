@@ -346,11 +346,9 @@ export default function Home() {
               <span className="section-numeral" aria-hidden="true">
                 {ROMAN[3]}
               </span>
-              <span className="label">parerga</span>
+              <span className="label">writings · readings · interests</span>
             </div>
-            <span className="label label-bronze">
-              writings · readings · interests
-            </span>
+            <span className="label label-bronze">parerga</span>
           </div>
           <div className="section-body">
             <div className="parerga-grid section-inner">
