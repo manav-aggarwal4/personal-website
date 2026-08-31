@@ -1781,7 +1781,10 @@ button {
 }
 
 .cs180-figures--stack .cs180-figure img {
-  max-height: 38rem;
+  width: auto;
+  max-width: 100%;
+  max-height: min(42rem, 88vh);
+  margin-inline: auto;
 }
 
 .cs180-figure {

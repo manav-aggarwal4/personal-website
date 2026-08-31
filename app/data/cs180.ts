@@ -67,7 +67,7 @@ export const cs180Projects: Cs180Project[] = [
       },
       {
         title: 'part 2: architectural perspective compression',
-        figureLayout: 'row',
+        figureLayout: 'stack',
         figures: [
           {
             src: '/cs180/0/arch-zoom.jpg',
@@ -93,41 +93,6 @@ export const cs180Projects: Cs180Project[] = [
         ],
       },
     ],
-  },
-  {
-    id: '1',
-    title: 'images of the russian empire — colorizing the prokudin-gorskii collection',
-    status: 'upcoming',
-    summary: 'align and composite the glass-plate rgb channels into a single color photograph.',
-    parts: [],
-  },
-  {
-    id: '2',
-    title: 'fun with filters and frequencies',
-    status: 'upcoming',
-    summary: 'convolutions, gaussian and laplacian pyramids, hybrid images, and blending.',
-    parts: [],
-  },
-  {
-    id: '3',
-    title: '(auto)stitching and photo mosaics',
-    status: 'upcoming',
-    summary: 'homographies, warping, and feature-based panoramas.',
-    parts: [],
-  },
-  {
-    id: '4',
-    title: 'neural radiance field',
-    status: 'upcoming',
-    summary: 'novel-view synthesis with a neural radiance field.',
-    parts: [],
-  },
-  {
-    id: '5',
-    title: 'fun with diffusion models',
-    status: 'upcoming',
-    summary: 'sampling, image-to-image translation, and flow matching.',
-    parts: [],
   },
 ]
 
