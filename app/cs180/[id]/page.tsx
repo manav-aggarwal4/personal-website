@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!project) return { title: 'cs 180 · Manav Aggarwal' }
   return {
     title: `proj. ${project.id} · cs 180 · Manav Aggarwal`,
-    description: project.summary,
+    description: project.summary ?? project.title,
   }
 }
 
@@ -42,13 +42,9 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
       <header className="cs180-hero cs180-hero--project">
         <p className="label cs180-kicker">
           {cs180Meta.course} · proj. {project.id}
-          {project.due ? ` · due ${project.due}` : ''}
         </p>
         <h1 className="cs180-title cs180-title--project">{project.title}</h1>
-        <p className="cs180-subtitle">{project.summary}</p>
-        <span className={`cs180-status cs180-status--${project.status}`}>
-          {project.status.replace('-', ' ')}
-        </span>
+        {project.summary && <p className="cs180-subtitle">{project.summary}</p>}
       </header>
 
       <MeanderStrip />

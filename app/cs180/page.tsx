@@ -34,11 +34,15 @@ export default function Cs180IndexPage() {
                 <span className="cs180-project-num">{project.id}</span>
                 <span className="cs180-project-body">
                   <span className="cs180-project-title">{project.title}</span>
-                  <span className="cs180-project-summary">{project.summary}</span>
+                  {project.summary && (
+                    <span className="cs180-project-summary">{project.summary}</span>
+                  )}
                 </span>
-                <span className={`cs180-status cs180-status--${project.status}`}>
-                  {project.status.replace('-', ' ')}
-                </span>
+                {project.status !== 'published' && (
+                  <span className={`cs180-status cs180-status--${project.status}`}>
+                    {project.status.replace('-', ' ')}
+                  </span>
+                )}
               </Link>
             </li>
           ))}
