@@ -55,13 +55,13 @@ export const cs180Projects: Cs180Project[] = [
         figures: [
           {
             src: '/cs180/0/selfie-close.jpg',
-            caption: 'close · ~24mm · the wrong way',
+            caption: 'close up',
             alt: 'close wide-angle selfie with perspective distortion',
           },
           {
             src: '/cs180/0/selfie-zoom.jpg',
-            caption: 'step back and zoom · ~97mm · the right way',
-            alt: 'portrait from farther away with zoom, more natural proportions',
+            caption: 'step back and zoomed',
+            alt: 'step back and zoomed',
           },
         ],
       },
