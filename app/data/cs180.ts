@@ -67,28 +67,28 @@ export const cs180Projects: Cs180Project[] = [
       },
       {
         title: 'part 2: architectural perspective compression',
-        figureLayout: 'stack',
+        figureLayout: 'row',
         figures: [
           {
             src: '/cs180/0/arch-zoom.jpg',
-            caption: 'from across the street · ~151mm · compressed',
-            alt: 'telephoto shot of toyota of berkeley with compressed depth',
+            caption: 'Zoomed in view of Berkeley Toyota Dealership',
+            alt: 'Zoomed in view of Berkeley Toyota Dealership',
           },
           {
             src: '/cs180/0/arch-wide.jpg',
-            caption: 'walked up, no zoom · ~24mm · expanded',
-            alt: 'wide shot of toyota of berkeley from closer, with receding facade',
+            caption: 'Close up view of Berkeley Toyota Dealership',
+            alt: 'Close up view of Berkeley Toyota Dealership',
           },
         ],
       },
       {
-        title: 'part 3',
+        title: 'part 3: the dolly zoom',
         figureLayout: 'stack',
         figures: [
           {
             src: '/cs180/0/dolly-zoom.gif',
-            caption: 'dolly zoom · walk back + zoom in, seven stills',
-            alt: 'dolly zoom · walk back + zoom in, seven stills',
+            caption: 'Dolly Zoom in the Classic Shattuck Market Perishables Aisle',
+            alt: 'Dolly Zoom in the Classic Shattuck Market Perishables Aisle',
           },
         ],
       },

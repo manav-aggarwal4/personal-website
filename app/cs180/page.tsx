@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MeanderStrip, OrnamentDivider } from '../components/classical/Ornaments'
+import { MeanderStrip } from '../components/classical/Ornaments'
 import { cs180Meta, cs180Projects } from '../data/cs180'
 
 export default function Cs180IndexPage() {
@@ -48,20 +48,6 @@ export default function Cs180IndexPage() {
           ))}
         </ol>
       </section>
-
-      <OrnamentDivider />
-
-      <p className="cs180-footnote">
-        writeups land here as each project ships. source is public at{' '}
-        <a
-          href="https://github.com/manav-aggarwal4/personal-website"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          personal-website
-        </a>
-        .
-      </p>
     </main>
   )
 }
