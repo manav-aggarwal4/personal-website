@@ -113,6 +113,9 @@ export default function Home() {
               {item.label}
             </button>
           ))}
+          <a href="/cs180" className="nav-link">
+            cs180
+          </a>
         </div>
       </nav>
 
