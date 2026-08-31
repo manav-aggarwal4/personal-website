@@ -82,13 +82,13 @@ export const cs180Projects: Cs180Project[] = [
         ],
       },
       {
-        title: 'part 3: the dolly zoom',
+        title: 'part 3',
         figureLayout: 'stack',
         figures: [
           {
             src: '/cs180/0/dolly-zoom.gif',
             caption: 'dolly zoom · walk back + zoom in, seven stills',
-            alt: 'animated dolly zoom down a market aisle',
+            alt: 'dolly zoom · walk back + zoom in, seven stills',
           },
         ],
       },
