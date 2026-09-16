@@ -124,9 +124,9 @@ export const cs180Projects: Cs180Project[] = [
         equation: 'L₂(I, J) = √ Σ (I − J)²',
       },
       {
-        title: 'ncc',
+        title: 'normalized cross-correlation (ncc)',
         prose: [
-          'the three filter plates are different exposures, so a region that is bright in blue may be dim in red. l2 treats that as a large error even when the scene is aligned. ncc first subtracts each crop’s mean and divides by its l2 magnitude (norm), then takes a dot product. this compares the shape of the brightness pattern, not the raw intensity.',
+          'the three filter plates are different exposures, so a region that is bright in blue may be dim in red. l2 treats that as a large error even when the scene is aligned. normalized cross-correlation (ncc) first subtracts each crop’s mean and divides by its l2 magnitude (norm), then takes a dot product. this compares the shape of the brightness pattern, not the raw intensity.',
           'the score is a correlation in [−1, 1]. we pick the displacement with the largest ncc. our goal is to *maximize* ncc (while our goal is to minimize l2 norm).',
         ],
         equationFrac: {
@@ -183,10 +183,10 @@ export const cs180Projects: Cs180Project[] = [
         ],
       },
       {
-        title: 'l2 norm vs pyramid + ncc',
+        title: 'l2 norm vs pyramid + normalized cross-correlation (ncc)',
         figureLayout: 'row',
         prose: [
-          'just for comparison, here is our naive search with the l2 norm metric versus a pyramid search using the ncc metric. we find similar results!',
+          'just for comparison, here is our naive search with the l2 norm metric versus a pyramid search using the normalized cross-correlation (ncc) metric. we find similar results!',
         ],
         figures: [
           {
@@ -288,7 +288,7 @@ export const cs180Projects: Cs180Project[] = [
         title: 'library of congress plates',
         figureLayout: 'row',
         prose: [
-          'three more plates pulled from the library of congress collection, run through the same pyramid + ncc pipeline.',
+          'three more plates pulled from the library of congress collection, run through the same pyramid + normalized cross-correlation (ncc) pipeline.',
         ],
         figures: [
           {
