@@ -8,7 +8,6 @@ import {
   getCs180Project,
   projectHasWriteup,
 } from '../../data/cs180'
-import CodeBlock from '../CodeBlock'
 import { GaussianEq } from '../MathEq'
 
 type PageProps = {
@@ -82,18 +81,11 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                 </div>
               )}
               {part.equationKind === 'gaussian' && <GaussianEq />}
-              {part.snippetIntro && (
-                <p className="cs180-snippet-intro">{renderProse(part.snippetIntro)}</p>
-              )}
-              {part.snippets?.map((snippet) => (
-                <CodeBlock key={snippet.slice(0, 40)} code={snippet} />
-              ))}
               {!part.prose?.length &&
                 !part.figures?.length &&
                 !part.equation &&
                 !part.equationFrac &&
-                !part.equationKind &&
-                !part.snippets?.length && (
+                !part.equationKind && (
                 <p className="cs180-part-empty">figures forthcoming.</p>
               )}
               {part.figures && part.figures.length > 0 && (

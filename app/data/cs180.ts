@@ -32,8 +32,6 @@ export type Cs180Part = {
     num: string
     den: string
   }
-  snippets?: string[]
-  snippetIntro?: string
   equationKind?: 'gaussian'
   figures?: Cs180Figure[]
   figureLayout?: 'stack' | 'row'
@@ -124,10 +122,6 @@ export const cs180Projects: Cs180Project[] = [
           'for each candidate shift, we compare a crop of the moving channel (green or red) against the same window of blue. l2 is the euclidean distance between those two pixel vectors: add up the squared per-pixel differences, then take a square root. a smaller distance means the channels look more alike at that displacement.',
         ],
         equation: 'L₂(I, J) = √ Σ (I − J)²',
-        snippets: [
-          `def L2Norm(channel1, channel2):
-    return np.sqrt(np.sum((channel1 - channel2) ** 2))`,
-        ],
       },
       {
         title: 'ncc',
@@ -140,14 +134,6 @@ export const cs180Projects: Cs180Project[] = [
           num: '(I − mean(I)) · (J − mean(J))',
           den: '||I − mean(I)||    ||J − mean(J)||',
         },
-        snippets: [
-          `def NCC(channel1, channel2):
-    mean1, mean2 = channel1.mean(), channel2.mean()
-    mag1 = np.sqrt(np.sum((channel1 - mean1) ** 2))
-    mag2 = np.sqrt(np.sum((channel2 - mean2) ** 2))
-    return np.sum((channel1 - mean1) / mag1 * (channel2 - mean2) / mag2)`,
-          `score = -L2Norm(ref, shifted) if metric == 'l2' else NCC(ref, shifted)`,
-        ],
       },
       {
         title: 'gaussian blur',
@@ -155,19 +141,6 @@ export const cs180Projects: Cs180Project[] = [
           'before we shrink a channel we blur it, otherwise the downsample would alias high frequencies into the coarse image and throw off the search. the kernel is a 7×7 discrete gaussian (radius 3, σ = 1), normalized so the weights sum to 1, then applied with reflect padding.',
         ],
         equationKind: 'gaussian',
-        snippets: [
-          `def gaussianKernel(radius, std):
-    n = 2 * radius + 1
-    kernel = np.zeros((n, n))
-    for row in range(n):
-        for col in range(n):
-            dx, dy = col - radius, row - radius
-            kernel[row, col] = gaussianBlur(dx, dy, std)
-    kernel /= np.sum(kernel)
-    return kernel
-
-blur1 = scipy.ndimage.convolve(channel1, kernel, mode='reflect')`,
-        ],
       },
       {
         title: 'image pyramid',
@@ -175,25 +148,11 @@ blur1 = scipy.ndimage.convolve(channel1, kernel, mode='reflect')`,
           'on a ~3000px tiff, green or red can be shifted by tens or hundreds of pixels. searching that at full resolution would mean trying every (dx, dy) in a huge window, and running ncc on millions of pixels each time. instead we search a small version of the image first, then refine.',
           'each level uses the gaussian blur above, then keeps every other pixel ([::2, ::2]) and recurses. at the coarsest level the channel is under 100px, so we do the same ±15 exhaustive search as single-scale. coming back up, we double that offset (one coarse pixel is two fine pixels) and only look ±2 around it. our wider search occurs on a scaled down image and subsequent, larger level uses the previous estimate, which is much more efficient than our brute-force search.',
         ],
-        snippets: [
-          `smaller1, smaller2 = blur1[::2, ::2], blur2[::2, ::2]
-coarseX, coarseY = align(smaller1, smaller2, metric, use_pyramid)
-dx, dy = search(..., coarseX * 2, coarseY * 2, 2, metric)`,
-        ],
       },
       {
         title: 'border crop',
         prose: [
           'np.roll is circular: pixels that slide off one edge wrap around to the other. those wrapped strips would skew both l2 and ncc calculations, so i opted for the search to only score the interior (about 10% of the channel height/width is left out). after stacking, the same wrap borders are cropped off. i chose 20px for the jpegs, since the images are generally smaller, and 100px for the tiffs.',
-        ],
-        snippets: [
-          `ag = np.roll(np.roll(g, agX, axis=1), agY, axis=0)
-ar = np.roll(np.roll(r, arX, axis=1), arY, axis=0)`,
-          `border = max(H // 10, abs(startX) + window, abs(startY) + window)
-reference = channel1[border:-border, border:-border]
-shifted = channel2[border-dy:H-border-dy, border-dx:W-border-dx]`,
-          `CROP = 20 if imname.endswith('.jpg') else 100
-im_out = np.dstack([ar, ag, b])[CROP:-CROP, CROP:-CROP]`,
         ],
       },
       {
