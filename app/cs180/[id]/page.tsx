@@ -125,20 +125,20 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                                 </span>
                                 <svg
                                   className="cs180-favorite-arrow"
-                                  viewBox="0 0 36 40"
+                                  viewBox="0 0 40 48"
                                   fill="none"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    d="M28 3C22 12 18 20 16 32"
+                                    d="M30 2C24 14 18 26 16 42"
                                     stroke="currentColor"
-                                    strokeWidth="1.4"
+                                    strokeWidth="1.7"
                                     strokeLinecap="round"
                                   />
                                   <path
-                                    d="M9 26L16 34L23 26"
+                                    d="M8 34L16 44L24 34"
                                     stroke="currentColor"
-                                    strokeWidth="1.4"
+                                    strokeWidth="1.7"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                   />
