@@ -127,7 +127,7 @@ export const cs180Projects: Cs180Project[] = [
         title: 'normalized cross-correlation (ncc)',
         prose: [
           'the three filter plates are different exposures, so a region that is bright in blue may be dim in red. l2 treats that as a large error even when the scene is aligned. normalized cross-correlation (ncc) first subtracts each crop’s mean and divides by its l2 magnitude (norm), then takes a dot product. this compares the shape of the brightness pattern, not the raw intensity.',
-          'the score is a correlation in [−1, 1]. we pick the displacement with the largest ncc. our goal is to *maximize* ncc (while our goal is to minimize l2 norm).',
+          'the score is a correlation in [−1, 1]. we pick the displacement with the largest ncc. our goal is to *maximize* ncc (alternatively, minimize l2 norm).',
         ],
         equationFrac: {
           left: 'NCC(I, J) =',
