@@ -183,7 +183,7 @@ export const cs180Projects: Cs180Project[] = [
         ],
       },
       {
-        title: 'l2 norm vs pyramid + normalized cross-correlation (ncc)',
+        title: 'single scale l2 norm vs pyramid + normalized cross-correlation (ncc)',
         figureLayout: 'row',
         prose: [
           'just for comparison, here is our naive search with the l2 norm metric versus a pyramid search using the normalized cross-correlation (ncc) metric. we find similar results!',
