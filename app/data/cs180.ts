@@ -140,7 +140,6 @@ export const cs180Projects: Cs180Project[] = [
           num: '(I − mean(I)) · (J − mean(J))',
           den: '||I − mean(I)||    ||J − mean(J)||',
         },
-        snippetIntro: 'your code normalizes by:',
         snippets: [
           `def NCC(channel1, channel2):
     mean1, mean2 = channel1.mean(), channel2.mean()
