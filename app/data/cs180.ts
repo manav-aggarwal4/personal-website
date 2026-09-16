@@ -183,7 +183,7 @@ export const cs180Projects: Cs180Project[] = [
         ],
       },
       {
-        title: 'single scale l2 norm vs pyramid + normalized cross-correlation (ncc)',
+        title: 'single scale + l2 norm vs pyramid + ncc',
         figureLayout: 'row',
         prose: [
           'just for comparison, here is our naive search with the l2 norm metric versus a pyramid search using the normalized cross-correlation (ncc) metric. we find similar results!',
@@ -192,7 +192,7 @@ export const cs180Projects: Cs180Project[] = [
           {
             src: '/cs180/1/cathedral.jpg',
             before: '/cs180/1/cathedral-l2.jpg',
-            beforeLabel: 'l2 norm · single-scale',
+            beforeLabel: 'l2 norm + single-scale',
             afterLabel: 'pyramid + ncc',
             caption: 'cathedral · both g (2, 5) · r (3, 12)',
             alt: 'cathedral l2 versus pyramid ncc',
@@ -200,7 +200,7 @@ export const cs180Projects: Cs180Project[] = [
           {
             src: '/cs180/1/monastery.jpg',
             before: '/cs180/1/monastery-l2.jpg',
-            beforeLabel: 'l2 norm · single-scale',
+            beforeLabel: 'l2 norm + single-scale',
             afterLabel: 'pyramid + ncc',
             caption: 'monastery · both g (2, -3) · r (2, 3)',
             alt: 'monastery l2 versus pyramid ncc',
@@ -208,7 +208,7 @@ export const cs180Projects: Cs180Project[] = [
           {
             src: '/cs180/1/tobolsk.jpg',
             before: '/cs180/1/tobolsk-l2.jpg',
-            beforeLabel: 'l2 norm · single-scale',
+            beforeLabel: 'l2 norm + single-scale',
             afterLabel: 'pyramid + ncc',
             caption: 'tobolsk · l2 norm g (3, 3) · ncc g (2, 3) · r (3, 6)',
             alt: 'tobolsk l2 versus pyramid ncc',
