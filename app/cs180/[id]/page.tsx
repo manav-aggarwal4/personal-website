@@ -100,33 +100,8 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                     figure.before ? (
                       <article
                         key={figure.src}
-                        className={`cs180-compare${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.beforeLabel ? ' cs180-compare--pair' : ''}`}
+                        className={`cs180-compare${figure.beforeLabel ? ' cs180-compare--pair' : ''}`}
                       >
-                        {figure.favorite && (
-                          <span className="cs180-favorite" aria-hidden="true">
-                            <span className="cs180-favorite-label">personal favorite!!</span>
-                            <svg
-                              className="cs180-favorite-arrow"
-                              viewBox="0 0 88 58"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M70 6C48 8 22 20 16 50"
-                                stroke="currentColor"
-                                strokeWidth="1.35"
-                                strokeLinecap="round"
-                              />
-                              <path
-                                d="M8 41L16 52L28 43"
-                                stroke="currentColor"
-                                strokeWidth="1.35"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        )}
                         <figure
                           className={`cs180-compare-pane${figure.beforeLabel ? '' : ' cs180-compare-pane--plate'}`}
                         >
@@ -142,10 +117,39 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                           <span className="label">
                             {figure.afterLabel ?? 'after'}
                           </span>
-                          <img
-                            src={figure.src}
-                            alt={figure.alt ?? figure.caption ?? ''}
-                          />
+                          <div className="cs180-compare-frame">
+                            {figure.favorite && (
+                              <span className="cs180-favorite" aria-hidden="true">
+                                <span className="cs180-favorite-label">
+                                  personal favorite!!
+                                </span>
+                                <svg
+                                  className="cs180-favorite-arrow"
+                                  viewBox="0 0 36 40"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M28 3C22 12 18 20 16 32"
+                                    stroke="currentColor"
+                                    strokeWidth="1.4"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M9 26L16 34L23 26"
+                                    stroke="currentColor"
+                                    strokeWidth="1.4"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </span>
+                            )}
+                            <img
+                              src={figure.src}
+                              alt={figure.alt ?? figure.caption ?? ''}
+                            />
+                          </div>
                           {figure.caption && (
                             <figcaption className="cs180-compare-caption">
                               {figure.caption}

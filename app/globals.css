@@ -1952,13 +1952,13 @@ button {
   align-items: center;
 }
 
-.cs180-gallery:has(.cs180-figure--favorite) .cs180-figure--favorite {
-  padding-top: 2.85rem;
-}
-
 .cs180-compare-pane {
   margin: 0;
   min-width: 0;
+}
+
+.cs180-compare-frame {
+  position: relative;
 }
 
 .cs180-compare-pane .label {
@@ -2049,28 +2049,31 @@ button {
 
 .cs180-favorite {
   position: absolute;
-  top: 0;
-  right: 0.15rem;
+  top: 0.45rem;
+  right: 0.55rem;
   color: var(--bronze);
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   pointer-events: none;
-  z-index: 2;
+  z-index: 5;
 }
 
 .cs180-favorite-label {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   line-height: 1;
   white-space: nowrap;
+  text-shadow:
+    0 0 10px var(--bg),
+    0 0 4px var(--bg);
 }
 
 .cs180-favorite-arrow {
-  width: 4.5rem;
-  height: 2.9rem;
-  margin-right: 2.4rem;
+  width: 1.85rem;
+  height: 2.1rem;
+  margin-right: 1.35rem;
   margin-top: 0.05rem;
 }
 
