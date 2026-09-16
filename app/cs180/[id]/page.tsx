@@ -8,9 +8,21 @@ import {
   getCs180Project,
   projectHasWriteup,
 } from '../../data/cs180'
+import CodeBlock from '../CodeBlock'
+import { GaussianEq } from '../MathEq'
 
 type PageProps = {
   params: Promise<{ id: string }>
+}
+
+function renderProse(text: string) {
+  return text.split(/(\*[^*]+\*)/g).map((chunk, i) =>
+    chunk.startsWith('*') && chunk.endsWith('*') ? (
+      <em key={i}>{chunk.slice(1, -1)}</em>
+    ) : (
+      chunk
+    )
+  )
 }
 
 export function generateStaticParams() {
@@ -55,25 +67,115 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
             <section key={part.title} className="cs180-part">
               <h2 className="cs180-part-title">{part.title}</h2>
               {part.prose?.map((paragraph) => (
-                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                <p key={paragraph.slice(0, 48)}>{renderProse(paragraph)}</p>
               ))}
-              {!part.prose?.length && !part.figures?.length && (
+              {part.equation && (
+                <p className="cs180-eq">{part.equation}</p>
+              )}
+              {part.equationFrac && (
+                <div className="cs180-eq cs180-eq-frac">
+                  <span className="cs180-eq-left">{part.equationFrac.left}</span>
+                  <span className="cs180-eq-stack">
+                    <span className="cs180-eq-num">{part.equationFrac.num}</span>
+                    <span className="cs180-eq-den">{part.equationFrac.den}</span>
+                  </span>
+                </div>
+              )}
+              {part.equationKind === 'gaussian' && <GaussianEq />}
+              {part.snippetIntro && (
+                <p className="cs180-snippet-intro">{renderProse(part.snippetIntro)}</p>
+              )}
+              {part.snippets?.map((snippet) => (
+                <CodeBlock key={snippet.slice(0, 40)} code={snippet} />
+              ))}
+              {!part.prose?.length &&
+                !part.figures?.length &&
+                !part.equation &&
+                !part.equationFrac &&
+                !part.equationKind &&
+                !part.snippets?.length && (
                 <p className="cs180-part-empty">figures forthcoming.</p>
               )}
               {part.figures && part.figures.length > 0 && (
                 <div
-                  className={`cs180-figures cs180-figures--${part.figureLayout ?? 'stack'}`}
+                  className={
+                    part.figures.some((figure) => figure.before)
+                      ? 'cs180-gallery'
+                      : `cs180-figures cs180-figures--${part.figureLayout ?? 'stack'}`
+                  }
                 >
-                  {part.figures.map((figure) => (
-                    <figure key={figure.src} className="cs180-figure">
-                      <img src={figure.src} alt={figure.alt ?? figure.caption ?? ''} />
-                      {figure.caption && (
-                        <figcaption>{figure.caption}</figcaption>
-                      )}
-                    </figure>
-                  ))}
+                  {part.figures.map((figure) =>
+                    figure.before ? (
+                      <article
+                        key={figure.src}
+                        className={`cs180-compare${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.beforeLabel ? ' cs180-compare--pair' : ''}`}
+                      >
+                        {figure.favorite && (
+                          <span className="cs180-favorite" aria-hidden="true">
+                            <span className="cs180-favorite-label">personal favorite!!</span>
+                            <svg
+                              className="cs180-favorite-arrow"
+                              viewBox="0 0 88 58"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M70 6C48 8 22 20 16 50"
+                                stroke="currentColor"
+                                strokeWidth="1.35"
+                                strokeLinecap="round"
+                              />
+                              <path
+                                d="M8 41L16 52L28 43"
+                                stroke="currentColor"
+                                strokeWidth="1.35"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        )}
+                        <figure
+                          className={`cs180-compare-pane${figure.beforeLabel ? '' : ' cs180-compare-pane--plate'}`}
+                        >
+                          <span className="label">
+                            {figure.beforeLabel ?? 'glass plate'}
+                          </span>
+                          <img src={figure.before} alt="" />
+                        </figure>
+                        <span className="cs180-compare-arrow" aria-hidden="true">
+                          →
+                        </span>
+                        <figure className="cs180-compare-pane">
+                          <span className="label">
+                            {figure.afterLabel ?? 'after'}
+                          </span>
+                          <img
+                            src={figure.src}
+                            alt={figure.alt ?? figure.caption ?? ''}
+                          />
+                          {figure.caption && (
+                            <figcaption className="cs180-compare-caption">
+                              {figure.caption}
+                            </figcaption>
+                          )}
+                        </figure>
+                      </article>
+                    ) : (
+                      <figure
+                        key={figure.src}
+                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}`}
+                      >
+                        <img src={figure.src} alt={figure.alt ?? figure.caption ?? ''} />
+                        {figure.caption && (
+                          <figcaption>{figure.caption}</figcaption>
+                        )}
+                      </figure>
+                    )
+                  )}
                 </div>
               )}
+
             </section>
           ))}
         </article>
