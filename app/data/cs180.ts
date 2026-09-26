@@ -21,6 +21,7 @@ export type Cs180Figure = {
   caption?: string
   alt?: string
   favorite?: boolean
+  wide?: boolean
 }
 
 export type Cs180Part = {
@@ -33,6 +34,7 @@ export type Cs180Part = {
     den: string
   }
   equationKind?: 'gaussian'
+  snippets?: string[]
   figures?: Cs180Figure[]
   figureLayout?: 'stack' | 'row'
 }
@@ -329,6 +331,216 @@ export const cs180Projects: Cs180Project[] = [
           },
         ],
       },
+    ],
+  },
+  {
+    id: '2',
+    title: 'fun with filters and frequencies',
+    status: 'published',
+    parts: [
+      {
+        title: 'intro',
+        prose: [
+          'this project is about 2d convolution, edges, and frequency: filters from scratch, then sharpening, hybrid images, and multi-resolution blending.',
+        ],
+      },
+      {
+        title: '1.1 convolutions from scratch',
+        prose: [
+          'a 2d convolution slides a flipped kernel over the image and takes a dot product at each pixel. i implemented “same” zero-padding so the output keeps the input size: pad by k//2 and (k−1)//2 on opposite sides so the kernel center can sit on the border for both odd and even kernels.',
+          'the four-loop version multiplies every kernel tap by hand. the two-loop version still walks pixels, but np.sum does the window. both flip the kernel with np.flip, matching scipy.signal.convolve2d. on the cameraman (542×540) with a 9×9 box, the four-loop run took 5.9s, the two-loop 0.49s, and scipy 0.02s. the three outputs match to ~1e-15. scipy is faster because it is compiled (and can use fft); our padding is explicit zero-fill, which is the same as mode=\'same\' with fillvalue=0.',
+        ],
+        snippets: [
+          `def zeroPadding(image, kernelRows, kernelCols):
+    top, bottom = kernelRows // 2, (kernelRows - 1) // 2
+    left, right = kernelCols // 2, (kernelCols - 1) // 2
+    cpy = np.zeros((len(image) + top + bottom, len(image[0]) + left + right))
+    cpy[top:top + len(image), left:left + len(image[0])] = image
+    return cpy`,
+          `def fullBruteForceConvolution(image, kernel):
+    rows, cols = len(image), len(image[0])
+    kernelRows, kernelCols = len(kernel), len(kernel[0])
+    imagePadded = zeroPadding(image, kernelRows, kernelCols)
+    output = np.zeros((rows, cols))
+    convKernel = np.flip(kernel)
+    for i in range(rows):
+        for j in range(cols):
+            runningTotal = 0
+            for u in range(kernelRows):
+                for v in range(kernelCols):
+                    runningTotal += imagePadded[i + u][j + v] * convKernel[u][v]
+            output[i, j] = runningTotal
+    return output`,
+          `def modifiedBruteForceConvolution(image, kernel):
+    rows, cols = len(image), len(image[0])
+    kernelRows, kernelCols = len(kernel), len(kernel[0])
+    imagePadded = zeroPadding(image, kernelRows, kernelCols)
+    output = np.zeros((rows, cols))
+    convKernel = np.flip(kernel)
+    for i in range(rows):
+        for j in range(cols):
+            output[i, j] = np.sum(
+                imagePadded[i:i + kernelRows, j:j + kernelCols] * convKernel
+            )
+    return output`,
+        ],
+        figureLayout: 'row',
+        figures: [
+          { src: '/cs180/2/selfie.jpg', caption: 'grayscale selfie', alt: 'grayscale selfie' },
+          { src: '/cs180/2/selfie-box.jpg', caption: '9×9 box filter', alt: 'selfie after 9 by 9 box filter' },
+          { src: '/cs180/2/selfie-dx.jpg', caption: 'convolved with dx = [1, 0, −1]', alt: 'selfie x derivative' },
+          { src: '/cs180/2/selfie-dy.jpg', caption: 'convolved with dy', alt: 'selfie y derivative' },
+        ],
+      },
+      {
+        title: '1.2 finite difference operator',
+        prose: [
+          'on the cameraman, dx = [1, 0, −1] picks up vertical edges and dy picks up horizontal ones. the gradient magnitude is √(dx² + dy²). to binarize, 0.23 was the best of {0.05, 0.1, 0.2, 0.23, 0.4, 0.5}: lower values light up grass as noise, higher values drop the tripod and coat. it is a qualitative tradeoff — keep the real contours, suppress the field.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          { src: '/cs180/2/cameraman.jpg', caption: 'cameraman', alt: 'cameraman original' },
+          {
+            src: '/cs180/2/part1-2-derivatives.jpg',
+            caption: '∂x, ∂y, and gradient magnitude',
+            alt: 'cameraman partial derivatives and gradient magnitude',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/part1-2-thresholds.jpg',
+            caption: 'threshold sweep · chosen 0.23 on the bottom',
+            alt: 'cameraman edge thresholds with chosen 0.23 below',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '1.3 derivative of gaussian (dog) filter',
+        prose: [
+          'plain finite differences are noisy because they amplify high frequencies. an 11×11 gaussian (σ = 2) from cv2.getGaussianKernel, outer-producted into 2d, smooths first; then the same dx/dy + magnitude + binarize pipeline. after blurring the magnitudes are smaller, so the useful thresholds sit around 0.02–0.08. t = 0.04 keeps the coat and tripod and drops most of the grass.',
+          'convolving that gaussian with dx and dy gives derivative-of-gaussian filters, so the blur and the derivative happen in one convolution. side by side at the same threshold, blur-then-differentiate and the fused dog look the same; leftover differences are from mode=\'same\' padding, not a different derivative.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          {
+            src: '/cs180/2/part1-3-filters.jpg',
+            caption: 'gaussian, dog ∂x, dog ∂y',
+            alt: 'gaussian and derivative of gaussian filters',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/part1-3-gradients.jpg',
+            caption: 'blur-then-differentiate vs dog: ∂x, ∂y, magnitude',
+            alt: 'blurred and dog gradient comparison',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/part1-3-blur-thresholds.jpg',
+            caption: 'blurred threshold sweep',
+            alt: 'blurred edge thresholds',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/part1-3-edges-compare.jpg',
+            caption: 'blur then differentiate vs dog, t = 0.04',
+            alt: 'edge comparison at threshold 0.04',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '2.1 image sharpening',
+        prose: [
+          'a gaussian is a low-pass filter. subtracting that blur from the original leaves the high frequencies. unsharp masking adds them back: I + α(I − G∗I), which is the same as convolving with (1+α)δ − αG. α = 1.1 for the two-step taj result, α = 1.2 for the single kernel.',
+          'chasu and the red panda start soft, so adding high frequencies actually helps. kiss starts sharp: blur it, then sharpen, and you get edges back but not the original — the gaussian threw away detail the unsharp mask cannot invent.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          {
+            src: '/cs180/2/taj-steps.jpg',
+            caption: 'taj · original, blur, high frequencies, two-step sharp, unsharp kernel',
+            alt: 'taj mahal sharpening steps',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/taj-alphas.jpg',
+            caption: 'taj · α = 0.5, 1.2, 2.5',
+            alt: 'taj sharpening amounts',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/chasu-steps.jpg',
+            caption: 'chasu · original, blur, high frequencies, sharpened',
+            alt: 'chasu sharpening',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/red-panda-steps.jpg',
+            caption: 'red panda · original, blur, high frequencies, sharpened',
+            alt: 'red panda sharpening',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/kiss-eval.jpg',
+            caption: 'evaluation · kiss original, blurred, then sharpened',
+            alt: 'kiss blur then sharpen evaluation',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '2.2 hybrid images',
+        prose: [
+          'a hybrid is a low-pass copy of one picture plus a high-pass copy of another. from far away you only see the blur; up close the edges take over. the low-pass is a gaussian; the high-pass is the image minus that gaussian (impulse minus g). both pictures are click-aligned first so eyes (or the can/glass) sit on top of each other.',
+          'mama + papa is the process example. papa is the low-pass (far), mama the high-pass (close), with a 31×31 gaussian, σ = 12. the fft of the low-pass is a bright blob at the origin; the high-pass is a hole in the middle; the hybrid has both. derek + nutmeg uses σ = 8; ghost + raspberry uses σ = 14 so the berry shape survives at a distance while the logo stays sharp up close.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          {
+            src: '/cs180/2/mama-papa-aligned-low.jpg',
+            caption: 'papa, aligned · low-pass source',
+            alt: 'aligned papa',
+          },
+          {
+            src: '/cs180/2/mama-papa-aligned-high.jpg',
+            caption: 'mama, aligned · high-pass source',
+            alt: 'aligned mama',
+          },
+          {
+            src: '/cs180/2/mama-papa-lowpass.jpg',
+            caption: 'low-pass papa',
+            alt: 'gaussian low-pass papa',
+          },
+          {
+            src: '/cs180/2/mama-papa-highpass.jpg',
+            caption: 'high-pass mama',
+            alt: 'high-pass mama',
+          },
+          {
+            src: '/cs180/2/mama-papa-hybrid.jpg',
+            caption: 'hybrid · far = papa, close = mama',
+            alt: 'mama papa hybrid',
+          },
+          {
+            src: '/cs180/2/mama-papa-fft.jpg',
+            caption: 'log fft · sources, low-pass, high-pass, hybrid',
+            alt: 'mama papa fourier transforms',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/derek-nutmeg-hybrid.jpg',
+            caption: 'derek + nutmeg hybrid',
+            alt: 'derek nutmeg hybrid',
+          },
+          {
+            src: '/cs180/2/ghost-raspberry-hybrid.jpg',
+            caption: 'ghost + raspberry hybrid',
+            alt: 'ghost raspberry hybrid',
+          },
+        ],
+      },
+      { title: '2.3 gaussian and laplacian stacks' },
+      { title: '2.4 multiresolution blending' },
     ],
   },
 ]

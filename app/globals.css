@@ -2050,6 +2050,16 @@ button {
   position: relative;
 }
 
+.cs180-figure--wide {
+  grid-column: 1 / -1;
+}
+
+.cs180-figure--wide img {
+  max-height: none;
+  width: 100%;
+  object-fit: contain;
+}
+
 .cs180-favorite {
   position: absolute;
   top: -2.1rem;

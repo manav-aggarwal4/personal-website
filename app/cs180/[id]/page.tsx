@@ -9,6 +9,7 @@ import {
   projectHasWriteup,
 } from '../../data/cs180'
 import { GaussianEq } from '../MathEq'
+import CodeBlock from '../CodeBlock'
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -81,11 +82,15 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                 </div>
               )}
               {part.equationKind === 'gaussian' && <GaussianEq />}
+              {part.snippets?.map((snippet) => (
+                <CodeBlock key={snippet.slice(0, 48)} code={snippet} />
+              ))}
               {!part.prose?.length &&
                 !part.figures?.length &&
                 !part.equation &&
                 !part.equationFrac &&
-                !part.equationKind && (
+                !part.equationKind &&
+                !part.snippets?.length && (
                 <p className="cs180-part-empty">figures forthcoming.</p>
               )}
               {part.figures && part.figures.length > 0 && (
@@ -160,7 +165,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                     ) : (
                       <figure
                         key={figure.src}
-                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}`}
+                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}`}
                       >
                         <img src={figure.src} alt={figure.alt ?? figure.caption ?? ''} />
                         {figure.caption && (
