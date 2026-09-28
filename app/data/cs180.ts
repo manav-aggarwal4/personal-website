@@ -539,8 +539,55 @@ export const cs180Projects: Cs180Project[] = [
           },
         ],
       },
-      { title: '2.3 gaussian and laplacian stacks' },
-      { title: '2.4 multiresolution blending' },
+      {
+        title: '2.3 gaussian and laplacian stacks',
+        prose: [
+          'a stack is a pyramid that never downsamples: each gaussian level is just another blur of the last, same size as the original. the laplacian at each level is the difference of two adjacent gaussians, with the coarsest gaussian kept as the residual so the bands sum back to the image.',
+          'figure 3.42 uses a vertical step mask, blurred through the same gaussian stack. rows are laplacian levels 0, 4, and 8 (high / mid / low). left = apple × mask, middle = orange × (1−mask), right = their sum. (j)(k) are the sources; (l) is the collapsed oraple.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          {
+            src: '/cs180/2/fig-3-42.jpg',
+            caption: 'figure 3.42 · laplacian stack blending of apple and orange',
+            alt: 'recreated szeliski figure 3.42 oraple',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '2.4 multiresolution blending',
+        prose: [
+          'at each laplacian level we lerp with that level’s gaussian mask: α·a + (1−α)·b, then sum the bands. a hard step (or a drawn region) is stacked with the same gaussian so high frequencies keep a sharp cut and the residual mixes color.',
+          'apple / orange is the vertical-seam sample (fig 3.42). skinny / fat is the same step on our photos after click-aligning the eyes. lombard / lava uses an irregular mask (white = road) so lava fills the street and the buildings stay.',
+        ],
+        figureLayout: 'row',
+        figures: [
+          {
+            src: '/cs180/2/oraple.jpg',
+            caption: 'oraple · vertical step mask',
+            alt: 'apple orange laplacian blend',
+          },
+          {
+            src: '/cs180/2/fat-skinny-strip.jpg',
+            caption: 'skinny / fat · vertical seam after aligning eyes',
+            alt: 'skinny fat blend strip',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/lombard-lava-strip.jpg',
+            caption: 'lombard, lava, mask, blend',
+            alt: 'lombard lava blend strip',
+            wide: true,
+          },
+          {
+            src: '/cs180/2/lombard-process.jpg',
+            caption: 'process · laplacian levels 0, 4, 8 of lava×mask, street×(1−mask), sum; then sources and result',
+            alt: 'lombard lava laplacian blending process',
+            wide: true,
+          },
+        ],
+      },
     ],
   },
 ]
