@@ -492,7 +492,7 @@ export const cs180Projects: Cs180Project[] = [
         title: '2.2 hybrid images',
         prose: [
           'a hybrid is a low-pass copy of one picture plus a high-pass copy of another. from far away you only see the blur; up close the edges take over. the low-pass is a gaussian; the high-pass is the image minus that gaussian (impulse minus g). both pictures are click-aligned first so eyes (or the can/glass) sit on top of each other.',
-          'mama + papa is the process example. papa is the low-pass (far), mama the high-pass (close), with a 31×31 gaussian, σ = 12. the fft of the low-pass is a bright blob at the origin; the high-pass is a hole in the middle; the hybrid has both. derek + nutmeg uses σ = 8; ghost + raspberry uses σ = 14 so the berry shape survives at a distance while the logo stays sharp up close.',
+          'mama + papa is the process example. papa is the low-pass (far), mama the high-pass (close), with a 41×41 gaussian, σ = 16. the fft of the low-pass is a bright blob at the origin; the high-pass is a hole in the middle; the hybrid has both. derek + nutmeg uses σ = 8; ghost + raspberry uses σ = 14 so the berry shape survives at a distance while the logo stays sharp up close.',
         ],
         figureLayout: 'row',
         figures: [
