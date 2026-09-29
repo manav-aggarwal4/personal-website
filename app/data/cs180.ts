@@ -596,7 +596,7 @@ export const cs180Projects: Cs180Project[] = [
         title: '2.4 multiresolution blending',
         prose: [
           'for multiresolution blending, i blend the two laplacian stacks one level at a time. at each level, i use the matching gaussian-mask level to interpolate between the two images: α·a + (1−α)·b. then i sum the blended laplacian bands back together to get the final image. using a gaussian stack for the mask is important because it lets high-frequency details keep a relatively sharp boundary while lower-frequency colors and lighting transition more smoothly.',
-          'the apple / orange blend is the vertical-seam example from figure 3.42. the skinny / fat blend uses the same kind of vertical step mask on two photos of me from sophomore to junior year, after click-aligning the eyes. the lombard / lava example uses an irregular hand-drawn mask instead of a straight seam. i used the famous lombard street in san francisco as the base image, and in the mask, white selects the road area, so the lava fills the street while the buildings stay mostly from the original lombard image.',
+          'the apple / orange blend is the vertical-seam example from figure 3.42. the junior year / sophomore year blend uses the same kind of vertical step mask on two photos of me from sophomore to junior year, after click-aligning the eyes. the lombard / lava example uses an irregular hand-drawn mask instead of a straight seam. i used the famous lombard street in san francisco as the base image, and in the mask, white selects the road area, so the lava fills the street while the buildings stay mostly from the original lombard image.',
         ],
         equations: [
           'Blended level: Lᶜᵢ = MᵢLᴬᵢ + (1 − Mᵢ)Lᴮᵢ',
@@ -612,8 +612,8 @@ export const cs180Projects: Cs180Project[] = [
           },
           {
             src: '/cs180/2/fat-skinny-strip.jpg',
-            caption: 'skinny / fat · vertical seam after aligning eyes',
-            alt: 'skinny fat blend strip',
+            caption: 'junior year / sophomore year · vertical seam after aligning eyes',
+            alt: 'junior year sophomore year blend strip',
             wide: true,
           },
           {
