@@ -72,6 +72,11 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
               {part.equation && (
                 <p className="cs180-eq">{part.equation}</p>
               )}
+              {part.equations?.map((equation) => (
+                <p key={equation} className="cs180-eq cs180-eq-code">
+                  {equation}
+                </p>
+              ))}
               {part.equationFrac && (
                 <div className="cs180-eq cs180-eq-frac">
                   <span className="cs180-eq-left">{part.equationFrac.left}</span>
@@ -88,6 +93,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
               {!part.prose?.length &&
                 !part.figures?.length &&
                 !part.equation &&
+                !part.equations?.length &&
                 !part.equationFrac &&
                 !part.equationKind &&
                 !part.snippets?.length && (
