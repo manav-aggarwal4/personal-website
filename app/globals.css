@@ -1774,6 +1774,21 @@ button {
   color: var(--ink);
 }
 
+.cs180-part p a {
+  color: var(--bronze-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+.cs180-inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  font-style: normal;
+  color: var(--ink);
+  text-transform: none;
+}
+
 .cs180-part p:last-of-type {
   margin-bottom: 0;
 }
@@ -1802,6 +1817,12 @@ button {
   font-size: 0.98rem;
   letter-spacing: 0;
   white-space: pre-wrap;
+}
+
+.cs180-eq-code sub {
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: sub;
 }
 
 .cs180-eq-frac {
@@ -1918,6 +1939,10 @@ button {
   text-transform: none;
 }
 
+.cs180-codeblock + p {
+  margin-top: 1.15rem;
+}
+
 .tok-kw { color: #7b4fb0; }
 .tok-fn { color: #2f6f9f; }
 .tok-string { color: #4d7a58; }
@@ -1936,6 +1961,41 @@ button {
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 0.9rem;
   align-items: start;
+}
+
+.cs180-figures--row .cs180-figure:not(.cs180-figure--wide) {
+  justify-self: center;
+  width: min(100%, 18rem);
+}
+
+.cs180-figures--grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.cs180-figures--hybrid-process {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: start;
+}
+
+.cs180-figures--hybrid-process .cs180-figure {
+  grid-column: span 2;
+}
+
+.cs180-figures--hybrid-process .cs180-figure:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+.cs180-figures--hybrid-process .cs180-figure:nth-child(5) {
+  grid-column: 4 / span 2;
+}
+
+.cs180-figures--hybrid-process .cs180-figure--wide {
+  grid-column: 1 / -1;
 }
 
 .cs180-gallery {
@@ -2045,6 +2105,13 @@ button {
     transform: rotate(90deg);
     justify-self: center;
   }
+
+  .cs180-figure--wide {
+    left: auto;
+    max-width: 100%;
+    transform: none;
+    width: 100%;
+  }
 }
 
 .cs180-figures--stack .cs180-figure img {
@@ -2061,12 +2128,22 @@ button {
 
 .cs180-figure--wide {
   grid-column: 1 / -1;
+  left: 50%;
+  max-width: calc(100vw - 4rem);
+  transform: translateX(-50%);
+  width: min(64vw, 58rem);
 }
 
 .cs180-figure--wide img {
   max-height: none;
   width: 100%;
   object-fit: contain;
+}
+
+.cs180-figure--centered {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(100%, 22rem);
 }
 
 .cs180-favorite {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MeanderStrip, OrnamentDivider } from '../../components/classical/Ornaments'
@@ -16,13 +17,39 @@ type PageProps = {
 }
 
 function renderProse(text: string) {
-  return text.split(/(\*[^*]+\*)/g).map((chunk, i) =>
-    chunk.startsWith('*') && chunk.endsWith('*') ? (
+  return text.split(/(\[[^\]]+\]\([^)]+\)|\*[^*]+\*|`[^`]+`)/g).map((chunk, i) =>
+    chunk.startsWith('[') && chunk.includes('](') && chunk.endsWith(')') ? (
+      <a key={i} href={chunk.slice(chunk.indexOf('](') + 2, -1)} target="_blank" rel="noreferrer">
+        {chunk.slice(1, chunk.indexOf(']('))}
+      </a>
+    ) : chunk.startsWith('`') && chunk.endsWith('`') ? (
+      <code key={i} className="cs180-inline-code">{chunk.slice(1, -1)}</code>
+    ) : chunk.startsWith('*') && chunk.endsWith('*') ? (
       <em key={i}>{chunk.slice(1, -1)}</em>
     ) : (
       chunk
     )
   )
+}
+
+function renderEquation(text: string) {
+  const pieces: ReactNode[] = []
+  const subscriptPattern = /([A-Za-z])_([A-Za-z]+)/g
+  let cursor = 0
+
+  for (const match of text.matchAll(subscriptPattern)) {
+    const index = match.index ?? 0
+    if (index > cursor) pieces.push(text.slice(cursor, index))
+    pieces.push(
+      <span key={`${match[0]}-${index}`}>
+        {match[1]}<sub>{match[2]}</sub>
+      </span>
+    )
+    cursor = index + match[0].length
+  }
+
+  if (cursor < text.length) pieces.push(text.slice(cursor))
+  return pieces
 }
 
 export function generateStaticParams() {
@@ -74,7 +101,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
               )}
               {part.equations?.map((equation) => (
                 <p key={equation} className="cs180-eq cs180-eq-code">
-                  {equation}
+                  {renderEquation(equation)}
                 </p>
               ))}
               {part.equationFrac && (
@@ -90,13 +117,17 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
               {part.snippets?.map((snippet) => (
                 <CodeBlock key={snippet.slice(0, 48)} code={snippet} />
               ))}
+              {part.afterSnippetsProse?.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{renderProse(paragraph)}</p>
+              ))}
               {!part.prose?.length &&
                 !part.figures?.length &&
                 !part.equation &&
                 !part.equations?.length &&
                 !part.equationFrac &&
                 !part.equationKind &&
-                !part.snippets?.length && (
+                !part.snippets?.length &&
+                !part.afterSnippetsProse?.length && (
                 <p className="cs180-part-empty">figures forthcoming.</p>
               )}
               {part.figures && part.figures.length > 0 && (
@@ -171,7 +202,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                     ) : (
                       <figure
                         key={figure.src}
-                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}`}
+                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}${figure.centered ? ' cs180-figure--centered' : ''}`}
                       >
                         <img src={figure.src} alt={figure.alt ?? figure.caption ?? ''} />
                         {figure.caption && (

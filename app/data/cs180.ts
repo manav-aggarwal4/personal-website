@@ -22,11 +22,13 @@ export type Cs180Figure = {
   alt?: string
   favorite?: boolean
   wide?: boolean
+  centered?: boolean
 }
 
 export type Cs180Part = {
   title: string
   prose?: string[]
+  afterSnippetsProse?: string[]
   equation?: string
   equations?: string[]
   equationFrac?: {
@@ -37,7 +39,7 @@ export type Cs180Part = {
   equationKind?: 'gaussian'
   snippets?: string[]
   figures?: Cs180Figure[]
-  figureLayout?: 'stack' | 'row'
+  figureLayout?: 'stack' | 'row' | 'grid2' | 'hybrid-process'
 }
 
 export type Cs180Project = {
@@ -342,14 +344,14 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: 'intro',
         prose: [
-          'this project is about 2d convolution, edges, and frequency: filters from scratch, then sharpening, hybrid images, and multi-resolution blending.',
+          'lots of fun with {kernels, edge detection, frequency-domain image processing, and multiresolution blending}.',
         ],
       },
       {
         title: '1.1 convolutions from scratch',
         prose: [
-          'a 2d convolution slides a flipped kernel over the image and takes a dot product at each pixel. i implemented “same” zero-padding so the output keeps the input size: pad by k//2 and (k−1)//2 on opposite sides so the kernel center can sit on the border for both odd and even kernels.',
-          'the four-loop version multiplies every kernel tap by hand. the two-loop version still walks pixels, but np.sum does the window. both flip the kernel with np.flip, matching scipy.signal.convolve2d. on the cameraman (542×540) with a 9×9 box, the four-loop run took 5.9s, the two-loop 0.49s, and scipy 0.02s. the three outputs match to ~1e-15. scipy is faster because it is compiled (and can use fft); our padding is explicit zero-fill, which is the same as mode=\'same\' with fillvalue=0.',
+          'a 2d convolution slides a flipped kernel over the image and takes a dot product at each pixel. i chose to implement “same” zero-padding, so the output shape is the same as the input shape. we pad by `k//2` and `(k−1)//2` on opposite sides so both even and odd-sized kernels can be applied accurately at the image borders.',
+          'i made two versions of convolution from scratch using numpy. the four-loop version explicitly multiplies each kernel entry against the corresponding image pixel. the two-loop version still walks each pixel, but np.sum does the window multiplication. compared with scipy.signal.convolve2d, both of my versions are obviously slower, though they use the same convolution convention by flipping the kernel with np.flip. on the cameraman (542×540) with a 9×9 box, the four-loop run took 5.9s, the two-loop 0.49s, and scipy 0.02s. the three outputs match to ~1e-15. the scipy version is faster because it is compiled (and can use fft); my padding is explicit zero-fill, which can be reproduced in scipy with mode=\'same\' and fillvalue=0.',
         ],
         equations: [
           'Convolution: (I * K)(x, y) = ΣᵢΣⱼ I(x − i, y − j)K(i, j)',
@@ -389,18 +391,21 @@ export const cs180Projects: Cs180Project[] = [
             )
     return output`,
         ],
-        figureLayout: 'row',
+        afterSnippetsProse: [
+          'here are my hand-rolled convolution functions in action against a selfie of me in [Qahwa Time](https://qahwatime.co/) (yemeni coffee open till midnight every day, i recommend!). i applied a 9×9 box filter, and also convolved the selfie with the x- and y-derivative filters.',
+        ],
+        figureLayout: 'grid2',
         figures: [
           { src: '/cs180/2/selfie.jpg', caption: 'grayscale selfie', alt: 'grayscale selfie' },
           { src: '/cs180/2/selfie-box.jpg', caption: '9×9 box filter', alt: 'selfie after 9 by 9 box filter' },
-          { src: '/cs180/2/selfie-dx.jpg', caption: 'convolved with dx = [1, 0, −1]', alt: 'selfie x derivative' },
-          { src: '/cs180/2/selfie-dy.jpg', caption: 'convolved with dy', alt: 'selfie y derivative' },
+          { src: '/cs180/2/selfie-dx.jpg', caption: 'convolved with x-derivative filter Dₓ = [1, 0, −1]', alt: 'selfie x derivative' },
+          { src: '/cs180/2/selfie-dy.jpg', caption: 'convolved with y-derivative filter Dᵧ = [1, 0, −1]ᵀ', alt: 'selfie y derivative' },
         ],
       },
       {
         title: '1.2 finite difference operator',
         prose: [
-          'on the cameraman, dx = [1, 0, −1] picks up vertical edges and dy picks up horizontal ones. the gradient magnitude is √(dx² + dy²). to binarize, 0.23 was the best of {0.05, 0.1, 0.2, 0.23, 0.4, 0.5}: lower values light up grass as noise, higher values drop the tripod and coat. it is a qualitative tradeoff — keep the real contours, suppress the field.',
+          'on the cameraman (and my selfie), dx = [1, 0, −1] picks up vertical edges and dy picks up horizontal ones. the gradient magnitude is √(dx² + dy²). to turn the gradient magnitude into a binary edge image, i tested thresholds in {0.05, 0.1, 0.2, 0.23, 0.4, 0.5} and chose 0.23. lower thresholds kept too much grass texture as noise, while higher thresholds started removing real edges in the tripod and coat. 0.23 felt like the best qualitative tradeoff as it kept the main contours while suppressing most of the field texture.',
         ],
         equations: [
           'Dₓ = [1 0 −1],    Dᵧ = [1 0 −1]ᵀ',
@@ -408,7 +413,7 @@ export const cs180Projects: Cs180Project[] = [
         ],
         figureLayout: 'row',
         figures: [
-          { src: '/cs180/2/cameraman.jpg', caption: 'cameraman', alt: 'cameraman original' },
+          { src: '/cs180/2/cameraman.jpg', caption: 'cameraman', alt: 'cameraman original', centered: true },
           {
             src: '/cs180/2/part1-2-derivatives.jpg',
             caption: '∂x, ∂y, and Gradient Magnitude',
@@ -416,9 +421,9 @@ export const cs180Projects: Cs180Project[] = [
             wide: true,
           },
           {
-            src: '/cs180/2/part1-2-thresholds.jpg',
-            caption: 'Threshold (α) sweep · chosen 0.23 on the bottom',
-            alt: 'cameraman edge thresholds with chosen 0.23 below',
+            src: '/cs180/2/part1-2-thresholds-featured.jpg',
+            caption: 'Threshold (α) sweep · chosen 0.23 on the right',
+            alt: 'cameraman edge thresholds with chosen 0.23 on the right',
             wide: true,
           },
         ],
@@ -426,8 +431,8 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: '1.3 derivative of gaussian (DoG) filter',
         prose: [
-          'plain finite differences are noisy because they amplify high frequencies. an 11×11 gaussian (σ = 2) from cv2.getGaussianKernel, outer-producted into 2d, smooths first; then the same dx/dy + magnitude + binarize pipeline. after blurring the magnitudes are smaller, so the useful thresholds sit around 0.02–0.08. t = 0.04 keeps the coat and tripod and drops most of the grass.',
-          'convolving that gaussian with dx and dy gives derivative-of-gaussian filters, so the blur and the derivative happen in one convolution. side by side at the same threshold, blur-then-differentiate and the fused DoG look the same; leftover differences are from mode=\'same\' padding, not a different derivative.',
+          'the finite difference results are pretty noisy because derivative filters amplify high frequencies in the image. to reduce that noise, i blurred the image before taking the derivative. i made an 11×11 gaussian filter with σ = 2 using cv2.getGaussianKernel, then turned the 1d gaussian into a 2d filter with an outer product. after that blur, i reused the same derivative filters, gradient magnitude calculation, and thresholding process as before. because the blurred image has smaller gradient magnitudes, the useful thresholds are also smaller, around 0.02 to 0.08. i chose t = 0.04 because it keeps the coat and tripod edges while removing most of the grass texture.',
+          'i also combined the gaussian blur and derivative step into a single derivative-of-gaussian filter by convolving the gaussian with dx and dy. this means one filter can smooth the image and take the derivative at the same time. the blur-then-differentiate result and the DoG result look extremely similar at α = 0.04, which makes sense because convolution is associative. the small leftover differences come from mode=\'same\' padding at the image boundary, not from a different edge detector.',
         ],
         equations: [
           '2D Gaussian: G(x, y) = (1 / 2πσ²)e^{−(x² + y²) / 2σ²}',
@@ -465,8 +470,9 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: '2.1 image sharpening',
         prose: [
-          'a gaussian is a low-pass filter. subtracting that blur from the original leaves the high frequencies. unsharp masking adds them back: I + α(I − G∗I), which is the same as convolving with (1+α)δ − αG. α = 1.1 for the two-step taj result, α = 1.2 for the single kernel.',
-          'chasu and the red panda start soft, so adding high frequencies actually helps. kiss starts sharp: blur it, then sharpen, and you get edges back but not the original — the gaussian threw away detail the unsharp mask cannot invent.',
+          'a gaussian blur acts like a low-pass filter because it keeps the smooth, slowly changing parts of the image and removes a lot of the fine detail. if i subtract the blurred image from the original, what is left is mostly the high-frequency detail, like edges and texture. unsharp masking sharpens the image by adding some of those high frequencies back into the original: I + α(I − G∗I). this is equivalent to applying one combined convolution filter, (1+α)δ − αG. for the taj example, i used α = 1.1 for the two-step version and α = 1.2 for the single-kernel version.',
+          'this works well on chasu and the red panda because both images start out a little soft, so boosting the high frequencies makes the details look clearer. the kiss example is different because the original image starts sharp. after i blur it and then try to sharpen it again, the edges come back somewhat, but the result still does not match the original. the gaussian blur already removed some real detail, and the unsharp mask can emphasize existing edges but cannot invent detail that was already lost.',
+          'i recently came back from japan and discovered how cute red pandas are in real life. i also had chasu, or braised pork belly, ramen for the first time in tokyo, and it was phenomenal, so i chose those as two of my images. the kiss art piece is also a lego decoration i have in my room, so i thought it would be a fun image to use for the blur-and-resharpening test.',
         ],
         equations: [
           'High frequencies: H = I − (G * I)',
@@ -510,38 +516,38 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: '2.2 hybrid images',
         prose: [
-          'a hybrid is a low-pass copy of one picture plus a high-pass copy of another. from far away you only see the blur; up close the edges take over. the low-pass is a gaussian; the high-pass is the image minus that gaussian (impulse minus g). both pictures are click-aligned first so eyes (or the can/glass) sit on top of each other.',
-          'mama + papa is the process example. papa is the low-pass (far), mama the high-pass (close), with a 41×41 gaussian, σ = 16. the fft of the low-pass is a bright blob at the origin; the high-pass is a hole in the middle; the hybrid has both. derek + nutmeg uses σ = 8; ghost + raspberry uses σ = 14 so the berry shape survives at a distance while the logo stays sharp up close.',
+          'a hybrid image combines the low frequencies from one picture with the high frequencies from another. from far away, the low-frequency image dominates because the viewer mostly sees broad shapes and smooth color changes. up close, the high-frequency image becomes more visible because the edges and fine details are easier to see. i created the low-pass image by applying a gaussian blur, and i created the high-pass image by subtracting a gaussian blur from the original image. before combining them, i click-aligned each pair so important features, like the eyes or the can and glass, landed in the same place.',
+          'a hybrid of my mom and dad is my main process example. my dad is the low-pass source, so he is the image that appears from far away, while my mom is the high-pass source, so she is the image that appears more clearly up close. for this pair, i used a 41×41 gaussian with σ = 16. the fft visualizations show the frequency split: the low-pass image has most of its energy near the center, the high-pass image removes much of that center energy, and the final hybrid contains both kinds of information. for the other examples, derek + nutmeg uses σ = 8, while ghost + raspberry uses σ = 14 so the raspberry shape still reads from far away and the ghost logo stays crisp up close.',
         ],
         equations: [
           'Low-pass source: L = G * I_low',
           'High-pass source: H = I_high − (G * I_high)',
           'Hybrid image: I_hybrid = L + H',
         ],
-        figureLayout: 'row',
+        figureLayout: 'hybrid-process',
         figures: [
           {
-            src: '/cs180/2/mama-papa-aligned-low.jpg',
+            src: '/cs180/2/mama-papa-aligned-low-crop.jpg',
             caption: 'papa, aligned · low-pass source',
             alt: 'aligned papa',
           },
           {
-            src: '/cs180/2/mama-papa-aligned-high.jpg',
+            src: '/cs180/2/mama-papa-aligned-high-crop.jpg',
             caption: 'mama, aligned · high-pass source',
             alt: 'aligned mama',
           },
           {
-            src: '/cs180/2/mama-papa-lowpass.jpg',
+            src: '/cs180/2/mama-papa-lowpass-crop.jpg',
             caption: 'low-pass papa',
             alt: 'gaussian low-pass papa',
           },
           {
-            src: '/cs180/2/mama-papa-highpass.jpg',
+            src: '/cs180/2/mama-papa-highpass-crop.jpg',
             caption: 'high-pass mama',
             alt: 'high-pass mama',
           },
           {
-            src: '/cs180/2/mama-papa-hybrid.jpg',
+            src: '/cs180/2/mama-papa-hybrid-crop.jpg',
             caption: 'hybrid · far = papa, close = mama · ksize=41, σ=16',
             alt: 'mama papa hybrid',
           },
@@ -552,13 +558,13 @@ export const cs180Projects: Cs180Project[] = [
             wide: true,
           },
           {
-            src: '/cs180/2/derek-nutmeg-strip.jpg',
+            src: '/cs180/2/derek-nutmeg-strip-crop.jpg',
             caption: 'derek + nutmeg · aligned sources and hybrid · ksize=25, σ=8',
             alt: 'derek nutmeg aligned sources and hybrid',
             wide: true,
           },
           {
-            src: '/cs180/2/ghost-raspberry-strip.jpg',
+            src: '/cs180/2/ghost-raspberry-strip-crop.jpg',
             caption: 'ghost + raspberry · aligned sources and hybrid · ksize=35, σ=14',
             alt: 'ghost raspberry aligned sources and hybrid',
             wide: true,
@@ -568,8 +574,8 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: '2.3 gaussian and laplacian stacks',
         prose: [
-          'a stack is a pyramid that never downsamples: each gaussian level is just another blur of the last, same size as the original. the laplacian at each level is the difference of two adjacent gaussians, with the coarsest gaussian kept as the residual so the bands sum back to the image.',
-          'figure 3.42 uses a vertical step mask, blurred through the same gaussian stack. rows are laplacian levels 0, 4, and 8 (high / mid / low). left = apple × mask, middle = orange × (1−mask), right = their sum. (j)(k) are the sources; (l) is the collapsed oraple.',
+          'a stack is similar to a pyramid, except it never downsamples the image. every gaussian level stays the same size as the original image; each level is just a blurrier version of the previous one. i built the laplacian stack by subtracting each gaussian level from the next blurrier gaussian level. the final, coarsest gaussian is kept as the residual, so adding all of the laplacian bands and the residual reconstructs the original image.',
+          'for the figure 3.42 recreation, i used a vertical step mask and blurred that mask through the same gaussian stack. each row shows a different laplacian level: level 0 captures the highest-frequency detail, level 4 captures medium-scale structure, and level 8 captures the lowest-frequency color and lighting. in each row, the left image is the apple contribution multiplied by the mask, the middle image is the orange contribution multiplied by 1−mask, and the right image is their sum. the final row shows the original apple and orange sources, followed by the collapsed oraple result.',
         ],
         equations: [
           'Gaussian stack: G₀ = I,    Gᵢ = G * Gᵢ₋₁',
@@ -589,8 +595,8 @@ export const cs180Projects: Cs180Project[] = [
       {
         title: '2.4 multiresolution blending',
         prose: [
-          'at each laplacian level we lerp with that level’s gaussian mask: α·a + (1−α)·b, then sum the bands. a hard step (or a drawn region) is stacked with the same gaussian so high frequencies keep a sharp cut and the residual mixes color.',
-          'apple / orange is the vertical-seam sample (fig 3.42). skinny / fat is the same step on our photos after click-aligning the eyes. lombard / lava uses an irregular mask (white = road) so lava fills the street and the buildings stay.',
+          'for multiresolution blending, i blend the two laplacian stacks one level at a time. at each level, i use the matching gaussian-mask level to interpolate between the two images: α·a + (1−α)·b. then i sum the blended laplacian bands back together to get the final image. using a gaussian stack for the mask is important because it lets high-frequency details keep a relatively sharp boundary while lower-frequency colors and lighting transition more smoothly.',
+          'the apple / orange blend is the vertical-seam example from figure 3.42. the skinny / fat blend uses the same kind of vertical step mask on two photos of me from sophomore to junior year, after click-aligning the eyes. the lombard / lava example uses an irregular hand-drawn mask instead of a straight seam. i used the famous lombard street in san francisco as the base image, and in the mask, white selects the road area, so the lava fills the street while the buildings stay mostly from the original lombard image.',
         ],
         equations: [
           'Blended level: Lᶜᵢ = MᵢLᴬᵢ + (1 − Mᵢ)Lᴮᵢ',
@@ -602,6 +608,7 @@ export const cs180Projects: Cs180Project[] = [
             src: '/cs180/2/oraple.jpg',
             caption: 'oraple · vertical step mask',
             alt: 'apple orange laplacian blend',
+            centered: true,
           },
           {
             src: '/cs180/2/fat-skinny-strip.jpg',
@@ -620,6 +627,12 @@ export const cs180Projects: Cs180Project[] = [
             caption: 'process · laplacian levels 0, 4, 8 of lava×mask, street×(1−mask), sum; then sources and result',
             alt: 'lombard lava laplacian blending process',
             wide: true,
+          },
+          {
+            src: '/cs180/2/lombard-lava.jpg',
+            caption: 'look how cool!!',
+            alt: 'final lombard lava multiresolution blend',
+            centered: true,
           },
         ],
       },
