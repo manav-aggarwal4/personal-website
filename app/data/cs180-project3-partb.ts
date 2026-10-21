@@ -58,7 +58,17 @@ export const cs180Project3PartB: Cs180Part[] = [
     title: 'b.1.2.3 denoising pure noise',
     prose: [
       'i then trained a fresh UNet with the same hidden dimension, batch size, learning rate, and five-epoch schedule, but replaced the corrupted-digit inputs with pure gaussian noise. each noise input was independent of the clean digit used as its target. i kept eight fixed noise inputs for the visualizations so that i could compare the outputs after epochs 1 and 5.',
-      'although the loss decreases, the outputs all look like similar blurry averages rather than different handwritten numbers. the problem is that the input no longer contains any information about the target digit. with an MSE loss, predicting an average of the possible targets is a better solution than committing to an arbitrary sharp digit that will often be wrong. this is why a lower reconstruction loss does not necessarily mean that the model has learned to generate useful samples.',
+      'although the loss decreases, the outputs all look like similar blurry averages rather than different handwritten numbers. to see why this happens, let X be a clean MNIST image and Z be the independent gaussian noise given to the network. for a particular input Z = z, call the network’s output a. minimizing MSE means choosing a to minimize the expected squared distance to all possible target images. differentiating that expected loss gives the conditional mean as the optimal prediction:',
+    ],
+    equations: [
+      'ℓ(a; z) = E[‖a − X‖² | Z = z]',
+      '∇ₐℓ(a; z) = 2a − 2E[X | Z = z]',
+      '∇ₐℓ = 0  ⇒  D*(z) = E[X | Z = z]',
+      'X ⟂ Z  ⇒  E[X | Z = z] = E[X] = μ',
+      'μ ≈ (1/N) Σᵢ xᵢ',
+    ],
+    afterSnippetsProse: [
+      'because the noise and target are independent, conditioning on z tells us nothing about which digit to predict. the optimal output is therefore the same mean image μ for every noise input. the last line estimates this expectation by averaging the N training images separately at each pixel, so strokes from different digits overlap into a blurry shape. training pushes the network toward this solution, although a finite training run does not have to reach the exact mean. the decreasing loss is consistent with learning that average, rather than learning to generate distinct digits.',
     ],
     figures: [
       figure('pure-noise-epochs', 'eight fixed pure-noise inputs · predictions after epoch 1 (top) and epoch 5 (bottom)'),
