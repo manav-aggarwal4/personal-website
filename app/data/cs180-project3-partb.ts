@@ -103,10 +103,16 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.4 class-conditioned flow matching',
     prose: [
-      'the time-conditioned model has to learn the shapes of all ten digits without being told which one to generate. to give it that extra control, i added a one-hot vector representing the digit class and embedded it with two more fully connected blocks. at the conditioning points in the decoder, the class embeddings scale the features and the time embeddings provide additive offsets.',
+      'the time-conditioned model has to learn the shapes of all ten digits without being told which one to generate. to give it that extra control, i added a one-hot vector representing the digit class and embedded it with two more fully connected blocks. time t is represented as a scalar because its numerical ordering has a meaning: increasing t moves us from noise toward a clean image. digit labels do not have that same ordering. using a one-hot vector avoids suggesting that, for example, an 8 should be more similar to a 7 than to a 1 just because their labels are closer numerically.',
+      'the class FCBlocks turn those one-hot vectors into learned representations that scale the UNet’s feature channels according to the requested digit. in the earlier time-conditioned model, i multiplied the features by a learned time embedding, not by the raw scalar t. with class conditioning, the class embedding takes over that scaling role, and the learned time embedding is added as an offset instead. intuitively, the class-dependent scales can emphasize or suppress channels useful for a particular digit, while the time-dependent shifts adjust the features for the current denoising stage. both embeddings are learned during training and broadcast across the spatial dimensions at the two conditioning points in the decoder.',
       'during training, i dropped the class condition for 10% of the examples by setting the one-hot vector to zero. the network therefore learns to make predictions both with and without a digit label. at sampling time, i can evaluate those two cases on the same input and combine their velocities using classifier-free guidance. i used γ = 5 to strengthen the influence of the requested digit.',
     ],
-    equations: ['v_cfg = v_u + γ·(v_c − v_u)', 'γ = 5'],
+    equations: [
+      'Time-only conditioning: f ← e_t(t) ⊙ f',
+      'Class + time conditioning: f ← e_c(c) ⊙ f + e_t(t)',
+      'v_cfg = v_u + γ·(v_c − v_u)',
+      'γ = 5',
+    ],
   },
   {
     title: 'b.2.5 training and learning-rate comparison',
