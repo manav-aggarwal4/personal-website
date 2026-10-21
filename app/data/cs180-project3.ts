@@ -37,7 +37,7 @@ export const cs180Project3: Cs180Project = {
       title: '1.2 classical denoising',
       prose: [
         'i started with gaussian blur as a denoising baseline, which connects back to the filtering work from project 2. averaging nearby pixels can reduce the random variations caused by noise, but it also smooths out real edges and texture. before applying the blur, i divided the noisy image by t to restore the amplitude of the original image contribution. but this rescales the noise too, so it does not solve the denoising problem on its own.',
-        'for each input, i tried σ = 1, 2, 4, 8, and 16 and chose the result with the lowest mean squared error against the original photo. the selected values were 8, 4, and 1 for t = 0.25, 0.50, and 0.75, respectively. the tradeoff is especially clear in the first result: a strong blur removes much of the grain, but it also softens the facial features, shirt lettering, and background details. with less noise to begin with, a smaller blur is enough to preserve more of the original detail.',
+        'for each input, i tried σ = 1, 2, 4, 8, and 16 and chose the result with the lowest mean squared error against the original photo. the selected values were 8, 4, and 1 for t = 0.25, 0.50, and 0.75, respectively. the tradeoff is especially clear in the first result: a strong blur removes much of the grain, but it also greatly blurs the facial features, shirt lettering, and background details. with less noise to begin with, a smaller blur is enough to preserve more of the original detail.',
       ],
       figures: [
         figure('blur-t025', 't = 0.25 · noisy input and gaussian blur · σ = 8'),
@@ -49,7 +49,7 @@ export const cs180Project3: Cs180Project = {
       title: '1.3 one-step denoising',
       prose: [
         'next, i used the pretrained model to predict how the noisy image should change as it moves toward a clean image. the model predicts a velocity, so i multiplied that prediction by the remaining time, 1 − t, and added it to the input. this gives a clean-image estimate from just one model prediction. i used the prompt “a high quality photo” for all three inputs so that the comparison would focus on the amount of noise rather than a change in the text condition.',
-        'the model recovers much more recognizable structure than gaussian blur does, especially at t = 0.25. it can produce a face and a table even when the input is heavily corrupted, but recovering a plausible photo is not quite the same as recovering the exact original. some details of the drink and shirt get simplified or changed. the inputs at larger t values retain more information, so their reconstructions stay closer to the original photo.',
+        'the model recovers much more recognizable structure than gaussian blur does, especially when comparing the two methods at t = 0.25. it can produce a face and a table even when the input is heavily corrupted, but recovering a plausible photo is not quite the same as recovering the exact original. some details of the drink and shirt get simplified or changed. the inputs at larger t values retain more information, so their reconstructions stay closer to the original photo.',
       ],
       equations: ['x̂(1) = x(t) + (1 − t)·v(x(t), t, c)'],
       figures: [
@@ -107,7 +107,7 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.1 image-to-image editing',
       prose: [
-        'for image-to-image editing, i returned to the same idea of mixing an input image with noise and then sampling back toward t = 1. the difference is that i varied the starting time to control how much of the input remained before denoising. i tried this on the campanile, the photo of rohan, and a photo of torii gates in japan, using “a high quality photo” for all three. each sweep uses starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
+        'for image-to-image editing, i returned to the same idea of mixing an input image with noise and then sampling back toward t = 1. the difference is that i varied the starting time to control how much of the input remained before denoising. i tried this on the campanile, the photo of rohan, and a photo of me at the torii gates in kyoto, japan, using “a high quality photo” as the prompt for all three. each sweep uses starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
         'at the smaller starting times, there is so little image information left that the result can become a different person or even an unrelated object. the campanile still tends to leave a tall shape against the sky, while the personal photos change more dramatically. at t = 0.25 and 0.50, the original scenes are much easier to recognize. this makes the starting time a useful control over the edit: preserving more of the input also gives the model less room to reinterpret it.',
       ],
       figures: [
@@ -120,7 +120,7 @@ export const cs180Project3: Cs180Project = {
       title: '3.1 editing hand-drawn and web images',
       prose: [
         'i also tried the same editing procedure on images that were not photographs: an otter illustration from the web, a diet coke drawing, and a drawing of the “Don’t Be Dumb” emoji from A$AP Rocky merch i bought at his concert. i used the same generic photo prompt and the same seven starting times as above. this lets me see what the model does when the input’s colors and shapes are recognizable, but its style is quite different from the photographs the prompt asks for.',
-        'at very low starting times, the connection to the input can disappear almost completely. the otter illustration sometimes becomes a portrait, while the diet coke drawing becomes a smooth rounded object at t = 0.02. as more of the input is preserved, the lettering on the can and the face of the merch emoji return. the model does not automatically turn every drawing into a realistic photo; in several of these results, it keeps much of the drawing’s original style instead.',
+        'at very low starting times, the connection to the input can disappear almost completely. the otter illustration sometimes becomes a portrait, while the diet coke drawing becomes a small gray case at t = 0.02. as more of the input is preserved, the lettering on the can and the face of the merch emoji return. the model does not automatically turn every drawing into a realistic photo; in several of these results, it keeps much of the drawing’s original style instead.',
       ],
       figures: [
         { ...figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
