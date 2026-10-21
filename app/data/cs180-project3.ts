@@ -17,10 +17,10 @@ export const cs180Project3: Cs180Project = {
     {
       title: 'part a: exploring the power of flow models',
       prose: [
-        'in the first part of this project, i used the pretrained PixNerd-XXL-P16-T2I model to explore how a flow model turns noise into an image. i started by adding noise to a real photograph and comparing a few ways of recovering it. once that was working, i used the same sampling process to generate new images, change existing photos with text prompts, and make images that look different when they are rotated or viewed from a distance.',
+        'in the first part of this project, i used the pretrained [PixNerd-XXL-P16-T2I](https://huggingface.co/MCG-NJU/PixNerd-XXL-P16-T2I) model to explore how a flow model turns noise into an image. i started by adding noise to a real photograph and comparing a few ways of recovering it. once that was working, i used the same sampling process to generate new images, change existing photos with text prompts, and make images that look different when they are rotated or viewed from a distance.',
         'for the denoising examples, i used a picture of my friend rohan at [little plearn thai kitchen](https://www.littleplearnthai.com/) with a halloween-themed thai tea. the image is center-cropped and resized to 512×512, and its RGB values are normalized to [−1, 1]. i kept the same image and noise for the early comparisons so that the differences would come from the denoising methods themselves. for guided sampling, i used an euler step size of 0.02, guidance weight w = 7, and an empty text prompt for the unconditional prediction.',
       ],
-      figures: [{ ...figure('original', 'original image of my friend Rohan at [Little Plearn Thai Kitchen](https://www.littleplearnthai.com/) with a Halloween-Themed Thai Tea', false), alt: 'original image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', centered: true }],
+      figures: [{ ...figure('original', 'original image', false), alt: 'original image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', centered: true }],
     },
     {
       title: '1.1 constructing noisy training inputs',
