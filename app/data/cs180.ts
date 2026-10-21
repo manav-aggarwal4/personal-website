@@ -1,3 +1,5 @@
+import { cs180Project3 } from './cs180-project3'
+
 /**
  * CS 180 / 280A portfolio.
  *
@@ -15,6 +17,7 @@ export type Cs180Status = 'upcoming' | 'in-progress' | 'published'
 
 export type Cs180Figure = {
   src: string
+  displayWidth?: number
   before?: string
   beforeLabel?: string
   afterLabel?: string
@@ -27,6 +30,7 @@ export type Cs180Figure = {
 
 export type Cs180Part = {
   title: string
+  placeholder?: string
   prose?: string[]
   afterSnippetsProse?: string[]
   equation?: string
@@ -645,6 +649,7 @@ export const cs180Projects: Cs180Project[] = [
       },
     ],
   },
+  cs180Project3,
 ]
 
 export function getCs180Project(id: string) {

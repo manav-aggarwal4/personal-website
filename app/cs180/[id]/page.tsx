@@ -120,7 +120,11 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
               {part.afterSnippetsProse?.map((paragraph) => (
                 <p key={paragraph.slice(0, 48)}>{renderProse(paragraph)}</p>
               ))}
+              {part.placeholder && (
+                <p className="cs180-part-empty">{part.placeholder}</p>
+              )}
               {!part.prose?.length &&
+                !part.placeholder &&
                 !part.figures?.length &&
                 !part.equation &&
                 !part.equations?.length &&
@@ -204,7 +208,12 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                         key={figure.src}
                         className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}${figure.centered ? ' cs180-figure--centered' : ''}`}
                       >
-                        <img src={figure.src} alt={figure.alt ?? figure.caption ?? ''} />
+                        <img
+                          src={figure.src}
+                          alt={figure.alt ?? figure.caption ?? ''}
+                          decoding="async"
+                          style={figure.displayWidth ? { maxWidth: figure.displayWidth, marginInline: 'auto' } : undefined}
+                        />
                         {figure.caption && (
                           <figcaption>{figure.caption}</figcaption>
                         )}
