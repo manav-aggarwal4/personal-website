@@ -17,15 +17,16 @@ export const cs180Project3: Cs180Project = {
     {
       title: 'part a: exploring the power of flow models',
       prose: [
-        'this part explores image generation and editing with the pretrained PixNerd-XXL-P16-T2I flow model. the experiments move from noisy inputs and denoising to classifier-free guidance, image editing, visual anagrams, and hybrid images.',
-        'the inputs are center-cropped and resized to 512×512, with RGB values normalized to [−1, 1]. the sampling step size is 0.02. guided sampling uses weight w = 7 and an empty-string unconditional prompt. each editing sweep uses the same initial noise at starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
+        'in the first part of this project, i used the pretrained PixNerd-XXL-P16-T2I model to explore how a flow model turns noise into an image. i started by adding noise to a real photograph and comparing a few ways of recovering it. once that was working, i used the same sampling process to generate new images, change existing photos with text prompts, and make images that look different when they are rotated or viewed from a distance.',
+        'for the denoising examples, i used a picture of my friend rohan at little plearn thai kitchen with a halloween-themed thai tea. the image is center-cropped and resized to 512×512, and its RGB values are normalized to [−1, 1]. i kept the same image and noise for the early comparisons so that the differences would come from the denoising methods themselves. for guided sampling, i used an euler step size of 0.02, guidance weight w = 7, and an empty text prompt for the unconditional prediction.',
       ],
       figures: [{ ...figure('original', 'origin image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', false), centered: true }],
     },
     {
       title: '1.1 constructing noisy training inputs',
       prose: [
-        'i used a photo of rohan for the denoising experiments. linear interpolation mixes one fixed gaussian noise tensor with the clean image: t = 0 is pure noise, and t = 1 is the original. the same noise and image are reused throughout sections 1.1–1.5.',
+        'before trying to remove any noise, i first needed a way to construct the noisy images. i did this by linearly interpolating between a gaussian noise tensor and the original photo. the value of t controls how much of each goes into the result: at t = 0, the input is entirely noise, and at t = 1, it is the original image. this is different from simply adding noise on top of a photo because the image itself is also multiplied by t.',
+        'the three examples below use t = 0.25, 0.50, and 0.75 with the same noise tensor. at 0.25, it is hard to make out much beyond the broad colors of the scene. as t increases, rohan’s face, the lettering on his shirt, and the drink become easier to recognize. i saved these exact inputs to reuse in the following sections so that each method would have to reconstruct the same starting image.',
       ],
       equations: ['x(t) = (1 − t)ε + t·x(1)'],
       figures: [
@@ -35,7 +36,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.2 classical denoising',
       prose: [
-        'the gaussian baseline first divides the noisy input by t to restore the image amplitude, then blurs it. the notebook tries σ = 1, 2, 4, 8, and 16, choosing the smallest mean squared error against the clean image. the selected values are 8, 4, and 1 as t increases. stronger blur suppresses the noise but also washes out the face, shirt, and background details.',
+        'i started with gaussian blur as a denoising baseline, which connects back to the filtering work from project 2. averaging nearby pixels can reduce the random variations caused by noise, but it also smooths out real edges and texture. before applying the blur, i divided the noisy image by t to restore the amplitude of the original image contribution. this rescales the noise too, so it does not solve the denoising problem on its own.',
+        'for each input, i tried σ = 1, 2, 4, 8, and 16 and chose the result with the lowest mean squared error against the original photo. the selected values were 8, 4, and 1 for t = 0.25, 0.50, and 0.75, respectively. the tradeoff is especially clear in the first result: a strong blur removes much of the grain, but it also makes the face, shirt, and background look like smooth patches of color. with less noise to begin with, a smaller blur is enough to preserve more of the original detail.',
       ],
       figures: [
         figure('blur-t025', 't = 0.25 · noisy input and gaussian blur · σ = 8'),
@@ -46,7 +48,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.3 one-step denoising',
       prose: [
-        'one-step denoising predicts velocity once and extrapolates to the clean endpoint with the prompt “a high quality photo”. even at t = 0.25, the model recovers a recognizable person and table, although it smooths out details. at larger starting times, more of the original shirt and drink survive.',
+        'next, i used the pretrained model to predict how the noisy image should change as it moves toward a clean image. the model predicts a velocity, so i multiplied that prediction by the remaining time, 1 − t, and added it to the input. this gives a clean-image estimate from just one model prediction. i used the prompt “a high quality photo” for all three inputs so that the comparison would focus on the amount of noise rather than a change in the text condition.',
+        'the model recovers much more recognizable structure than gaussian blur does, especially at t = 0.25. it can produce a face and a table even when the input is heavily corrupted, but recovering a plausible photo is not quite the same as recovering the exact original. some details of the drink and shirt get simplified or changed. the inputs at larger t values retain more information, so their reconstructions stay closer to the original photo.',
       ],
       equations: ['x̂(1) = x(t) + (1 − t)·v(x(t), t, c)'],
       figures: [
@@ -58,7 +61,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.4 visualizing velocity',
       prose: [
-        'the predicted update is compared with the ground-truth update, which is the clean image minus the noisy input. the error maps show the root-mean-square difference across RGB at each pixel, computed before display scaling. all updates use one symmetric RGB scale with zero at middle gray; all error maps share the same linear limits.',
+        'to understand what the one-step denoiser was doing, i looked at the update it adds to the noisy image. since i know the original photograph, i can also calculate the exact update that would recover it by subtracting the noisy input from the clean image. the figures below put this ground-truth update next to the model’s predicted update, followed by an error map showing where they disagree.',
+        'for each pixel, i calculated the root-mean-square difference between the two updates across the RGB channels. i computed that error before clipping or scaling anything for display. the predicted and ground-truth updates share one symmetric color scale, where middle gray represents zero, and the error maps use the same limits across all three times. that makes the rows comparable: the darker error maps at larger t show that the remaining update is smaller and its absolute prediction error is lower, although this alone does not tell us the relative accuracy of the velocity prediction.',
       ],
       figures: [
         { ...figure('velocity-t025', 't = 0.25 · noisy image, predicted update, ground-truth update, RGB RMS error'), large: true },
@@ -69,7 +73,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.5 iterative denoising with euler sampling',
       prose: [
-        'starting from the saved t = 0.50 input, euler sampling recomputes the velocity after every 0.02 step, taking 25 updates to reach t = 1. the trajectory shows the initial image and every fifth update. compared with gaussian blur, both model-based methods preserve much more structure; the iterative result retains more of the shirt pattern than the one-step estimate.',
+        'one-step denoising assumes that a single velocity prediction is enough to get from the noisy input to the clean endpoint. the learned velocity can change as the image changes, though, so i also implemented euler sampling to follow it in smaller steps. after each update, i evaluated the model again using the new image and time. starting from the saved t = 0.50 input, a step size of 0.02 gives 25 updates before reaching t = 1.',
+        'i displayed the initial state and every fifth update to show how the grain gradually disappears. the final comparison uses the same starting input for gaussian blur, one-step denoising, and euler denoising. both model-based methods preserve the scene much better than the blur baseline, and the iterative version keeps more of the shirt pattern than the one-step result. it still does not reproduce every detail of the original, but recomputing the direction gives it more opportunities to refine the reconstruction along the way.',
       ],
       equations: ['x(t + h) = x(t) + h·v(x(t), t, c)'],
       figures: [
@@ -80,7 +85,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.6 generating images from noise',
       prose: [
-        'these five samples start from independent gaussian noises and run 50 euler updates from t = 0 to t = 1 with “a high quality photo”. the generic prompt produces people in all five saved samples, but the image quality varies: some faces are distorted, and one sample has a painted appearance.',
+        'once the euler sampler was working on a partially noisy photograph, i could use it to generate an image without supplying a photograph at all. i started from gaussian noise at t = 0 and ran 50 updates to reach t = 1, again using “a high quality photo” as the prompt. the five results below come from independent initial noises, so each one follows its own path through the model.',
+        'even though the prompt does not ask for a particular subject, all five outputs are images of people. they also vary quite a bit in quality. some have distorted facial features, and one looks more like a painting than a photograph. these results show that the sampler can turn pure noise into recognizable images, but the generic prompt alone does not consistently produce the kind of clean photograph i would expect from the wording.',
       ],
       figures: [
         figure('conditional-samples', 'ordinary conditional generation · prompt: “a high quality photo”'),
@@ -89,7 +95,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '2.1 classifier-free guidance',
       prose: [
-        'the guided samples reuse the same initial noises so they can be compared with ordinary conditional generation. this notebook defines guidance as the conditional velocity plus w times the difference between conditional and unconditional velocities, so w = 0 recovers ordinary conditional generation. at w = 7, the saved outputs are clearer, more consistent portrait photographs, although the composition is less varied.',
+        'for classifier-free guidance, i evaluated the model twice at the same image and time: once with the photo prompt and once with an empty prompt. i then used the difference between those predictions to strengthen the direction associated with the text condition. in the convention used for part a, the guided velocity is the conditional prediction plus w times that difference. setting w = 0 therefore gives the ordinary conditional prediction from the previous section.',
+        'i used w = 7 and reused the same five initial noise tensors so that the before-and-after comparison would be meaningful. the guided outputs look much more like conventional portrait photographs, with clearer faces and more consistent lighting. they also have a more similar composition to one another. guidance improves how strongly the results follow the idea of a high-quality photo here, but some of the variety in the original set is lost.',
       ],
       equations: ['v_cfg = v_c + w·(v_c − v_u)'],
       figures: [
@@ -100,7 +107,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.1 image-to-image editing',
       prose: [
-        'each sweep mixes the input with gaussian noise and then samples toward “a high quality photo”. smaller starting times leave more room for the model to invent a new image; larger times preserve more of the original. the campanile keeps a tower-like silhouette even at low times, while the two personal photos can become unrelated portraits or objects. by t = 0.25 and 0.50, the original scenes are much easier to recognize.',
+        'for image-to-image editing, i returned to the same idea of mixing an input image with noise and then sampling back toward t = 1. the difference is that i varied the starting time to control how much of the input remained before denoising. i tried this on the campanile, the photo of rohan, and a photo from japan, using “a high quality photo” for all three. each sweep uses starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
+        'at the smaller starting times, there is so little image information left that the result can become a different person or even an unrelated object. the campanile still tends to leave a tall shape against the sky, while the personal photos change more dramatically. at t = 0.25 and 0.50, the original scenes are much easier to recognize. this makes the starting time a useful control over the edit: preserving more of the input also gives the model less room to reinterpret it.',
       ],
       figures: [
         figure('edit-campanile', 'campanile · original and seven starting times · prompt: “a high quality photo”'),
@@ -111,7 +119,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.1 editing hand-drawn and web images',
       prose: [
-        'i repeated the same sweep on an otter illustration from the web and two drawings. at very low starting times, the model sometimes produces portraits or simple objects. the diet coke lettering and the flower drawing return as the starting time increases, showing how strongly the remaining input constrains the result.',
+        'i also tried the same editing procedure on images that were not photographs: an otter illustration from the web, a diet coke drawing, and a flower drawing. i used the same generic photo prompt and the same seven starting times as above. this lets me see what the model does when the input’s colors and shapes are recognizable, but its style is quite different from the photographs the prompt asks for.',
+        'at very low starting times, the connection to the input can disappear almost completely. the otter illustration sometimes becomes a portrait, while the diet coke drawing becomes a smooth rounded object at t = 0.02. as more of the input is preserved, the lettering on the can and the shapes of the flower return. the model does not automatically turn every drawing into a realistic photo; in several of these results, it keeps much of the drawing’s original style instead.',
       ],
       figures: [
         { ...figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
@@ -122,7 +131,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.2 text-guided image editing',
       prose: [
-        'changing the prompt changes what the sampler builds from the noisy input. the oski prompt turns the campanile into bear imagery at small starting times, while larger times keep the tower. the werewolf sweep preserves more of the original pose and setting in its intermediate results. the japan sweep moves from the eiffel tower prompt toward the original red gates as the starting time increases.',
+        'the previous section used the same generic prompt for every image. here, i changed the prompt to describe the edit i wanted while keeping the sampling procedure and starting times the same. i asked for oski for the campanile, a smiling werewolf with a pint of guinness for rohan’s photo, and arnold schwarzenegger flexing in front of the eiffel tower for the japan photo. the full prompts are shown with each set of results.',
+        'at low starting times, the prompt has enough freedom to replace most of the scene. at higher times, the original photo becomes much harder to change. the intermediate werewolf results are a good example of the two constraints working together: the subject changes, but parts of the pose, table, and restaurant setting remain. in the campanile sweep, the bear imagery gradually gives way to decorations on a tower, while the japan sweep brings back the red gates as the starting time increases.',
       ],
       figures: [
         figure('text-edit-campanile', 'campanile · prompt: “A photograph of Oski the Bear (UC Berkeley Mascot)”'),
@@ -133,8 +143,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.3 visual anagrams',
       prose: [
-        'the sampler averages two guided velocities: one from the upright image and one from the image rotated 180°, rotated back before combining. this saved result pairs “an oil painting of a fluffy baby penguin” with “an oil painting of an old wizard’s face with a flowing white beard”. the penguin’s dark body and pale chest become the wizard’s hat and beard in the rotated view.',
-        'the second illusion pairs “an oil painting of a single golden flaky crescent-shaped croissant, centered on a dark background” with “an oil painting of a sleeping orange cat curled up, with its face and ears visible, centered on a dark background”. the curled orange form supports both readings, although the sleeping cat is clearer than the croissant.',
+        'for the visual anagrams, i wanted one image to support two different interpretations depending on which way it is rotated. i predicted a guided velocity for the upright image with the first prompt, then rotated the input by 180° and predicted another velocity with the second prompt. before averaging the two, i rotated the second velocity back into the original orientation. using that average in each euler step lets both prompts influence the same final image.',
+        'my first pair uses “an oil painting of a fluffy baby penguin” and “an oil painting of an old wizard’s face with a flowing white beard”. this works particularly well because the penguin’s dark body and pale chest become the wizard’s hat and beard when rotated. the second pair uses “an oil painting of a single golden flaky crescent-shaped croissant, centered on a dark background” and “an oil painting of a sleeping orange cat curled up, with its face and ears visible, centered on a dark background”. the orange curled shape connects the two subjects, although the sleeping cat is easier to recognize than the croissant.',
       ],
       figures: [
         figure('anagram-penguin-wizard', 'baby penguin upright / old wizard rotated 180° · w = 7'),
@@ -144,8 +154,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.4 hybrid images',
       prose: [
-        'the hybrid sampler combines the low frequencies of one guided velocity with the high frequencies of another. the low-pass filter uses a 265×265 gaussian kernel with σ = 16. the prompt pairs are cookie / sunflower and yoda / forest, with the first prompt controlling distant structure and the second controlling close-up detail.',
-        'the reduced views below are displayed at their saved 64×64 size. the sunflower remains prominent at both scales, so the cookie interpretation is weaker. in the second result, the branches and ferns form a green face-like structure in the reduced view.',
+        'this section connects back to the hybrid images from project 2. instead of combining the frequency components of two finished images, i combined the frequency components of two guided velocity predictions at every sampling step. one prompt supplies the low-frequency structure, and the other supplies the high-frequency detail. i used a 265×265 gaussian kernel with σ = 16 to form the low-pass component, then subtracted the blur from the other prediction to obtain its high-pass component.',
+        'i tried cookie / sunflower and yoda / forest as the two prompt pairs. each result is shown at a larger size and as a 64×64 distant view so that the change in appearance is easier to compare. the sunflower dominates the first result at both sizes, so the cookie reading is not very convincing. the forest result does form a green face-like structure at a distance, but the yoda interpretation is still weaker than the close-up branches and ferns. these examples show that combining the frequencies correctly does not guarantee that both subjects will read equally well.',
       ],
       equations: ['v_hybrid = lowpass(v_a) + v_b − lowpass(v_b)'],
       figureLayout: 'grid2',

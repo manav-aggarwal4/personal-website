@@ -18,20 +18,22 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'part b: flow matching from scratch',
     prose: [
-      'in part b, i build and train UNets on MNIST, starting with a single-step denoiser and then learning time-conditioned and class-conditioned velocity fields. the dataset contains 60,000 training images and 10,000 test images, each 28×28 with pixel values in [0, 1]. the notebook uses a tesla t4 GPU.',
-      'flow time still runs from gaussian noise at t = 0 to data at t = 1. part b uses a different guidance convention from part a: the unconditional velocity plus γ times the conditional-minus-unconditional difference, with γ = 5.',
+      'in part a, the pretrained model already knew how to move from noise toward an image, and my job was to decide how to sample from it. for part b, i trained the models myself on MNIST. i started with a UNet that removes noise in one step, then added time conditioning so it could learn a velocity field, and finally added digit labels to control which number it generated.',
+      'MNIST contains 60,000 training images and 10,000 test images, each 28×28 with pixel values in [0, 1]. i ran the training on a tesla t4 GPU. the flow models still move from gaussian noise at t = 0 to an image at t = 1, but part b uses a different guidance convention: the unconditional prediction plus γ times the conditional-minus-unconditional difference. i used γ = 5 when sampling from the class-conditioned model.',
     ],
   },
   {
     title: 'b.1.1 implementing the UNet',
     prose: [
-      'the UNet uses convolution, batch normalization, and GELU blocks. two downsampling blocks reduce the spatial resolution from 28×28 to 14×14 and then 7×7. average pooling compresses the features to a 1×1 bottleneck, and transposed convolutions restore the resolution. skip connections concatenate encoder features into the decoder so that local structure can survive the bottleneck.',
+      'i built the UNet from convolution, batch normalization, and GELU blocks. the encoder first processes the 28×28 input, then downsamples it to 14×14 and 7×7. an average pooling operation compresses the 7×7 features to a 1×1 bottleneck. the decoder reverses this process with transposed convolutions until the output has the same spatial dimensions as the input.',
+      'the skip connections are important because reducing an image to a small bottleneck can discard the local information needed to reconstruct its strokes. i concatenated the encoder features with the decoder features at matching resolutions, giving the later layers access to both the compressed representation and the earlier spatial detail. for the single-step denoiser, i used 128 hidden channels and a final convolution that produces one grayscale output channel.',
     ],
   },
   {
     title: 'b.1.2 noisy inputs and single-step denoising',
     prose: [
-      'for the denoising baseline, i add gaussian noise directly to a clean digit. the figure reuses one noise realization at σ = 0, 0.2, 0.4, 0.5, 0.6, 0.8, and 1.0. unlike the flow-matching interpolation, this corruption does not scale down the clean image.',
+      'for this first denoising task, i constructed the input by adding gaussian noise directly to a clean MNIST digit. i reused one noise tensor while changing σ through 0, 0.2, 0.4, 0.5, 0.6, 0.8, and 1.0, so the figure shows the effect of increasing the strength of the same noise pattern. at σ = 0, the digit is unchanged; by σ = 1.0, much of its shape is hidden.',
+      'this noising process is slightly different from the interpolation in part a. the clean digit is not multiplied by a time value here, so increasing σ only changes the amount of noise added to it. the denoiser’s job is to take that corrupted image and predict the original digit in one forward pass.',
     ],
     equations: ['z = x + σ·ε'],
     figures: [figure('noise-levels', 'one MNIST training image · increasing gaussian noise from σ = 0 to 1.0')],
@@ -39,21 +41,24 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.1.2.1 training the denoiser',
     prose: [
-      'i trained the unconditional UNet with hidden dimension 128 for five epochs, using batch size 256 and Adam with learning rate 0.0001. each batch receives fresh noise at σ = 0.5, and the model minimizes mean squared error against the clean image. the training loss falls sharply at the start, then decreases more slowly over the remaining updates.',
+      'i trained the unconditional UNet for five epochs with batch size 256 and Adam at a learning rate of 0.0001. each time a batch was loaded, i added fresh gaussian noise with σ = 0.5. generating the noise during training means the model sees different corruptions of the same digit across epochs, rather than memorizing one fixed noisy version of each training image.',
+      'for the loss, i compared the predicted image with the clean digit using mean squared error. the curve drops sharply during the first part of training and then improves more gradually. this is a reconstruction task, so the model is rewarded for recovering the particular digit that produced its input. the next section checks what happens when the amount of corruption changes from the σ = 0.5 used during training.',
     ],
     figures: [figure('denoiser-loss', 'single-step denoiser training loss · five epochs · σ = 0.5 · Adam lr = 0.0001')],
   },
   {
     title: 'b.1.2.2 out-of-distribution testing',
     prose: [
-      'i evaluated the trained denoiser on a held-out test digit across the same seven noise levels. the digit remains recognizable near and below the training noise level. at σ = 0.8 and 1.0, the output develops distorted strokes as the input becomes more corrupted than the noise used during training. this is a visual comparison on one test example, rather than an aggregate test-set metric.',
+      'after training at σ = 0.5, i tested the denoiser on a held-out digit with several different noise levels. i kept the underlying image and noise realization fixed while varying σ, which makes it easier to see when the reconstruction begins to change. the figure shows the model’s outputs across the same seven values used in the noising visualization.',
+      'near and below the training noise level, the reconstructed 7 remains fairly clear. at σ = 0.8 and 1.0, extra strokes appear and the shape becomes less reliable. the model has learned how to handle a particular range of corruption, so increasing the noise does not simply make the result blurrier; it can change which strokes the model thinks belong in the digit. this figure shows one test example, so it illustrates the behavior without measuring performance across the full test set.',
     ],
     figures: [figure('denoiser-ood', 'held-out digit reconstruction · σ = 0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0')],
   },
   {
     title: 'b.1.2.3 denoising pure noise',
     prose: [
-      'i trained a fresh hidden-dimension-128 UNet for five epochs with the same batch size and learning rate, but supplied pure gaussian noise independent of the target digit. the eight fixed noise inputs produce similar blurry shapes at epochs 1 and 5. because the input contains no information about its randomly paired target, minimizing squared error encourages an average digit image instead of distinct samples.',
+      'i then trained a fresh UNet with the same hidden dimension, batch size, learning rate, and five-epoch schedule, but replaced the corrupted-digit inputs with pure gaussian noise. each noise input was independent of the clean digit used as its target. i kept eight fixed noise inputs for the visualizations so that i could compare the outputs after epochs 1 and 5.',
+      'although the loss decreases, the outputs all look like similar blurry averages rather than different handwritten numbers. the problem is that the input no longer contains any information about the target digit. with an MSE loss, predicting an average of the possible targets is a better solution than committing to an arbitrary sharp digit that will often be wrong. this is why a lower reconstruction loss does not necessarily mean that the model has learned to generate useful samples.',
     ],
     figures: [
       figure('pure-noise-epochs', 'eight fixed pure-noise inputs · predictions after epoch 1 (top) and epoch 5 (bottom)'),
@@ -63,21 +68,24 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.1 time-conditioned flow matching',
     prose: [
-      'the time-conditioned UNet embeds the scalar time with two fully connected blocks and multiplies the resulting embeddings into decoder features at two resolutions. training samples an independent noise image and a random time for each clean digit. the model predicts the path velocity, rather than the clean image or the noise.',
+      'the pure-noise experiment shows why directly predicting a clean image from an unrelated noise input is not enough. for flow matching, i instead trained the network to predict how an intermediate image should move along the path from noise to a digit. i sampled a noise image and a time t for each clean training image, interpolated between the two, and used the difference between the clean image and noise as the target velocity.',
+      'the network also needs to know where along that path it is operating. i added two fully connected blocks that turn the scalar time into embeddings with the appropriate channel dimensions, then multiplied those embeddings into the decoder features at two resolutions. this gives the same UNet a way to change its prediction depending on whether it is looking at an almost-noisy input or one that is already close to a digit.',
     ],
     equations: ['x(t) = (1 − t)·x(0) + t·x(1)', 'Target velocity: v = x(1) − x(0)'],
   },
   {
     title: 'b.2.2 training the time-conditioned UNet',
     prose: [
-      'i trained a hidden-dimension-64 model for ten epochs with batch size 64 and Adam starting at learning rate 0.01. an exponential scheduler multiplies the learning rate by 0.1^(1/10) after each epoch. the velocity-prediction MSE drops quickly and then settles into a lower band with batch-to-batch variation.',
+      'i trained the time-conditioned model for ten epochs with 64 hidden channels, batch size 64, and Adam starting at a learning rate of 0.01. for every batch, i drew fresh noise and a random time for each image. the loss compares the model’s predicted velocity with the ground-truth difference between the digit and its sampled noise, rather than comparing the output directly with a clean image.',
+      'i also used an exponential learning-rate scheduler, multiplying the learning rate by 0.1^(1/10) after each epoch. over ten epochs, this reduces it to one tenth of its starting value. the training curve falls quickly at the beginning and then settles into a lower range with variation between batches. learning the field across different times is what will let me repeatedly query the network during sampling instead of relying on one large denoising step.',
     ],
     figures: [figure('time-loss', 'time-conditioned flow-matching training loss · ten epochs · exponential learning-rate decay')],
   },
   {
     title: 'b.2.3 sampling from the time-conditioned UNet',
     prose: [
-      'sampling starts from gaussian noise and integrates the learned velocity with 50 euler steps. the saved figure compares the same initial noise after epochs 1, 5, and 10. the early sample is fragmented; the later samples have a clearer digit-like shape. this notebook saves one generated image per checkpoint for this comparison.',
+      'once the model was trained, i started from gaussian noise and used its predicted velocity to take 50 euler steps toward t = 1. after each step, i passed the updated image and time back into the network to get the next direction. this is the same sampling idea used in part a, except that the velocity field now comes from the smaller model i trained on MNIST.',
+      'i compared outputs after epochs 1, 5, and 10 using the same initial noise. the epoch-1 result has several disconnected or extra strokes, while the later results have a more coherent digit-like shape. they are still imperfect, and this comparison only contains one sample per checkpoint. it shows the progression of this particular input rather than establishing how consistently the model generates legible digits.',
     ],
     equations: ['x(t + h) = x(t) + h·v(x(t), t)', 'h = 1 / 50'],
     figures: [figure('time-samples', 'time-conditioned samples · epochs 1, 5, 10 · 50 euler steps')],
@@ -85,23 +93,24 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.4 class-conditioned flow matching',
     prose: [
-      'the class-conditioned UNet adds embeddings of the one-hot digit label. class embeddings scale decoder features, while time embeddings provide additive offsets. during training, labels are dropped with probability 0.1 by zeroing their one-hot vectors. this lets the same network supply both conditional and unconditional predictions for guidance.',
+      'the time-conditioned model has to learn the shapes of all ten digits without being told which one to generate. to give it that extra control, i added a one-hot vector representing the digit class and embedded it with two more fully connected blocks. at the conditioning points in the decoder, the class embeddings scale the features and the time embeddings provide additive offsets.',
+      'during training, i dropped the class condition for 10% of the examples by setting the one-hot vector to zero. the network therefore learns to make predictions both with and without a digit label. at sampling time, i can evaluate those two cases on the same input and combine their velocities using classifier-free guidance. i used γ = 5 to strengthen the influence of the requested digit.',
     ],
     equations: ['v_cfg = v_u + γ·(v_c − v_u)', 'γ = 5'],
   },
   {
     title: 'b.2.5 training and learning-rate comparison',
     prose: [
-      'the scheduled class-conditioned run uses hidden dimension 64, batch size 64, Adam starting at 0.01, and ten epochs of exponential decay with factor 0.1^(1/10). the comparison trains a fresh model at constant learning rate 0.001 for twenty epochs. both use class dropout probability 0.1.',
-      'the plots overlay their batch losses against training epoch, showing the full range above and a zoomed view from 0 to 0.3 below. the constant-rate model already produces cleaner digits in the saved epoch-1 grid, while both produce recognizable classes at later checkpoints. the comparison changes both the learning-rate policy and initial learning rate; the constant-rate run also receives twice as many epochs, so its final results are not an equal-compute comparison.',
+      'for the class-conditioned model, i kept 64 hidden channels and batch size 64, with class dropout probability 0.1. the first run used Adam starting at 0.01 and the same exponential scheduler as the time-conditioned experiment, training for ten epochs. to see whether i could remove the scheduler, i trained a fresh model at a constant learning rate of 0.001 for twenty epochs. the smaller initial rate gives more conservative updates, while the longer run gives the model more time to learn.',
+      'the full-range loss plot shows the large initial drop, and the zoomed plot makes the later behavior easier to compare. both runs reach a much lower loss than they started with. the sample grids below also show that the constant-rate model produces cleaner digits early on, although this comparison changes more than the scheduler alone: it uses a different initial learning rate, and its final checkpoint has twice as many training epochs. i included matching-epoch results so that the effect of the additional training is visible separately.',
     ],
     figures: [figure('class-loss-comparison', 'class-conditioned training loss · full range (top), zoomed to MSE 0–0.3 (bottom) · scheduled lr = 0.01 / constant lr = 0.001')],
   },
   {
     title: 'b.2.6 sampling from the class-conditioned UNet',
     prose: [
-      'each grid contains four generated examples per digit, with columns labeled 0–9. sampling uses 300 euler steps, guidance scale 5, and the same initial noises for every checkpoint. the scheduled and constant-rate runs are shown consecutively at matching epochs 1, 5, and 10, followed by the constant-rate run at epochs 15 and 20.',
-      'the scheduled epoch-1 samples include broken or extra strokes, particularly in several curved digits. by epochs 5 and 10, most digits are clearly legible in both runs. further constant-rate training changes stroke shapes but does not produce an equally dramatic visual improvement over its epoch-10 grid.',
+      'i generated four examples of each digit with 300 euler steps and guidance scale 5. each column corresponds to one requested class, from 0 through 9. i reused the same initial noises across checkpoints and between the scheduled and constant-rate models so that changes in the grids would reflect the learned models rather than different sampling inputs. the results are paired at epochs 1, 5, and 10, followed by the constant-rate model at epochs 15 and 20.',
+      'the scheduled model’s epoch-1 outputs have some broken or extra strokes, particularly in the curved digits. by epochs 5 and 10, most columns contain clearly recognizable examples of the requested number. the constant-rate model also produces legible digits, showing that lowering the learning rate can work without exponential decay in this experiment. its later checkpoints change the shapes and thickness of the strokes, but the improvement from epoch 10 to epoch 20 is much less dramatic than the change during the early training epochs.',
     ],
     figures: [
       figure('class-scheduled-epoch1', 'scheduled learning rate · epoch 1 · four samples per class · 300 steps · γ = 5'),
