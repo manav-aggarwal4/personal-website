@@ -4,7 +4,14 @@ import type { Cs180Figure, Cs180Part } from './cs180'
 // updated from CS180_proj3_part_b (2).ipynb; model code stays private.
 function figure(name: string, caption: string): Cs180Figure {
   const file = name === 'class-loss-comparison' ? 'class-loss-comparison-stacked.svg' : `${name}.webp`
-  return { src: `/cs180/3/part-b/${file}`, caption, alt: caption, wide: true, large: true }
+  return {
+    src: `/cs180/3/part-b/${file}`,
+    caption,
+    alt: caption,
+    wide: true,
+    large: true,
+    displayWidth: name.startsWith('class-') || name === 'time-samples' ? 960 : undefined,
+  }
 }
 
 export const cs180Project3PartB: Cs180Part[] = [
