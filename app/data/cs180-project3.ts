@@ -115,9 +115,9 @@ export const cs180Project3: Cs180Project = {
         'i repeated the same sweep on an otter illustration from the web and two drawings. at very low starting times, the model sometimes produces portraits or simple objects. the diet coke lettering and the flower drawing return as the starting time increases, showing how strongly the remaining input constrains the result.',
       ],
       figures: [
-        figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'),
+        { ...figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
         { ...figure('edit-drawing-diet-coke', 'diet coke drawing · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
-        figure('edit-drawing-flower', 'flower drawing · original and seven starting times · prompt: “a high quality photo”'),
+        { ...figure('edit-drawing-flower', 'flower drawing · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
       ],
     },
     {
@@ -135,11 +135,12 @@ export const cs180Project3: Cs180Project = {
       title: '3.3 visual anagrams',
       prose: [
         'the sampler averages two guided velocities: one from the upright image and one from the image rotated 180°, rotated back before combining. this saved result pairs “an oil painting of a fluffy baby penguin” with “an oil painting of an old wizard’s face with a flowing white beard”. the penguin’s dark body and pale chest become the wizard’s hat and beard in the rotated view.',
+        'the second illusion pairs “an oil painting of a single golden flaky crescent-shaped croissant, centered on a dark background” with “an oil painting of a sleeping orange cat curled up, with its face and ears visible, centered on a dark background”. the curled orange form supports both readings, although the sleeping cat is clearer than the croissant.',
       ],
       figures: [
         figure('anagram-penguin-wizard', 'baby penguin upright / old wizard rotated 180° · w = 7'),
+        figure('anagram-croissant-cat', 'croissant upright / sleeping orange cat rotated 180° · w = 7'),
       ],
-      placeholder: 'second visual anagram forthcoming.',
     },
     {
       title: '3.4 hybrid images',
