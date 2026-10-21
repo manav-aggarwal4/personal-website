@@ -41,10 +41,10 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.1.2.1 training the denoiser',
     prose: [
-      'i trained the unconditional UNet for five epochs with batch size 256 and Adam at a learning rate of 0.0001. each time a batch was loaded, i added fresh gaussian noise with σ = 0.5. generating the noise during training means the model sees different corruptions of the same digit across epochs, rather than memorizing one fixed noisy version of each training image.',
+      'i trained the unconditional UNet for five epochs with batch size 256 and Adam at a learning rate of 1e-4. each time a batch was loaded, i added fresh gaussian noise with σ = 0.5. generating the noise during training means the model sees different corruptions of the same digit across epochs, rather than memorizing one fixed noisy version of each training image.',
       'for the loss, i compared the predicted image with the clean digit using mean squared error. the curve drops sharply during the first part of training and then improves more gradually. this is a reconstruction task, so the model is rewarded for recovering the particular digit that produced its input. the next section checks what happens when the amount of corruption changes from the σ = 0.5 used during training.',
     ],
-    figures: [figure('denoiser-loss', 'single-step denoiser training loss · five epochs · σ = 0.5 · Adam lr = 0.0001')],
+    figures: [figure('denoiser-loss', 'single-step denoiser training loss · five epochs · σ = 0.5 · Adam lr = 1e-4')],
   },
   {
     title: 'b.1.2.2 out-of-distribution testing',
@@ -76,10 +76,10 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.2 training the time-conditioned UNet',
     prose: [
-      'i trained the time-conditioned model for ten epochs with 64 hidden channels, batch size 64, and Adam starting at a learning rate of 0.01. for every batch, i drew fresh noise and a random time for each image. the loss compares the model’s predicted velocity with the ground-truth difference between the digit and its sampled noise, rather than comparing the output directly with a clean image.',
-      'i also used an exponential learning-rate scheduler, multiplying the learning rate by 0.1^(1/10) after each epoch. over ten epochs, this reduces it to one tenth of its starting value. the training curve falls quickly at the beginning and then settles into a lower range with variation between batches. learning the field across different times is what will let me repeatedly query the network during sampling instead of relying on one large denoising step.',
+      'i trained the time-conditioned model for ten epochs with 64 hidden channels, batch size 64, and Adam starting at a learning rate of 1e-2. for every batch, i drew fresh noise and a random time for each image. the loss compares the model’s predicted velocity with the ground-truth difference between the digit and its sampled noise, rather than comparing the output directly with a clean image.',
+      'i also used an exponential learning-rate scheduler, multiplying the learning rate by γ = 0.1^(1/10) ≈ 0.7943 after each epoch. over ten epochs, this reduces it to one tenth of its starting value. the training curve falls quickly at the beginning and then settles into a lower range with variation between batches. learning the field across different times is what will let me repeatedly query the network during sampling instead of relying on one large denoising step.',
     ],
-    figures: [figure('time-loss', 'time-conditioned flow-matching training loss · ten epochs · exponential learning-rate decay')],
+    figures: [figure('time-loss', 'time-conditioned flow-matching training loss · ten epochs · exponential learning-rate decay · γ = 0.1^(1/10) ≈ 0.7943')],
   },
   {
     title: 'b.2.3 sampling from the time-conditioned UNet',
@@ -101,26 +101,27 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.5 training and learning-rate comparison',
     prose: [
-      'for the class-conditioned model, i kept 64 hidden channels and batch size 64, with class dropout probability 0.1. the first run used Adam starting at 0.01 and the same exponential scheduler as the time-conditioned experiment, training for ten epochs. to see whether i could remove the scheduler, i trained a fresh model at a constant learning rate of 0.001 for twenty epochs. the smaller initial rate gives more conservative updates, while the longer run gives the model more time to learn.',
+      'for the class-conditioned model, i kept 64 hidden channels and batch size 64, with class dropout probability 0.1. the first run used Adam starting at 1e-2 and the same exponential scheduler as the time-conditioned experiment, with γ = 0.1^(1/10) ≈ 0.7943, training for ten epochs. to see whether i could remove the scheduler, i trained a fresh model at a constant learning rate of 1e-3 for twenty epochs. the smaller initial rate gives more conservative updates, while the longer run gives the model more time to learn.',
       'the full-range loss plot shows the large initial drop, and the zoomed plot makes the later behavior easier to compare. both runs reach a much lower loss than they started with. the sample grids below also show that the constant-rate model produces cleaner digits early on, although this comparison changes more than the scheduler alone: it uses a different initial learning rate, and its final checkpoint has twice as many training epochs. i included matching-epoch results so that the effect of the additional training is visible separately.',
     ],
-    figures: [figure('class-loss-comparison', 'class-conditioned training loss · full range (top), zoomed to MSE 0–0.3 (bottom) · scheduled lr = 0.01 / constant lr = 0.001')],
+    figures: [figure('class-loss-comparison', 'class-conditioned training loss · full range (top), zoomed to MSE 0–0.3 (bottom) · scheduled lr = 1e-2 / constant lr = 1e-3')],
   },
   {
     title: 'b.2.6 sampling from the class-conditioned UNet',
     prose: [
-      'i generated four examples of each digit with 300 euler steps and guidance scale 5. each column corresponds to one requested class, from 0 through 9. i reused the same initial noises across checkpoints and between the scheduled and constant-rate models so that changes in the grids would reflect the learned models rather than different sampling inputs. the results are paired at epochs 1, 5, and 10, followed by the constant-rate model at epochs 15 and 20.',
+      'i generated four examples of each digit with 300 euler steps and guidance scale 5. each column corresponds to one requested class, from 0 through 9. i reused the same initial noises across checkpoints and between the scheduled and constant-rate models so that changes in the grids would reflect the learned models rather than different sampling inputs. the results are shown side by side at epochs 1, 5, and 10, with the scheduled model on the left and the constant-rate model on the right. the constant-rate model’s additional training results at epochs 15 and 20 are shown below.',
       'the scheduled model’s epoch-1 outputs have some broken or extra strokes, particularly in the curved digits. by epochs 5 and 10, most columns contain clearly recognizable examples of the requested number. the constant-rate model also produces legible digits, showing that lowering the learning rate can work without exponential decay in this experiment. its later checkpoints change the shapes and thickness of the strokes, but the improvement from epoch 10 to epoch 20 is much less dramatic than the change during the early training epochs.',
     ],
+    figureLayout: 'checkpoint-pairs',
     figures: [
       figure('class-scheduled-epoch1', 'scheduled learning rate · epoch 1 · four samples per class · 300 steps · γ = 5'),
-      figure('class-constant-epoch1', 'constant lr = 0.001 · epoch 1 · same labels, initial noises, and sampling settings'),
+      figure('class-constant-epoch1', 'constant lr = 1e-3 · epoch 1 · same labels, initial noises, and sampling settings'),
       figure('class-scheduled-epoch5', 'scheduled learning rate · epoch 5'),
-      figure('class-constant-epoch5', 'constant lr = 0.001 · epoch 5'),
+      figure('class-constant-epoch5', 'constant lr = 1e-3 · epoch 5'),
       figure('class-scheduled-epoch10', 'scheduled learning rate · epoch 10'),
-      figure('class-constant-epoch10', 'constant lr = 0.001 · epoch 10'),
-      figure('class-constant-epoch15', 'constant lr = 0.001 · epoch 15 · additional training'),
-      figure('class-constant-epoch20', 'constant lr = 0.001 · epoch 20 · additional training'),
+      figure('class-constant-epoch10', 'constant lr = 1e-3 · epoch 10'),
+      figure('class-constant-epoch15', 'constant lr = 1e-3 · epoch 15 · additional training'),
+      figure('class-constant-epoch20', 'constant lr = 1e-3 · epoch 20 · additional training'),
     ],
   },
 ]

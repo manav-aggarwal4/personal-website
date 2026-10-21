@@ -45,7 +45,7 @@ export type Cs180Part = {
   equationKind?: 'gaussian'
   snippets?: string[]
   figures?: Cs180Figure[]
-  figureLayout?: 'stack' | 'row' | 'grid2' | 'hybrid-process'
+  figureLayout?: 'stack' | 'row' | 'grid2' | 'hybrid-process' | 'checkpoint-pairs'
 }
 
 export type Cs180Project = {

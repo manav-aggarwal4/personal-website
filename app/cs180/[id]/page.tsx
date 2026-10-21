@@ -198,7 +198,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                           </div>
                           {figure.caption && (
                             <figcaption className="cs180-compare-caption">
-                              {figure.caption}
+                              {renderProse(figure.caption)}
                             </figcaption>
                           )}
                         </figure>
@@ -212,10 +212,10 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                           src={figure.src}
                           alt={figure.alt ?? figure.caption ?? ''}
                           decoding="async"
-                          style={figure.displayWidth ? { maxWidth: figure.displayWidth, marginInline: 'auto' } : undefined}
+                          style={figure.displayWidth ? { maxWidth: `min(100%, ${figure.displayWidth}px)`, marginInline: 'auto' } : undefined}
                         />
                         {figure.caption && (
-                          <figcaption>{figure.caption}</figcaption>
+                          <figcaption>{renderProse(figure.caption)}</figcaption>
                         )}
                       </figure>
                     )

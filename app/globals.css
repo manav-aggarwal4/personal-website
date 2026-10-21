@@ -1774,7 +1774,8 @@ button {
   color: var(--ink);
 }
 
-.cs180-part p a {
+.cs180-part p a,
+.cs180-figure figcaption a {
   color: var(--bronze-deep);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -2170,6 +2171,32 @@ button {
 
 .cs180-figure--middle {
   align-self: center;
+}
+
+.cs180-figures--checkpoint-pairs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1rem;
+  align-items: start;
+}
+
+.cs180-figures--checkpoint-pairs .cs180-figure:nth-child(-n + 6) {
+  grid-column: auto;
+  left: auto;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.cs180-figures--checkpoint-pairs img {
+  width: 100%;
+  max-height: none;
+}
+
+@media (max-width: 720px) {
+  .cs180-figures--checkpoint-pairs {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cs180-favorite {

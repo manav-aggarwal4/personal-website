@@ -18,9 +18,9 @@ export const cs180Project3: Cs180Project = {
       title: 'part a: exploring the power of flow models',
       prose: [
         'in the first part of this project, i used the pretrained PixNerd-XXL-P16-T2I model to explore how a flow model turns noise into an image. i started by adding noise to a real photograph and comparing a few ways of recovering it. once that was working, i used the same sampling process to generate new images, change existing photos with text prompts, and make images that look different when they are rotated or viewed from a distance.',
-        'for the denoising examples, i used a picture of my friend rohan at little plearn thai kitchen with a halloween-themed thai tea. the image is center-cropped and resized to 512×512, and its RGB values are normalized to [−1, 1]. i kept the same image and noise for the early comparisons so that the differences would come from the denoising methods themselves. for guided sampling, i used an euler step size of 0.02, guidance weight w = 7, and an empty text prompt for the unconditional prediction.',
+        'for the denoising examples, i used a picture of my friend rohan at [little plearn thai kitchen](https://www.littleplearnthai.com/) with a halloween-themed thai tea. the image is center-cropped and resized to 512×512, and its RGB values are normalized to [−1, 1]. i kept the same image and noise for the early comparisons so that the differences would come from the denoising methods themselves. for guided sampling, i used an euler step size of 0.02, guidance weight w = 7, and an empty text prompt for the unconditional prediction.',
       ],
-      figures: [{ ...figure('original', 'origin image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', false), centered: true }],
+      figures: [{ ...figure('original', 'original image of my friend Rohan at [Little Plearn Thai Kitchen](https://www.littleplearnthai.com/) with a Halloween-Themed Thai Tea', false), alt: 'original image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', centered: true }],
     },
     {
       title: '1.1 constructing noisy training inputs',
@@ -107,37 +107,37 @@ export const cs180Project3: Cs180Project = {
     {
       title: '3.1 image-to-image editing',
       prose: [
-        'for image-to-image editing, i returned to the same idea of mixing an input image with noise and then sampling back toward t = 1. the difference is that i varied the starting time to control how much of the input remained before denoising. i tried this on the campanile, the photo of rohan, and a photo from japan, using “a high quality photo” for all three. each sweep uses starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
+        'for image-to-image editing, i returned to the same idea of mixing an input image with noise and then sampling back toward t = 1. the difference is that i varied the starting time to control how much of the input remained before denoising. i tried this on the campanile, the photo of rohan, and a photo of torii gates in japan, using “a high quality photo” for all three. each sweep uses starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
         'at the smaller starting times, there is so little image information left that the result can become a different person or even an unrelated object. the campanile still tends to leave a tall shape against the sky, while the personal photos change more dramatically. at t = 0.25 and 0.50, the original scenes are much easier to recognize. this makes the starting time a useful control over the edit: preserving more of the input also gives the model less room to reinterpret it.',
       ],
       figures: [
         figure('edit-campanile', 'campanile · original and seven starting times · prompt: “a high quality photo”'),
         figure('edit-rohan', 'rohan · original and seven starting times · prompt: “a high quality photo”'),
-        figure('edit-japan', 'japan photo · original and seven starting times · prompt: “a high quality photo”'),
+        figure('edit-japan', 'Torii gates · original and seven starting times · prompt: “a high quality photo”'),
       ],
     },
     {
       title: '3.1 editing hand-drawn and web images',
       prose: [
-        'i also tried the same editing procedure on images that were not photographs: an otter illustration from the web, a diet coke drawing, and a flower drawing. i used the same generic photo prompt and the same seven starting times as above. this lets me see what the model does when the input’s colors and shapes are recognizable, but its style is quite different from the photographs the prompt asks for.',
-        'at very low starting times, the connection to the input can disappear almost completely. the otter illustration sometimes becomes a portrait, while the diet coke drawing becomes a smooth rounded object at t = 0.02. as more of the input is preserved, the lettering on the can and the shapes of the flower return. the model does not automatically turn every drawing into a realistic photo; in several of these results, it keeps much of the drawing’s original style instead.',
+        'i also tried the same editing procedure on images that were not photographs: an otter illustration from the web, a diet coke drawing, and a drawing of the “Don’t Be Dumb” emoji from A$AP Rocky merch i bought at his concert. i used the same generic photo prompt and the same seven starting times as above. this lets me see what the model does when the input’s colors and shapes are recognizable, but its style is quite different from the photographs the prompt asks for.',
+        'at very low starting times, the connection to the input can disappear almost completely. the otter illustration sometimes becomes a portrait, while the diet coke drawing becomes a smooth rounded object at t = 0.02. as more of the input is preserved, the lettering on the can and the face of the merch emoji return. the model does not automatically turn every drawing into a realistic photo; in several of these results, it keeps much of the drawing’s original style instead.',
       ],
       figures: [
         { ...figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
         { ...figure('edit-drawing-diet-coke', 'diet coke drawing · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
-        { ...figure('edit-drawing-flower', 'flower drawing · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
+        { ...figure('edit-drawing-flower', 'Don’t Be Dumb · A$AP Rocky merch emoji · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
       ],
     },
     {
       title: '3.2 text-guided image editing',
       prose: [
-        'the previous section used the same generic prompt for every image. here, i changed the prompt to describe the edit i wanted while keeping the sampling procedure and starting times the same. i asked for oski for the campanile, a smiling werewolf with a pint of guinness for rohan’s photo, and arnold schwarzenegger flexing in front of the eiffel tower for the japan photo. the full prompts are shown with each set of results.',
-        'at low starting times, the prompt has enough freedom to replace most of the scene. at higher times, the original photo becomes much harder to change. the intermediate werewolf results are a good example of the two constraints working together: the subject changes, but parts of the pose, table, and restaurant setting remain. in the campanile sweep, the bear imagery gradually gives way to decorations on a tower, while the japan sweep brings back the red gates as the starting time increases.',
+        'the previous section used the same generic prompt for every image. here, i changed the prompt to describe the edit i wanted while keeping the sampling procedure and starting times the same. i asked for oski for the campanile, a smiling werewolf with a pint of guinness for rohan’s photo, and arnold schwarzenegger flexing in front of the eiffel tower for the torii gates photo. the full prompts are shown with each set of results.',
+        'at low starting times, the prompt has enough freedom to replace most of the scene. at higher times, the original photo becomes much harder to change. the intermediate werewolf results are a good example of the two constraints working together: the subject changes, but parts of the pose, table, and restaurant setting remain. in the campanile sweep, the bear imagery gradually gives way to decorations on a tower, while the torii gates sweep brings back the red gates as the starting time increases.',
       ],
       figures: [
         figure('text-edit-campanile', 'campanile · prompt: “A photograph of Oski the Bear (UC Berkeley Mascot)”'),
         figure('text-edit-rohan', 'rohan · prompt: “A photograph of a smiling Werewolf with a pint of Guinness”'),
-        figure('text-edit-japan', 'japan photo · prompt: “A photograph of Arnold Schwarzenegger flexing in front of the Eiffel Tower”'),
+        figure('text-edit-japan', 'Torii gates · prompt: “A photograph of Arnold Schwarzenegger flexing in front of the Eiffel Tower”'),
       ],
     },
     {
