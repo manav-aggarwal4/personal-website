@@ -36,8 +36,8 @@ export const cs180Project3: Cs180Project = {
     {
       title: '1.2 classical denoising',
       prose: [
-        'i started with gaussian blur as a denoising baseline, which connects back to the filtering work from project 2. averaging nearby pixels can reduce the random variations caused by noise, but it also smooths out real edges and texture. before applying the blur, i divided the noisy image by t to restore the amplitude of the original image contribution. this rescales the noise too, so it does not solve the denoising problem on its own.',
-        'for each input, i tried σ = 1, 2, 4, 8, and 16 and chose the result with the lowest mean squared error against the original photo. the selected values were 8, 4, and 1 for t = 0.25, 0.50, and 0.75, respectively. the tradeoff is especially clear in the first result: a strong blur removes much of the grain, but it also makes the face, shirt, and background look like smooth patches of color. with less noise to begin with, a smaller blur is enough to preserve more of the original detail.',
+        'i started with gaussian blur as a denoising baseline, which connects back to the filtering work from project 2. averaging nearby pixels can reduce the random variations caused by noise, but it also smooths out real edges and texture. before applying the blur, i divided the noisy image by t to restore the amplitude of the original image contribution. but this rescales the noise too, so it does not solve the denoising problem on its own.',
+        'for each input, i tried σ = 1, 2, 4, 8, and 16 and chose the result with the lowest mean squared error against the original photo. the selected values were 8, 4, and 1 for t = 0.25, 0.50, and 0.75, respectively. the tradeoff is especially clear in the first result: a strong blur removes much of the grain, but it also softens the facial features, shirt lettering, and background details. with less noise to begin with, a smaller blur is enough to preserve more of the original detail.',
       ],
       figures: [
         figure('blur-t025', 't = 0.25 · noisy input and gaussian blur · σ = 8'),
