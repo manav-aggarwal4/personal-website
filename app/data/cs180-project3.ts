@@ -13,7 +13,6 @@ export const cs180Project3: Cs180Project = {
   title: 'fun with flow models',
   status: 'in-progress',
   due: 'part a · october 20, 2026',
-  summary: 'sampling, guidance, image editing, and optical illusions with flow models.',
   parts: [
     {
       title: 'part a: exploring the power of flow models',
@@ -21,7 +20,7 @@ export const cs180Project3: Cs180Project = {
         'this part explores image generation and editing with the pretrained PixNerd-XXL-P16-T2I flow model. the experiments move from noisy inputs and denoising to classifier-free guidance, image editing, visual anagrams, and hybrid images.',
         'the inputs are center-cropped and resized to 512×512, with RGB values normalized to [−1, 1]. the sampling step size is 0.02. guided sampling uses weight w = 7 and an empty-string unconditional prompt. each editing sweep uses the same initial noise at starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
       ],
-      figures: [{ ...figure('original', 'original image · starting point for the denoising experiments', false), centered: true }],
+      figures: [{ ...figure('original', 'origin image of my friend Rohan at Little Plearn Thai Kitchen with a Halloween-Themed Thai Tea', false), centered: true }],
     },
     {
       title: '1.1 constructing noisy training inputs',
