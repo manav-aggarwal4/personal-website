@@ -3,7 +3,8 @@ import type { Cs180Figure, Cs180Part } from './cs180'
 // Saved outputs from CS180_proj3_part_b (1).ipynb, with final comparisons
 // updated from CS180_proj3_part_b (2).ipynb; model code stays private.
 function figure(name: string, caption: string): Cs180Figure {
-  return { src: `/cs180/3/part-b/${name}.webp`, caption, alt: caption, wide: true, large: true }
+  const file = name === 'class-loss-comparison' ? 'class-loss-comparison-stacked.svg' : `${name}.webp`
+  return { src: `/cs180/3/part-b/${file}`, caption, alt: caption, wide: true, large: true }
 }
 
 export const cs180Project3PartB: Cs180Part[] = [
@@ -85,9 +86,9 @@ export const cs180Project3PartB: Cs180Part[] = [
     title: 'b.2.5 training and learning-rate comparison',
     prose: [
       'the scheduled class-conditioned run uses hidden dimension 64, batch size 64, Adam starting at 0.01, and ten epochs of exponential decay with factor 0.1^(1/10). the comparison trains a fresh model at constant learning rate 0.001 for twenty epochs. both use class dropout probability 0.1.',
-      'the plots overlay their batch losses against training epoch, showing the full range on the left and a zoomed view from 0 to 0.3 on the right. the constant-rate model already produces cleaner digits in the saved epoch-1 grid, while both produce recognizable classes at later checkpoints. the comparison changes both the learning-rate policy and initial learning rate; the constant-rate run also receives twice as many epochs, so its final results are not an equal-compute comparison.',
+      'the plots overlay their batch losses against training epoch, showing the full range above and a zoomed view from 0 to 0.3 below. the constant-rate model already produces cleaner digits in the saved epoch-1 grid, while both produce recognizable classes at later checkpoints. the comparison changes both the learning-rate policy and initial learning rate; the constant-rate run also receives twice as many epochs, so its final results are not an equal-compute comparison.',
     ],
-    figures: [figure('class-loss-comparison', 'class-conditioned training loss · full range (left), zoomed to MSE 0–0.3 (right) · scheduled lr = 0.01 / constant lr = 0.001')],
+    figures: [figure('class-loss-comparison', 'class-conditioned training loss · full range (top), zoomed to MSE 0–0.3 (bottom) · scheduled lr = 0.01 / constant lr = 0.001')],
   },
   {
     title: 'b.2.6 sampling from the class-conditioned UNet',
