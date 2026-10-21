@@ -4,7 +4,8 @@ import { cs180Project3PartB } from './cs180-project3-partb'
 // Images extracted from the saved outputs of part_a_cs180_project3 (1).ipynb.
 // Alternate PNG/JPEG representations and the repeated original share one asset.
 function figure(name: string, caption: string, wide = true): Cs180Figure {
-  return { src: `/cs180/3/${name}.webp`, caption, alt: caption, wide }
+  const extension = name === 'conditional-samples' || name === 'cfg-samples' ? '-unlabeled.svg' : '.webp'
+  return { src: `/cs180/3/${name}${extension}`, caption, alt: caption, wide }
 }
 
 export const cs180Project3: Cs180Project = {
@@ -18,8 +19,9 @@ export const cs180Project3: Cs180Project = {
       title: 'part a: exploring the power of flow models',
       prose: [
         'this part explores image generation and editing with the pretrained PixNerd-XXL-P16-T2I flow model. the experiments move from noisy inputs and denoising to classifier-free guidance, image editing, visual anagrams, and hybrid images.',
-        'the inputs are center-cropped and resized to 512×512, with RGB values normalized to [−1, 1]. the sampling step size is 0.02, and the base seed is 180. guided sampling uses weight w = 7 and an empty-string unconditional prompt. each editing sweep uses the same initial noise at starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
+        'the inputs are center-cropped and resized to 512×512, with RGB values normalized to [−1, 1]. the sampling step size is 0.02. guided sampling uses weight w = 7 and an empty-string unconditional prompt. each editing sweep uses the same initial noise at starting times 0.02, 0.04, 0.06, 0.10, 0.14, 0.25, and 0.50.',
       ],
+      figures: [{ ...figure('original', 'original image · starting point for the denoising experiments', false), centered: true }],
     },
     {
       title: '1.1 constructing noisy training inputs',
@@ -28,7 +30,7 @@ export const cs180Project3: Cs180Project = {
       ],
       equations: ['x(t) = (1 − t)ε + t·x(1)'],
       figures: [
-        figure('training-inputs', 'original and noisy inputs · t = 0.25, 0.50, 0.75 · seed 180'),
+        figure('training-inputs', 'original and noisy inputs · t = 0.25, 0.50, 0.75'),
       ],
     },
     {
@@ -60,10 +62,9 @@ export const cs180Project3: Cs180Project = {
         'the predicted update is compared with the ground-truth update, which is the clean image minus the noisy input. the error maps show the root-mean-square difference across RGB at each pixel, computed before display scaling. all updates use one symmetric RGB scale with zero at middle gray; all error maps share the same linear limits.',
       ],
       figures: [
-        { ...figure('original', 'original image used throughout the velocity comparisons', false), centered: true },
-        figure('velocity-t025', 't = 0.25 · noisy image, predicted update, ground-truth update, RGB RMS error'),
-        figure('velocity-t050', 't = 0.50 · noisy image, predicted update, ground-truth update, RGB RMS error'),
-        figure('velocity-t075', 't = 0.75 · noisy image, predicted update, ground-truth update, RGB RMS error'),
+        { ...figure('velocity-t025', 't = 0.25 · noisy image, predicted update, ground-truth update, RGB RMS error'), large: true },
+        { ...figure('velocity-t050', 't = 0.50 · noisy image, predicted update, ground-truth update, RGB RMS error'), large: true },
+        { ...figure('velocity-t075', 't = 0.75 · noisy image, predicted update, ground-truth update, RGB RMS error'), large: true },
       ],
     },
     {
@@ -83,24 +84,24 @@ export const cs180Project3: Cs180Project = {
         'these five samples start from independent gaussian noises and run 50 euler updates from t = 0 to t = 1 with “a high quality photo”. the generic prompt produces people in all five saved samples, but the image quality varies: some faces are distorted, and one sample has a painted appearance.',
       ],
       figures: [
-        figure('conditional-samples', 'ordinary conditional generation · seeds 180–184 · prompt: “a high quality photo”'),
+        figure('conditional-samples', 'ordinary conditional generation · prompt: “a high quality photo”'),
       ],
     },
     {
       title: '2.1 classifier-free guidance',
       prose: [
-        'the guided samples reuse seeds 180–184 so they can be compared with ordinary conditional generation. this notebook defines guidance as the conditional velocity plus w times the difference between conditional and unconditional velocities, so w = 0 recovers ordinary conditional generation. at w = 7, the saved outputs are clearer, more consistent portrait photographs, although the composition is less varied.',
+        'the guided samples reuse the same initial noises so they can be compared with ordinary conditional generation. this notebook defines guidance as the conditional velocity plus w times the difference between conditional and unconditional velocities, so w = 0 recovers ordinary conditional generation. at w = 7, the saved outputs are clearer, more consistent portrait photographs, although the composition is less varied.',
       ],
       equations: ['v_cfg = v_c + w·(v_c − v_u)'],
       figures: [
-        figure('conditional-samples', 'before guidance · seeds 180–184 · ordinary conditional sampling'),
-        figure('cfg-samples', 'with guidance · same seeds 180–184 · w = 7 · step size 0.02'),
+        figure('conditional-samples', 'before guidance · ordinary conditional sampling'),
+        figure('cfg-samples', 'with guidance · w = 7 · step size 0.02'),
       ],
     },
     {
       title: '3.1 image-to-image editing',
       prose: [
-        'each sweep mixes the input with seed-180 noise and then samples toward “a high quality photo”. smaller starting times leave more room for the model to invent a new image; larger times preserve more of the original. the campanile keeps a tower-like silhouette even at low times, while the two personal photos can become unrelated portraits or objects. by t = 0.25 and 0.50, the original scenes are much easier to recognize.',
+        'each sweep mixes the input with gaussian noise and then samples toward “a high quality photo”. smaller starting times leave more room for the model to invent a new image; larger times preserve more of the original. the campanile keeps a tower-like silhouette even at low times, while the two personal photos can become unrelated portraits or objects. by t = 0.25 and 0.50, the original scenes are much easier to recognize.',
       ],
       figures: [
         figure('edit-campanile', 'campanile · original and seven starting times · prompt: “a high quality photo”'),
@@ -115,7 +116,7 @@ export const cs180Project3: Cs180Project = {
       ],
       figures: [
         figure('edit-web-otter', 'web otter illustration · original and seven starting times · prompt: “a high quality photo”'),
-        figure('edit-drawing-diet-coke', 'diet coke drawing · original and seven starting times · prompt: “a high quality photo”'),
+        { ...figure('edit-drawing-diet-coke', 'diet coke drawing · original and seven starting times · prompt: “a high quality photo”'), displayWidth: 720 },
         figure('edit-drawing-flower', 'flower drawing · original and seven starting times · prompt: “a high quality photo”'),
       ],
     },
@@ -136,7 +137,7 @@ export const cs180Project3: Cs180Project = {
         'the sampler averages two guided velocities: one from the upright image and one from the image rotated 180°, rotated back before combining. this saved result pairs “an oil painting of a fluffy baby penguin” with “an oil painting of an old wizard’s face with a flowing white beard”. the penguin’s dark body and pale chest become the wizard’s hat and beard in the rotated view.',
       ],
       figures: [
-        figure('anagram-penguin-wizard', 'seed 180 · baby penguin upright / old wizard rotated 180° · w = 7'),
+        figure('anagram-penguin-wizard', 'baby penguin upright / old wizard rotated 180° · w = 7'),
       ],
       placeholder: 'second visual anagram forthcoming.',
     },
@@ -149,10 +150,10 @@ export const cs180Project3: Cs180Project = {
       equations: ['v_hybrid = lowpass(v_a) + v_b − lowpass(v_b)'],
       figureLayout: 'grid2',
       figures: [
-        { ...figure('hybrid-cookie-sunflower-near', 'near · “a detailed oil painting of a sunflower with dark seeds and golden petals” · seed 180', false), displayWidth: 512 },
-        { ...figure('hybrid-cookie-sunflower-distant', 'distant · “an oil painting of a round chocolate chip cookie” · 64×64', false), displayWidth: 64 },
-        { ...figure('hybrid-yoda-forest-near', 'near · “a detailed oil painting of a mossy forest with tangled branches and ferns” · seed 181', false), displayWidth: 512 },
-        { ...figure('hybrid-yoda-forest-distant', 'distant · “an oil painting of Yoda’s face with large pointed ears” · 64×64', false), displayWidth: 64 },
+        { ...figure('hybrid-cookie-sunflower-near', 'near · “a detailed oil painting of a sunflower with dark seeds and golden petals”', false), displayWidth: 512 },
+        { ...figure('hybrid-cookie-sunflower-distant', 'distant · “an oil painting of a round chocolate chip cookie” · 64×64', false), displayWidth: 64, verticalCenter: true },
+        { ...figure('hybrid-yoda-forest-near', 'near · “a detailed oil painting of a mossy forest with tangled branches and ferns”', false), displayWidth: 512 },
+        { ...figure('hybrid-yoda-forest-distant', 'distant · “an oil painting of Yoda’s face with large pointed ears” · 64×64', false), displayWidth: 64, verticalCenter: true },
       ],
     },
     ...cs180Project3PartB,

@@ -25,6 +25,8 @@ export type Cs180Figure = {
   alt?: string
   favorite?: boolean
   wide?: boolean
+  large?: boolean
+  verticalCenter?: boolean
   centered?: boolean
 }
 

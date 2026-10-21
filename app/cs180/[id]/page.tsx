@@ -89,7 +89,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
       <MeanderStrip />
 
       {hasWriteup ? (
-        <article className="cs180-writeup">
+        <article className={`cs180-writeup${project.id === '3' ? ' cs180-writeup--flow' : ''}`}>
           {project.parts.map((part) => (
             <section key={part.title} className="cs180-part">
               <h2 className="cs180-part-title">{part.title}</h2>
@@ -206,7 +206,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
                     ) : (
                       <figure
                         key={figure.src}
-                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}${figure.centered ? ' cs180-figure--centered' : ''}`}
+                        className={`cs180-figure${figure.favorite ? ' cs180-figure--favorite' : ''}${figure.wide ? ' cs180-figure--wide' : ''}${figure.centered ? ' cs180-figure--centered' : ''}${figure.large ? ' cs180-figure--large' : ''}${figure.verticalCenter ? ' cs180-figure--middle' : ''}`}
                       >
                         <img
                           src={figure.src}

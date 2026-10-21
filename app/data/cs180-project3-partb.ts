@@ -3,14 +3,14 @@ import type { Cs180Figure, Cs180Part } from './cs180'
 // Saved outputs from CS180_proj3_part_b (1).ipynb, with final comparisons
 // updated from CS180_proj3_part_b (2).ipynb; model code stays private.
 function figure(name: string, caption: string): Cs180Figure {
-  return { src: `/cs180/3/part-b/${name}.webp`, caption, alt: caption, wide: true }
+  return { src: `/cs180/3/part-b/${name}.webp`, caption, alt: caption, wide: true, large: true }
 }
 
 export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'part b: flow matching from scratch',
     prose: [
-      'in part b, i build and train UNets on MNIST, starting with a single-step denoiser and then learning time-conditioned and class-conditioned velocity fields. the dataset contains 60,000 training images and 10,000 test images, each 28×28 with pixel values in [0, 1]. the notebook uses seed 180 and a tesla t4 GPU.',
+      'in part b, i build and train UNets on MNIST, starting with a single-step denoiser and then learning time-conditioned and class-conditioned velocity fields. the dataset contains 60,000 training images and 10,000 test images, each 28×28 with pixel values in [0, 1]. the notebook uses a tesla t4 GPU.',
       'flow time still runs from gaussian noise at t = 0 to data at t = 1. part b uses a different guidance convention from part a: the unconditional velocity plus γ times the conditional-minus-unconditional difference, with γ = 5.',
     ],
   },
@@ -69,10 +69,10 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.3 sampling from the time-conditioned UNet',
     prose: [
-      'sampling starts from gaussian noise and integrates the learned velocity with 50 euler steps. the saved figure compares the same sampling seed, 42, after epochs 1, 5, and 10. the early sample is fragmented; the later samples have a clearer digit-like shape. this notebook saves one generated image per checkpoint for this comparison.',
+      'sampling starts from gaussian noise and integrates the learned velocity with 50 euler steps. the saved figure compares the same initial noise after epochs 1, 5, and 10. the early sample is fragmented; the later samples have a clearer digit-like shape. this notebook saves one generated image per checkpoint for this comparison.',
     ],
     equations: ['x(t + h) = x(t) + h·v(x(t), t)', 'h = 1 / 50'],
-    figures: [figure('time-samples', 'time-conditioned samples · epochs 1, 5, 10 · seed 42 · 50 euler steps')],
+    figures: [figure('time-samples', 'time-conditioned samples · epochs 1, 5, 10 · 50 euler steps')],
   },
   {
     title: 'b.2.4 class-conditioned flow matching',
@@ -92,12 +92,12 @@ export const cs180Project3PartB: Cs180Part[] = [
   {
     title: 'b.2.6 sampling from the class-conditioned UNet',
     prose: [
-      'each grid contains four generated examples per digit, with columns labeled 0–9. sampling uses 300 euler steps, guidance scale 5, and seed 42 for every checkpoint. the scheduled and constant-rate runs are shown consecutively at matching epochs 1, 5, and 10, followed by the constant-rate run at epochs 15 and 20.',
+      'each grid contains four generated examples per digit, with columns labeled 0–9. sampling uses 300 euler steps, guidance scale 5, and the same initial noises for every checkpoint. the scheduled and constant-rate runs are shown consecutively at matching epochs 1, 5, and 10, followed by the constant-rate run at epochs 15 and 20.',
       'the scheduled epoch-1 samples include broken or extra strokes, particularly in several curved digits. by epochs 5 and 10, most digits are clearly legible in both runs. further constant-rate training changes stroke shapes but does not produce an equally dramatic visual improvement over its epoch-10 grid.',
     ],
     figures: [
       figure('class-scheduled-epoch1', 'scheduled learning rate · epoch 1 · four samples per class · 300 steps · γ = 5'),
-      figure('class-constant-epoch1', 'constant lr = 0.001 · epoch 1 · same labels, seed, and sampling settings'),
+      figure('class-constant-epoch1', 'constant lr = 0.001 · epoch 1 · same labels, initial noises, and sampling settings'),
       figure('class-scheduled-epoch5', 'scheduled learning rate · epoch 5'),
       figure('class-constant-epoch5', 'constant lr = 0.001 · epoch 5'),
       figure('class-scheduled-epoch10', 'scheduled learning rate · epoch 10'),

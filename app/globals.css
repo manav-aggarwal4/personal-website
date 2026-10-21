@@ -2146,6 +2146,32 @@ button {
   width: min(100%, 22rem);
 }
 
+.cs180-figure--large {
+  width: min(88vw, 76rem);
+  max-width: calc(100vw - 2rem);
+}
+
+.cs180-writeup--flow {
+  max-width: none;
+}
+
+.cs180-writeup--flow .cs180-part p {
+  max-width: 52rem;
+}
+
+.cs180-writeup--flow .cs180-figure--centered {
+  margin-inline: auto;
+}
+
+.cs180-figures--stack .cs180-figure--large img {
+  width: 100%;
+  max-height: none;
+}
+
+.cs180-figure--middle {
+  align-self: center;
+}
+
 .cs180-favorite {
   position: absolute;
   top: -2.1rem;
