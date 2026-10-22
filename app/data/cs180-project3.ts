@@ -11,7 +11,7 @@ function figure(name: string, caption: string, wide = true): Cs180Figure {
 export const cs180Project3: Cs180Project = {
   id: '3',
   title: 'fun with flow models',
-  status: 'in-progress',
+  status: 'published',
   due: 'part a · october 20, 2026',
   parts: [
     {
