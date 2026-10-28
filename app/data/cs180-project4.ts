@@ -8,14 +8,14 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "part a: image warping and mosaicing",
       "prose": [
-        "in this project, i used least-squares homography estimation, inverse warping, and image interpolation for two applications: perspective rectification of the amoeba music and sana’a cafe signs, and panorama stitching of memorial glade, doe reading room, and a mountain scene. i walked around berkeley’s campus, taking photos of memorial glade and doe reading room to combine overlapping views into wider panoramas."
+        "in this project, i used least-squares homography estimation, inverse warping, and image interpolation for two applications: perspective rectification of the amoeba music and sana’a cafe signs, and panorama stitching of memorial glade, doe reading room, and a mountain scene. i walked around berkeley’s campus on a beautiful sunny day, taking photos of memorial glade and doe reading room to combine overlapping views into wider panoramas."
       ]
     },
     {
       "title": "a.1 shooting the pictures · memorial glade",
       "prose": [
         "my first pair looks across memorial glade. the photographs share the library facade, the lawn, and the steps in the foreground, while each captures a different side of the scene. this overlap gives me recognizable features to match across the two views.",
-        "mosaicing assumes that the camera rotates around a fixed center of projection. under that assumption, a homography can relate the two views even though objects in the scene are at different depths. moving the camera between shots introduces parallax, and moving people can still disagree after the stationary background is aligned."
+        "mosaicing assumes that the camera rotates around a fixed center of projection. under that assumption, a homography can relate the two views even though objects in the scene are at different depths. changing the camera’s position between shots causes objects at different depths to shift by different amounts so a single homography may not align the entire scene. people moving between exposures can also produce ghosting, even when the stationary background is aligned."
       ],
       "figureLayout": "grid2",
       "figures": [
@@ -57,7 +57,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "a.1 shooting the pictures · mountains",
       "prose": [
-        "the third pair shows two overlapping views of a rocky mountain face and the forest below it. i matched distinctive features along the ridge and across the rock face. the broad stretch of sky has few features to click, so the rock formations provide the constraints for the alignment."
+        "for the third pair, i used [externally sourced mountain photographs](https://github.com/CorentinBrtx/image-stitching/tree/main/samples/mountain) showing overlapping views of a rocky mountain face and the forest below it. i matched distinctive features along the ridge and across the rock face. the broad stretch of sky has few features to click so the rock formations provide the constraints for the alignment."
       ],
       "figureLayout": "grid2",
       "figures": [
@@ -78,7 +78,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "a.2 recovering homographies",
       "prose": [
-        "i selected corresponding points with a matplotlib interface that alternates clicks between the two photographs and saves their original pixel coordinates. i used 11 pairs for the glade, 12 for doe, and 8 for the mountains. each pair contributes two equations, so all three fits have more constraints than the eight unknown entries of the homography.",
+        "i selected corresponding points with a matplotlib interface that alternates clicks between the two photographs and saves their original pixel coordinates. i used 11 pairs for the glade, 12 for doe, and 8 for the mountains. each pair contributes two equations so all three fits have more constraints than the eight unknown entries of the homography.",
         "for a source point (x, y) and its match (u, v), i multiply by H in homogeneous coordinates and divide by the third coordinate. setting the bottom-right entry of H to 1 leaves eight unknowns. rearranging the equations gives the two rows below, which i stack for every correspondence. my computeH function solves the resulting overdetermined system with numpy.linalg.lstsq."
       ],
       "equations": [
@@ -108,8 +108,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "a.2 doe reading room · correspondences and recovered matrix",
       "prose": [
-        "the numbered green crosses show my clicked correspondences, and the red circles in the second image show where H predicts those source points will land. for doe reading room, the mean reprojection error is 7.50 pixels and the largest error is 13.77 pixels, measured in the original 5712×4284 images.",
-        "these residuals measure agreement with the points used to fit H. they help reveal inaccurate clicks or an imperfect geometric fit, but do not measure alignment everywhere else in the image. the matrix below maps image 1 into image 2; the mosaic uses separate transforms into a shared canvas."
+        "the numbered green crosses show my clicked correspondences, and the red circles in the second image show where H predicts those source points will land. for doe reading room, the mean reprojection error is 7.50 pixels and the largest error is 13.77 pixels, measured in the original 5712×4284 images."
       ],
       "equations": [
         "H = [ 3.01199  -0.186078  -8425.99\n      0.882851  2.41783  -3219.98\n      0.000355981  -2.0892e-05  1 ]"
@@ -126,7 +125,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "a.2 mountains · correspondences and recovered matrix",
       "prose": [
-        "i used eight corresponding points for the mountain pair. the mean reprojection error is 2.19 pixels, with a maximum of 3.99 pixels, measured in the 568×758 source images. the red predictions lie close to the clicked matches along the ridge and rock face. these images have a different resolution from the glade and doe photographs, so the raw pixel errors are not directly comparable across the three scenes."
+        "i used eight corresponding points for the mountain pair. the mean reprojection error is 2.19 pixels, with a maximum of 3.99 pixels, measured in the 568×758 source images. the red predictions lie close to the clicked matches along the ridge and rock face. these images have a different resolution from the glade and doe photographs so the raw pixel errors are not directly comparable across the three scenes."
       ],
       "equations": [
         "H = [ 0.719696  -0.173759  -185.114\n      0.122705  0.609756  -20.5315\n      -0.000231637  -0.000555549  1 ]"
@@ -144,8 +143,8 @@ export const cs180Project4: Cs180Project = {
       "title": "a.3 inverse warping and interpolation",
       "prose": [
         "to warp an image, i first project its four corners through H and take the floor and ceiling of the transformed bounds. this tells me the output size and its offset in the destination coordinate system. for each output pixel, i apply the inverse homography and divide by the homogeneous coordinate to find the corresponding location in the source image. sampling backward this way avoids the holes that can appear when source pixels are pushed forward.",
-        "i implemented both interpolation methods directly. nearest neighbor rounds the source coordinates and copies one pixel. bilinear interpolation finds the four surrounding pixels and combines them according to the horizontal and vertical fractional offsets. a separate validity mask records which output pixels received image data, so an actual black pixel is not confused with an empty part of the canvas.",
-        "for rectification, i selected the four corners of a sign and mapped them to the corners of a rectangle. the chosen output dimensions determine the rectangle’s aspect ratio; the homography alone does not recover its physical dimensions."
+        "i implemented both interpolation methods directly. nearest neighbor rounds the source coordinates and copies one pixel. bilinear interpolation finds the four surrounding pixels and combines them according to the horizontal and vertical fractional offsets. a separate validity mask records which output pixels received image data so an actual black pixel is not confused with an empty part of the canvas.",
+        "for rectification, i selected the four corners of a sign and mapped them to the corners of a rectangle. i chose the output dimensions to set the rectangle’s aspect ratio, since the homography alone does not describe the sign’s actual width and height."
       ],
       "equations": [
         "[x, y, w]ᵀ = H⁻¹ [u, v, 1]ᵀ;  (xₛ, yₛ) = (x/w, y/w)",
@@ -156,7 +155,7 @@ export const cs180Project4: Cs180Project = {
       "title": "a.3 rectification · amoeba music",
       "prose": [
         "i mapped the four selected corners of the amoeba music mural to a 400×600 rectangle. the original photograph compresses the sign toward the right, while the rectified versions spread the lettering across a front-facing rectangle.",
-        "the nearest-neighbor result has more visible stair steps along the lettering and mural outline. bilinear interpolation makes these edges smoother by combining nearby samples. the saved run took 0.62 seconds for nearest neighbor and 1.32 seconds for bilinear, so the smoother result took about twice as long in this implementation."
+        "the two results look quite similar at this scale, with bilinear interpolation producing a slightly smoother appearance. the saved run took 0.62 seconds for nearest neighbor and 1.32 seconds for bilinear so the smoother result took about twice as long in this implementation."
       ],
       "figures": [
         {
@@ -171,7 +170,7 @@ export const cs180Project4: Cs180Project = {
       "title": "a.3 rectification · sana’a cafe",
       "prose": [
         "for the sana’a cafe sign, i used a wider 600×250 destination rectangle. the sign’s sloping border becomes horizontal, and the lettering is easier to compare across the two sampling methods.",
-        "nearest neighbor took 0.34 seconds and bilinear took 0.81 seconds in the saved comparison. both recover the same geometry, but bilinear gives smoother edges around the letters. these timings include the pixel-by-pixel inverse-warping loops and describe these particular runs, rather than a general benchmark for the two methods."
+        "nearest neighbor took 0.34 seconds and bilinear took 0.81 seconds in the saved comparison. the nearest-neighbor and bilinear results look almost identical at this scale, with both recovering the same geometry. these timings include the pixel-by-pixel inverse-warping loops and describe these particular runs, rather than a general benchmark for the two methods."
       ],
       "figures": [
         {
