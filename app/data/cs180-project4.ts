@@ -8,7 +8,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "part a: image warping and mosaicing",
       "prose": [
-        "in this project, i used least-squares homography estimation, inverse warping, and image interpolation for two applications: perspective rectification of the amoeba music and sana’a cafe signs, and panorama stitching of memorial glade, doe reading room, and a mountain scene. i combined the aligned photographs with two-level laplacian blending to soften the seams."
+        "in this project, i used least-squares homography estimation, inverse warping, and image interpolation for two applications: perspective rectification of the amoeba music and sana’a cafe signs, and panorama stitching of memorial glade, doe reading room, and a mountain scene. i walked around berkeley’s campus, taking photos of memorial glade and doe reading room to combine overlapping views into wider panoramas."
       ]
     },
     {
