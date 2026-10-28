@@ -8,8 +8,7 @@ export const cs180Project4: Cs180Project = {
     {
       "title": "part a: image warping and mosaicing",
       "prose": [
-        "in this project, i used overlapping photographs to build a wider view of a scene. i started by selecting matching points in each pair of images, then solved for a homography that maps one view into the other. once i could align the photographs, i implemented inverse warping and blended the overlapping regions into a mosaic.",
-        "i also used the same homography and warping code to rectify two signs photographed at an angle: the amoeba music mural and the sana’a cafe sign. these examples let me compare nearest-neighbor and bilinear interpolation before using bilinear sampling for the mosaics."
+        "in this project, i used least-squares homography estimation, inverse warping, and image interpolation for two applications: perspective rectification of the amoeba music and sana’a cafe signs, and panorama stitching of memorial glade, doe reading room, and a mountain scene. i combined the aligned photographs with two-level laplacian blending to soften the seams."
       ]
     },
     {
