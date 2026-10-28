@@ -89,7 +89,7 @@ export default async function Cs180ProjectPage({ params }: PageProps) {
       <MeanderStrip />
 
       {hasWriteup ? (
-        <article className={`cs180-writeup${project.id === '3' ? ' cs180-writeup--flow' : ''}`}>
+        <article className={`cs180-writeup${project.id === '3' ? ' cs180-writeup--flow' : ''}${project.id === '4' ? ' cs180-writeup--mosaic' : ''}`}>
           {project.parts.map((part) => (
             <section key={part.title} className="cs180-part">
               <h2 className="cs180-part-title">{part.title}</h2>

@@ -1,4 +1,5 @@
 import { cs180Project3 } from './cs180-project3'
+import { cs180Project4 } from './cs180-project4'
 
 /**
  * CS 180 / 280A portfolio.
@@ -652,6 +653,7 @@ export const cs180Projects: Cs180Project[] = [
     ],
   },
   cs180Project3,
+  cs180Project4,
 ]
 
 export function getCs180Project(id: string) {

@@ -2241,6 +2241,27 @@ button {
   transition: transform 0.4s var(--ease-marble), box-shadow 0.4s var(--ease-marble);
 }
 
+/* Give the mosaicing results a little more room than the text column. */
+.cs180-writeup--mosaic .cs180-figures {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(110%, calc(100vw - 2rem));
+}
+
+.cs180-writeup--mosaic .cs180-figure--wide {
+  width: min(70.4vw, 63.8rem);
+  max-width: calc(100vw - 2rem);
+}
+
+.cs180-writeup--mosaic .cs180-figure img {
+  max-height: 39.6rem;
+}
+
+.cs180-writeup--mosaic .cs180-figure--wide img {
+  max-height: none;
+}
+
 .cs180-part-empty {
   font-family: var(--font-inscription);
   font-style: italic;
