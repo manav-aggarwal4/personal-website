@@ -3,7 +3,7 @@ import type { Cs180Project } from './cs180'
 export const cs180Project4: Cs180Project = {
   "id": "4",
   "title": "image warping and mosaicing",
-  "status": "in-progress",
+  "status": "published",
   "parts": [
     {
       "title": "part a: image warping and mosaicing",
