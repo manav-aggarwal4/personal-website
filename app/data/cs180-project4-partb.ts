@@ -80,7 +80,7 @@ export const cs180Project4PartB: Cs180Part[] = [
     title: 'b.4 automatic mosaics · memorial glade',
     prose: [
       'i pass the RANSAC consensus matches into the shared-plane stitching code from part a. it fits the inter-image homography, defines an intermediate view from the correspondence midpoints, and composes the second image’s transform through the first. both images are inverse-warped with bilinear interpolation and combined with the two-level gaussian/residual blend.',
-      'the automatic glade mosaic aligns the library facade and the foreground steps using ten consensus matches. the lawn and architecture form a continuous wider view, while a visible brightness transition remains in the sky. people moving between the photographs can also leave local inconsistencies. part b generates the mosaic from the original-resolution sources, while the saved part a mosaic used sources resized to a maximum width of 1200 pixels.',
+      'the automatic glade mosaic aligns the library facade and the foreground steps using ten consensus matches. the lawn and architecture form a continuous wider view, while a visible brightness transition remains in the sky.',
     ],
     figures: [
       figure('glade_mosaic_preview', 'memorial glade · automatic mosaic from RANSAC matches'),
