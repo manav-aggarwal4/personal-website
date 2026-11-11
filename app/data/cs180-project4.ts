@@ -1,8 +1,9 @@
 import type { Cs180Project } from './cs180'
+import { cs180Project4PartB } from './cs180-project4-partb'
 
 export const cs180Project4: Cs180Project = {
   "id": "4",
-  "title": "image warping and mosaicing",
+  "title": "image warping, mosaicing, and autostitching",
   "status": "published",
   "parts": [
     {
@@ -249,6 +250,7 @@ export const cs180Project4: Cs180Project = {
           "wide": true
         }
       ]
-    }
+    },
+    ...cs180Project4PartB,
   ]
 }
