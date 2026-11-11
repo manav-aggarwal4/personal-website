@@ -66,7 +66,7 @@ export const cs180Project4PartB: Cs180Part[] = [
   {
     title: 'b.4 robust homography estimation with RANSAC',
     prose: [
-      'i implemented four-point RANSAC using my computeH function from part a. each iteration samples four matches without replacement and rejects a sample if any three source or destination points are collinear. the remaining sample defines a homography, which i use to project all matched image 1 points into image 2.',
+      'i implemented four-point RANSAC. each iteration samples four matches without replacement and rejects a sample if any three source or destination points are collinear. the remaining sample defines a homography, which i use to project all matched image 1 points into image 2.',
       'a match counts as an inlier when its euclidean reprojection error is below five pixels in the original destination image. i run 10,000 iterations with a fixed random seed, keep the hypothesis with the most inliers, and refit the homography using all matches in that consensus set. the consensus sets contain 10 of 33 matches for glade, 19 of 69 for doe, and 63 of 90 for the mountains.',
     ],
     equations: ['eᵢ = ‖π(H [xᵢ, yᵢ, 1]ᵀ) − [uᵢ, vᵢ]ᵀ‖₂', 'inlier when eᵢ < 5 pixels; π([X, Y, W]ᵀ) = [X/W, Y/W]ᵀ'],
