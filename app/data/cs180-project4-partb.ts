@@ -102,7 +102,7 @@ export const cs180Project4PartB: Cs180Part[] = [
     title: 'b.4 automatic mosaics · mountains',
     prose: [
       'the mountain pair has the largest consensus set, with 63 of the 90 ratio-test matches agreeing with the selected homography. the automatic result joins the ridge and rock face across the two views. its outline and intermediate perspective differ from the manually matched version because the fit uses a different set of correspondences.',
-      'a brightness transition remains visible across the sky, where there is little texture to constrain matching and the two source colors differ. the rock face gives a clearer view of the geometric alignment. both source mountain images are 568×758 pixels, so they use the same source resolution in parts a and b.',
+      'a brightness transition remains visible across the sky, where there is little texture to constrain matching and the two source colors differ. the rock face gives a clearer view of the geometric alignment. this is the image with the clearest improvement between manual and automated correspondences!',
     ],
     figures: [
       figure('mountains_mosaic_preview', 'mountains · automatic mosaic from RANSAC matches'),
