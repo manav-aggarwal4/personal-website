@@ -20,7 +20,7 @@ export const cs180Project4PartB: Cs180Part[] = [
   {
     title: 'b.1 harris corners and adaptive non-maximal suppression',
     prose: [
-      'i used the supplied harris helper on grayscale images at their original resolution, with a single detection scale and a 20-pixel boundary exclusion. the helper finds local maxima of the harris response. the left panels show those candidate corners, including many points clustered around textured surfaces and repeated architectural details.',
+      'i applied harris corner detection to grayscale images at their original resolution, using a single detection scale and a 20-pixel boundary exclusion. i selected local maxima of the harris response as candidate corners. the left panels show these candidates, including many points clustered around textured surfaces and repeated architectural details.',
       'for each candidate, i compute the distance to the nearest corner whose response is sufficiently stronger. specifically, a candidate j can suppress candidate i when fᵢ < 0.9 fⱼ. a point with no sufficiently stronger neighbor gets an infinite radius. i keep the 500 points with the largest suppression radii. using squared distances preserves the same ordering and avoids taking square roots. the right panels show the selected points.',
     ],
     equations: ['rᵢ² = minⱼ ‖pᵢ − pⱼ‖², over j satisfying fᵢ < 0.9 fⱼ'],
