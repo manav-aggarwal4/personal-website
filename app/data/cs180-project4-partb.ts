@@ -21,6 +21,7 @@ export const cs180Project4PartB: Cs180Part[] = [
     title: 'b.1 harris corners and adaptive non-maximal suppression',
     prose: [
       'i applied harris corner detection to grayscale images at their original resolution, using a single detection scale and a 20-pixel boundary exclusion. i selected local maxima of the harris response as candidate corners. the left panels show these candidates, including many points clustered around textured surfaces and repeated architectural details.',
+      'the glade and doe inputs each contain about 24.5 million pixels. with local maxima only one pixel apart and no explicit response-strength cutoff, fine texture and small intensity variations produce hundreds of thousands of candidates. weak maxima can appear even in the sky, and ANMS can retain some of them because it favors points far from stronger neighbors. the mountain images contain about 10,800 candidates each. the ratio test and RANSAC later filter the matches produced from these points.',
       'for each candidate, i compute the distance to the nearest corner whose response is sufficiently stronger. specifically, a candidate j can suppress candidate i when fᵢ < 0.9 fⱼ. a point with no sufficiently stronger neighbor gets an infinite radius. i keep the 500 points with the largest suppression radii. using squared distances preserves the same ordering and avoids taking square roots. the right panels show the selected points.',
     ],
     equations: ['rᵢ² = minⱼ ‖pᵢ − pⱼ‖², over j satisfying fᵢ < 0.9 fⱼ'],
@@ -52,7 +53,7 @@ export const cs180Project4PartB: Cs180Part[] = [
   {
     title: 'b.3 matching feature descriptors',
     prose: [
-      'for each descriptor in image 1, i compute its sum of squared differences from every descriptor in image 2 and sort the distances. i accept the closest candidate when its squared distance divided by the second-closest squared distance is below 0.7. this tests whether the best match is clearly better than its nearest competitor. on ordinary euclidean distances, this threshold is equivalent to approximately 0.837.',
+      'for each descriptor in image 1, i compute its sum of squared differences from every descriptor in image 2 and sort the distances. i accept the closest candidate when its squared distance divided by the second-closest squared distance is below 0.7. this tests whether the best match is clearly better than its nearest competitor. on ordinary euclidean distances, this threshold is equivalent to approximately 0.837. as professor efros said in class, “If you’re deciding between two hard choices and can’t decide because it’s too close, you probably should choose neither.”',
       'the ratio test leaves 33 matches for glade, 69 for doe, and 90 for the mountains. some incorrect pairs remain, especially among repeated windows, tables, and vegetation. RANSAC filters these using agreement with a common geometric transformation.',
     ],
     equations: ['SSD(a, b) = Σₖ (aₖ − bₖ)²', 'accept when SSD₁ / SSD₂ < 0.7'],
