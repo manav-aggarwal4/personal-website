@@ -2380,3 +2380,42 @@ button {
     text-transform: none;
   }
 }
+
+.writing-essay-title {
+  text-transform: none;
+}
+
+.writing-essay h2 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 2.5rem 0 1rem;
+}
+
+.writing-essay ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin: 0 0 1.5rem;
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.writing-essay li + li {
+  margin-top: 0.65rem;
+}
+
+.writing-essay pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 1rem 1.2rem;
+  margin: 0 0 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
