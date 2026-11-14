@@ -35,8 +35,8 @@ export default function LifeAsAnRLRunPage() {
           <pre><code>{'reward_fn = 0.5 * [financial support] +\n            0.5 [time with family]'}</code></pre>
           <p>{'the [ — ] are your ‘tenets’ and the hyperparameters (0.5, 0.5) are how much you value those tenets in comparison to every other one. Obviously this is ever-changing over the course of one’s life. Here are some more examples:'}</p>
           <pre><code>{'reward_fn = (1) * [society’s opinion of you] → “Yuppies”'}</code></pre>
-          <pre><code>{'reward_fn = 0.5 * [ trying new foods ] + 0.5 * [traveling to new places] → “Adventurer”'}</code></pre>
-          <pre><code>{'reward_fn = 0.1 * [society’s opinion of you] + 0.2 * [traveling to new places] + 0.3 [ volunteering ] + 0.4 * [ making money] → more realistic case'}</code></pre>
+          <pre><code>{'reward_fn = 0.5 * [trying new foods] + 0.5 * [traveling to new places] → “Adventurer”'}</code></pre>
+          <pre><code>{'reward_fn = 0.1 * [society’s opinion of you] + 0.2 * [traveling to new places] + 0.3 * [volunteering] + 0.4 * [making money] → more realistic case'}</code></pre>
           <p>{'Living life optimizing under this objective function determines how you act. Your reward function determines the actions you take. Maybe you take a job that pays well, but doesn’t allow you to travel as much or spend time with family. Depending on how much your reward function weights money versus WLB, the decision you make changes.'}</p>
 
           <h2>Why you should do your down rollouts</h2>

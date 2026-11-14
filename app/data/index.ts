@@ -27,21 +27,21 @@ export const aboutParagraphs: AboutParagraph[] = [
   {
     segments: [
       {
-        text: "I'm Manav, nice to meet you! I like to train models and understand how they work. I got my start in engineering at 15 when I worked on the Nasa Artemis II Rocket. I found it incredibly rewarding, (especially when it ",
+        text: "I'm Manav, nice to meet you! I like to train models and understand how they work. I got my start in engineering at 15 when I worked on the Nasa Artemis II Rocket. I found it incredibly rewarding, (it ",
       },
       {
         text: 'launched',
         href: 'https://www.youtube.com/watch?v=EO8Pse8ns2Q',
       },
       {
-        text: " 5 years later) and i've been hooked ever since. currently, i am particularly interested in ai-alignment and recursive self-improvement, especially in robotics or biological applications.",
+        text: " 5 years later) and i've been hooked ever since. currently, i am particularly interested in ai-alignment and how we can prepare for recursive self-improvement. I also find robotics RL very interesting.",
       },
     ],
   },
   {
     segments: [
       {
-        text: 'Outside of work, I really enjoy espresso and cooking. my favorite coffee shop is Tide Coffee Roasters in Seoul, and my favorite restaurant is my-oh-my shawarma in berkeley.',
+        text: 'Outside of work, I really enjoy espresso and cooking. my favorite coffee shop is Tide Coffee Roasters in Busan, and my favorite restaurant is my-oh-my shawarma in berkeley.',
       },
     ],
   },
