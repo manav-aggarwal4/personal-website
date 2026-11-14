@@ -9,7 +9,6 @@ export interface Writing {
   title: string
   slug: string
   date: string
-  tag?: string
   /** Short blurb for the parerga panel */
   teaser?: string
   /** Legacy plain paragraphs (optional) */
@@ -23,14 +22,12 @@ export const writings: Writing[] = [
     title: 'Life as an RL Run',
     slug: 'life-as-an-rl-run',
     date: 'november 2026',
-    tag: 'essay',
     teaser: 'Here’s my take on viewing your life as a reinforcement learning run, and why you should do your own rollouts.',
   },
   {
     title: 'on the best energy drinks',
     slug: 'energy-drinks',
     date: 'august 2026',
-    tag: 'notes',
     tiers: [
       {
         rank: 1,

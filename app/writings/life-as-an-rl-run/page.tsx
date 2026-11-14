@@ -14,7 +14,7 @@ export default function LifeAsAnRLRunPage() {
       <div className="grain" aria-hidden="true" />
       <div className="marble-veins" aria-hidden="true" />
       <article className="writing-article">
-        <p className="label writing-kicker">{piece.tag} · {piece.date}</p>
+        <p className="label writing-kicker">{piece.date}</p>
         <h1 className="writing-title writing-essay-title">{piece.title}</h1>
         <div className="writing-body writing-essay">
           <p>{'Here’s my take on viewing your life as a reinforcement learning run, and why you should do your own rollouts.'}</p>

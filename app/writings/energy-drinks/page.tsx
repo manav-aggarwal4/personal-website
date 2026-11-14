@@ -19,10 +19,7 @@ export default function EnergyDrinksWritingPage() {
       <div className="marble-veins" aria-hidden="true" />
 
       <article className="writing-article">
-        <p className="label writing-kicker">
-          {piece.tag ? `${piece.tag} : ` : ''}
-          {piece.date}
-        </p>
+        <p className="label writing-kicker">{piece.date}</p>
         <h1 className="writing-title">{piece.title}</h1>
         <div className="writing-body">
           {piece.intro && <p>{piece.intro}</p>}

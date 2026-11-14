@@ -362,7 +362,6 @@ export default function Home() {
                 {writings.map((piece) => (
                   <article key={piece.slug} className="parerga-writing">
                     <div className="essay-meta">
-                      {piece.tag && <span className="essay-tag">{piece.tag}</span>}
                       <span className="essay-date">{piece.date}</span>
                     </div>
                     <h3 className="parerga-item-title">
