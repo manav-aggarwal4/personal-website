@@ -2394,13 +2394,27 @@ button {
   margin: 2.5rem 0 1rem;
 }
 
-.writing-essay ul {
-  list-style: disc;
+.writing-essay ul,
+.writing-essay ol {
   padding-left: 1.4rem;
   margin: 0 0 1.5rem;
   color: var(--ink-soft);
   font-size: 1.1rem;
   line-height: 1.8;
+}
+
+.writing-essay ul {
+  list-style: disc;
+}
+
+.writing-essay ol {
+  list-style: decimal;
+}
+
+.writing-essay a {
+  color: var(--bronze-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
 }
 
 .writing-essay li + li {

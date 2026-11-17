@@ -19,6 +19,12 @@ export interface Writing {
 
 export const writings: Writing[] = [
   {
+    title: 'Updating your Priors',
+    slug: 'updating-your-priors',
+    date: 'november 16, 2026',
+    teaser: 'Why I think of college as pre-training, and how I’d make the most of it.',
+  },
+  {
     title: 'Life as an RL Run',
     slug: 'life-as-an-rl-run',
     date: 'november 2026',
