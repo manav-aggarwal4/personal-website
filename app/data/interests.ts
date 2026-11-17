@@ -12,7 +12,7 @@ export const interests: Interest[] = [
   },
   {
     title: 'soccer',
-    detail: 'I love sunday league!',
+    detail: 'I love sunday league',
   },
   {
     title: 'cooking + eating',

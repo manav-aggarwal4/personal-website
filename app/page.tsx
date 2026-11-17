@@ -374,9 +374,6 @@ export default function Home() {
                     )}
                   </article>
                 ))}
-                <p className="parerga-writing-note">
-                  in efforts to get the ball rolling i wrote the above, more soon!
-                </p>
               </div>
 
               <div className="side-panel parerga-panel">

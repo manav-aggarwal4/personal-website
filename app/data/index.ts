@@ -34,7 +34,7 @@ export const aboutParagraphs: AboutParagraph[] = [
         href: 'https://www.youtube.com/watch?v=EO8Pse8ns2Q',
       },
       {
-        text: " 5 years later) and i've been hooked ever since. currently, i am particularly interested in ai-alignment and how we can prepare for recursive self-improvement. I also find robotics RL very interesting.",
+        text: " 5 years later!) and i've been hooked ever since. currently, i am particularly interested in ai-alignment and how we can prepare for recursive self-improvement. I also find robotics RL very interesting.",
       },
     ],
   },

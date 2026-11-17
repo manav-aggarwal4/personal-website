@@ -19,6 +19,7 @@ export default function EnergyDrinksWritingPage() {
       <div className="marble-veins" aria-hidden="true" />
 
       <article className="writing-article">
+        <a href="/#parerga" className="writing-back">← back to writings</a>
         <p className="label writing-kicker">{piece.date}</p>
         <h1 className="writing-title">{piece.title}</h1>
         <div className="writing-body">
