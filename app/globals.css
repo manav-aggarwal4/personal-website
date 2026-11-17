@@ -1361,10 +1361,6 @@ button {
   margin: 0 0 1.15rem;
 }
 
-.writing-body > p {
-  text-indent: 1.25em;
-}
-
 .writing-article > .writing-back {
   display: inline-flex;
   align-items: center;
